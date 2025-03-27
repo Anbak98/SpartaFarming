@@ -8,22 +8,29 @@ public class PlayerController : MonoBehaviour
     private Vector2 curMovementInput;
 
     private Rigidbody2D _rigidbody;
+    [SerializeField] private SpriteRenderer playerRenderer;
+    private Animator animator;
+    float horizontal;
+    float vertical;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
-
-    void Start()
-    {
-        
-    }
-
+   
     void FixedUpdate()
     {
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
+
         Move();
+
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);        
     }
 
+    // 플레이어 이동
     void Move()
     {
         Vector3 dir = transform.up * curMovementInput.y + transform.right * curMovementInput.x;
@@ -31,7 +38,17 @@ public class PlayerController : MonoBehaviour
 
         _rigidbody.velocity = dir;        
     }
+    
+    // 플레이어 회전
+    void Rotate(Vector2 direction)
+    {
+        float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        bool isLeft = Mathf.Abs(rotZ) > 90f;
 
+        playerRenderer.flipX = isLeft;
+    }
+
+    // Move InputAction
     public void OnMove(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
