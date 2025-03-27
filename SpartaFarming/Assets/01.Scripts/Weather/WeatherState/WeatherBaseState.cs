@@ -11,17 +11,17 @@ public class WeatherBaseState : IWeatherState
         this.stateMachine = stateMachine;
     }
 
-    public void Enter()
+    public virtual void Enter()
     {
-        //³¯¾¾ ±¼¸®±â
+        //³¯¾¾ ½ÃÀÛ
     }
 
-    public void Exit()
+    public virtual void Exit()
     {
         //ÇöÀç ³¯¾¾ Á¾·á
     }
 
-    public void Update()
+    public virtual void Update()
     {
     }
 }

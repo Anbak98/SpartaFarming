@@ -17,6 +17,8 @@ public class WeatherSystem : MonoBehaviour
     private void Awake()
     {
         WeatherManager.Instance.WeatherSystem = this;
+
+        stateMachine = new WeatherStateMachine(this);
     }
 
     void Start()

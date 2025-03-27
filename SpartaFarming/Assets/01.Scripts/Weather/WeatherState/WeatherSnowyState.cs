@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeatherSnowyState : MonoBehaviour
+public class WeatherSnowyState : WeatherBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public WeatherSnowyState(WeatherStateMachine stateMachine) : base(stateMachine)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

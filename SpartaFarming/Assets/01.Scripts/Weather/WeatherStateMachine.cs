@@ -14,6 +14,21 @@ public class WeatherStateMachine
 {
     private IWeatherState currentState;
 
+    public WeatherSystem WeatherSystem { get; }
+    public WeatherSunnyState SunnyState { get; }
+    public WeatherRainyState RainyState { get; }
+    public WeatherWindyState WindyState { get; }
+    public WeatherSnowyState SnowyState { get; }
+
+    public WeatherStateMachine(WeatherSystem weatherSystem)
+    {
+        this.WeatherSystem = weatherSystem;
+
+        SunnyState = new WeatherSunnyState(this);
+        RainyState = new WeatherRainyState(this);
+        WindyState = new WeatherWindyState(this);
+        SnowyState = new WeatherSnowyState(this);
+    }
     public void ChangeState(IWeatherState state)
     {
         currentState?.Exit();
