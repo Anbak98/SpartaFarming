@@ -5,13 +5,13 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
-    private Vector2 curMovementInput;
+    
+    private Vector2 curMovementInput;    
+    private float horizontal;
+    private float vertical;
 
     private Rigidbody2D _rigidbody;
-    [SerializeField] private SpriteRenderer playerRenderer;
     private Animator animator;
-    float horizontal;
-    float vertical;
 
     private void Awake()
     {
@@ -21,13 +21,12 @@ public class PlayerController : MonoBehaviour
    
     void FixedUpdate()
     {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
 
         Move();
 
-        animator.SetFloat("Horizontal", horizontal);
-        animator.SetFloat("Vertical", vertical);        
+        SetMoveRotAnime();
     }
 
     // 플레이어 이동
@@ -37,16 +36,7 @@ public class PlayerController : MonoBehaviour
         dir *= moveSpeed;        
 
         _rigidbody.velocity = dir;        
-    }
-    
-    // 플레이어 회전
-    void Rotate(Vector2 direction)
-    {
-        float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        bool isLeft = Mathf.Abs(rotZ) > 90f;
-
-        playerRenderer.flipX = isLeft;
-    }
+    }    
 
     // Move InputAction
     public void OnMove(InputAction.CallbackContext context)
@@ -58,6 +48,19 @@ public class PlayerController : MonoBehaviour
         else if (context.phase == InputActionPhase.Canceled)
         {
             curMovementInput = Vector2.zero;
+        }
+    }
+
+    // 플레이어 이동 시 애니메이션 활성화, 이동 중단 시 직전 방향의 모습으로 Idle
+    void SetMoveRotAnime()
+    {
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);
+
+        if (horizontal == 1 || horizontal == -1 || vertical == 1 || vertical == -1)
+        {
+            animator.SetFloat("LastMoveX", horizontal);
+            animator.SetFloat("LastMoveY", vertical);
         }
     }
 }
