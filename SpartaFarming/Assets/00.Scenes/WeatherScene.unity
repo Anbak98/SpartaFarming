@@ -170,6 +170,9 @@ MonoBehaviour:
   initialGameTime: 8
   timeMultiplier: 1
   currentGameTime: 0
+  initialDay: 1
+  initialMonth: 8
+  initialYear: 2025
 --- !u!1 &173726803
 GameObject:
   m_ObjectHideFlags: 0
