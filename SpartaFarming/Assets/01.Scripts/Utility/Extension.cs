@@ -35,4 +35,20 @@ public static class Extension
             return new T();
         }
     }
+
+    public static void InitTransform(this Transform trs, Transform parent = null)
+    {
+        if (parent != null)
+            trs.SetParent(parent);
+
+        trs.localPosition = Vector3.zero;
+        trs.localRotation = Quaternion.identity;
+        // trs.localScale = Vector3.one;
+    }
+
+    public static void SetActive(this Transform trs, bool value)
+    {
+        if (trs != null)
+            trs.gameObject.SetActive(value);
+    }
 }
