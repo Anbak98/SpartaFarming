@@ -1,16 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class WeatherStateMachine : MonoBehaviour
+public interface IWeatherState
 {
-    void Start()
+    public void Enter();
+    public void Exit();
+    public void Update();
+}
+
+public class WeatherStateMachine
+{
+    private IWeatherState currentState;
+
+    
+
+    public void ChangeState(IWeatherState state)
     {
-        
+        currentState?.Exit();
+        currentState = state;
+        currentState?.Enter();
     }
 
-    void Update()
+    public void Update()
     {
-        
+        currentState?.Update();
     }
 }
