@@ -7,6 +7,8 @@ public class WeatherManager : MonoBehaviour
 {
     private static WeatherManager _instance;
 
+    public WeatherSystem WeatherSystem { get; set; }
+
     public static WeatherManager Instance
     {
         get

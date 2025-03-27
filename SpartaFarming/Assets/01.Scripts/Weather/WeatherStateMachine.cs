@@ -14,8 +14,6 @@ public class WeatherStateMachine
 {
     private IWeatherState currentState;
 
-    
-
     public void ChangeState(IWeatherState state)
     {
         currentState?.Exit();

@@ -14,6 +14,11 @@ public class WeatherSystem : MonoBehaviour
 {
     private WeatherStateMachine stateMachine;
 
+    private void Awake()
+    {
+        WeatherManager.Instance.WeatherSystem = this;
+    }
+
     void Start()
     {
         TimeManager.Instance.TimeSystem.DateChanged += ChangeSeason;
