@@ -1,0 +1,10 @@
+2024-08-16 오후 11:12:30: Error converting value '1001, 3001' for variable 'craftingByCardId' in sheet 'Sheet1' of file 'excel_files\CraftingInfo.xlsx': Unsupported data type: HashSet<int>
+   at ExcelToJsonWizard.Program.ConvertToType(String value, String type, String variableName, String logFilePath, String excelPath, String sheetName)
+2024-08-16 오후 11:12:30: Error processing sheet Sheet1 in file excel_files\CraftingInfo.xlsx: Unsupported data type: HashSet<int>
+   at ExcelToJsonWizard.Program.ConvertToType(String value, String type, String variableName, String logFilePath, String excelPath, String sheetName)
+   at ExcelToJsonWizard.Program.GenerateClassAndJsonFromExcel(String excelPath, String loaderDir, String jsonDir, String logFilePath, Boolean allowMultipleSheets, Boolean useResources, String resourcesInternalPath)
+2024-08-16 오후 11:21:03: Error converting value '1001, 3001' for variable 'craftingByCardId' in sheet 'Sheet1' of file 'excel_files\CraftingInfo.xlsx': Unsupported data type: HashSet<int>
+   at ExcelToJsonWizard.Program.ConvertToType(String value, String type, String variableName, String logFilePath, String excelPath, String sheetName)
+2024-08-16 오후 11:21:03: Error processing sheet Sheet1 in file excel_files\CraftingInfo.xlsx: Unsupported data type: HashSet<int>
+   at ExcelToJsonWizard.Program.ConvertToType(String value, String type, String variableName, String logFilePath, String excelPath, String sheetName)
+   at ExcelToJsonWizard.Program.GenerateClassAndJsonFromExcel(String excelPath, String loaderDir, String jsonDir, String logFilePath, Boolean allowMultipleSheets, Boolean useResources, String resourcesInternalPath)
