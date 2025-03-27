@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6c31be16bff98d245904c4884f44bfdc
+guid: 751b3375f47ce954ab10fe44ae5320e4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -46,9 +46,9 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  alignment: 7
+  spritePivot: {x: 0.5, y: 0}
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -93,157 +93,89 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Watering_Can
+      name: Greenery_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 18
-        width: 16
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6f89008e0cc368b489a5356e010b7439
-      internalID: -1108763338
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Axe
-      rect:
-        serializedVersion: 2
-        x: 18
         y: 16
-        width: 13
+        width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f844ebe415f1ee4582edfa551a9efa7
-      internalID: -506111349
+      spriteID: 60ebc643a1a91f24f8c3019b7b72562d
+      internalID: -1882793352
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hoe
+      name: Greenery_1
       rect:
         serializedVersion: 2
-        x: 34
-        y: 17
-        width: 13
-        height: 15
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a654fb564e91db42ada73b7f8a439b6
-      internalID: -603057306
+      spriteID: 67f942b169592ca4ebe5924fdd01aa76
+      internalID: 1103520931
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stone
+      name: Greenery_2
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 14
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d4b8e64aef9ed04ca0b1fa1e23d87d6
-      internalID: -1522718763
+      spriteID: 3c4ca9ed48c942c4c99158cfc5f3d568
+      internalID: -1270727677
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wood_Stick
+      name: Greenery_3
       rect:
         serializedVersion: 2
-        x: 17
-        y: 1
-        width: 13
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 360247899b33b62408cc75cf9bb55509
-      internalID: 120458455
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wood
-      rect:
-        serializedVersion: 2
-        x: 33
-        y: 1
-        width: 14
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2021392bf8050a14488956294173443b
-      internalID: -705058811
+      spriteID: 4bbe4053bb3981b4aa07bd36c096274f
+      internalID: 491391593
       vertices: []
       indices: 
       edges: []
@@ -252,19 +184,17 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Axe: -506111349
-      Hoe: -603057306
-      Stone: -1522718763
-      Watering_Can: -1108763338
-      Wood: -705058811
-      Wood_Stick: 120458455
+      Greenery_0: -1882793352
+      Greenery_1: 1103520931
+      Greenery_2: -1270727677
+      Greenery_3: 491391593
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
