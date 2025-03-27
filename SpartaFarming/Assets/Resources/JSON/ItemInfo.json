@@ -1,0 +1,69 @@
+{
+  "Items": [
+    {
+      "key": 1000,
+      "name": "Wood",
+      "description": "나무",
+      "spritePath": "Sprite/Resource/Wood",
+      "prefabPath": "Prefab/Resource/Wood",
+      "durability": -1,
+      "itemType": 3,
+      "atk": 0,
+      "speed": 0,
+      "hpRecovery": 0,
+      "energyRecovery": 0
+    },
+    {
+      "key": 2000,
+      "name": "Bread",
+      "description": "빵",
+      "spritePath": "Sprite/Food/Bread",
+      "prefabPath": "Prefab/Food/Bread",
+      "durability": -1,
+      "itemType": 2,
+      "atk": 0,
+      "speed": 0,
+      "hpRecovery": 20,
+      "energyRecovery": 30
+    },
+    {
+      "key": 3000,
+      "name": "Sword",
+      "description": "검",
+      "spritePath": "Sprite/Tool/Sword",
+      "prefabPath": "Prefab/Tool/Sword",
+      "durability": 64,
+      "itemType": 0,
+      "atk": 5,
+      "speed": 0,
+      "hpRecovery": 0,
+      "energyRecovery": 0
+    },
+    {
+      "key": 4000,
+      "name": "Ring",
+      "description": "반지",
+      "spritePath": "Sprite/Equip/Ring",
+      "prefabPath": "Prefab/Equip/Ring",
+      "durability": 64,
+      "itemType": 1,
+      "atk": 0,
+      "speed": 5,
+      "hpRecovery": 0,
+      "energyRecovery": 0
+    },
+    {
+      "key": 5000,
+      "name": "Box",
+      "description": "상자",
+      "spritePath": "Sprite/Construction/Box",
+      "prefabPath": "Prefab/Construction/Box",
+      "durability": -1,
+      "itemType": 5,
+      "atk": 0,
+      "speed": 0,
+      "hpRecovery": 0,
+      "energyRecovery": 0
+    }
+  ]
+}
