@@ -1,0 +1,49 @@
+{
+  "Items": [
+    {
+      "key": 3,
+      "season": 0,
+      "startMonth": [3, 4, 5],
+      "weatherChance":{
+        "sunChance": 55,
+        "rainChance": 15,
+        "windChance": 30,
+        "snowChance": 0
+      }
+
+    },
+    {
+      "key": 6,
+      "season": 1,
+      "startMonth": [6, 7, 8],
+      "weatherChance":{
+        "sunChance": 65,
+        "rainChance": 35,
+        "windChance": 0,
+        "snowChance": 0
+      }
+    },
+    {
+      "key": 9,
+      "season": 2,
+      "startMonth": [9, 10, 11],
+      "weatherChance":{
+        "sunChance": 55,
+        "rainChance": 15,
+        "windChance": 30,
+        "snowChance": 0
+      }
+    },
+    {
+      "key": 12,
+      "season": 3,
+      "startMonth": [12, 1, 2],
+      "weatherChance":{
+        "sunChance": 55,
+        "rainChance": 5,
+        "windChance": 0,
+        "snowChance": 40
+      }
+    }
+  ]
+}

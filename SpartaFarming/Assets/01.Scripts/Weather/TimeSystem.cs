@@ -39,7 +39,6 @@ public class TimeSystem : MonoBehaviour
     void Start()
     {
         Init();
-        DateChanged += CheckDate;
     }
 
     void Init()
@@ -49,6 +48,8 @@ public class TimeSystem : MonoBehaviour
         currentMonth = initialMonth;
         currentYear = initialYear;
         currentDaysInMonth = daysInMonth[currentMonth - 1];
+        DateChanged += CheckDate;
+        DateChanged.Invoke();
     }
 
     void Update()
