@@ -27,9 +27,12 @@ public class WeatherSystem : MonoBehaviour
     private SeasonDataLoader seasons;
 
     private SeasonData currentSeason;
+    private IWeatherState currentState;
     private WorldLight worldLight;
 
     public WorldLight WorldLight { get { return worldLight; } }
+    public SeasonData CurrentSeason { get { return currentSeason; } }
+    public IWeatherState CurrentState { get { return currentState; } }
 
     public bool canChangeWeahter = true;
 
@@ -47,6 +50,7 @@ public class WeatherSystem : MonoBehaviour
         TimeManager.Instance.TimeSystem.DateChanged += ChangeSeason;
         TimeManager.Instance.TimeSystem.On8oClock += FixedTimeWeatherChange;
         TimeManager.Instance.TimeSystem.On20oClock += FixedTimeWeatherChange;
+        currentState = stateMachine.CurrentState;
     }
 
     void Update()
