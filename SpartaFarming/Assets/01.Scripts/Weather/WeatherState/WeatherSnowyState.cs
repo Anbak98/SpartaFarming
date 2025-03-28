@@ -8,4 +8,16 @@ public class WeatherSnowyState : WeatherBaseState
     {
 
     }
+
+    public override void Enter()
+    {
+        base.Enter();
+        Debug.Log("snowy start");
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        Debug.Log("snowy end");
+    }
 }

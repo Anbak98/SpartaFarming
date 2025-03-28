@@ -9,7 +9,7 @@ public class TimeSystem : MonoBehaviour
     [SerializeField][Range(0f, 24f)] private float initialGameTime = 8;
     [SerializeField] private float timeMultiplier = 1f;
 
-    private float oneSecond = 1/3600f;
+    private float oneSecond = 1 / 3600f;
     public float currentGameTime = 0f;
     private int currentHour;
     private int currentMinute;
@@ -24,7 +24,14 @@ public class TimeSystem : MonoBehaviour
     private int currentMonth;
     private int currentYear;
     private int currentDaysInMonth;
+
     public Action DateChanged;
+    public Action On8oClock;
+    public Action On20oClock;
+
+    [Header("시간대 이벤트")]
+    [SerializeField] private int weatherChangeTime = 8;
+    [SerializeField] private int weatherChangeGap = 12;
 
     public int CurrentHour { get { return currentHour; } }
     public int CurrentMinute { get { return currentMinute; } }
@@ -44,12 +51,13 @@ public class TimeSystem : MonoBehaviour
     void Init()
     {
         currentGameTime = initialGameTime;
+        currentHour = (int)initialGameTime;
         currentDay = initialDay;
         currentMonth = initialMonth;
         currentYear = initialYear;
         currentDaysInMonth = daysInMonth[currentMonth - 1];
         DateChanged += CheckDate;
-        DateChanged.Invoke();
+        WeatherManager.Instance.WeatherSystem.GetSeason();
     }
 
     void Update()
@@ -73,6 +81,18 @@ public class TimeSystem : MonoBehaviour
         }
 
         TimeCountDisplay();
+
+        if (WeatherManager.Instance.WeatherSystem.canChangeWeahter)
+        {
+            TimeEvent(On8oClock, weatherChangeTime);
+            TimeEvent(On20oClock, weatherChangeTime + weatherChangeGap);
+        }
+        if (currentHour == weatherChangeTime + 1 
+            || currentHour == weatherChangeTime + weatherChangeGap + 1
+            && !WeatherManager.Instance.WeatherSystem.canChangeWeahter)
+        {
+            WeatherManager.Instance.WeatherSystem.canChangeWeahter = true;
+        }
     }
 
     private void TimeCountDisplay()
@@ -93,4 +113,13 @@ public class TimeSystem : MonoBehaviour
         }
     }
 
+    private void TimeEvent(Action action, int hour = 0, int minute = 0)
+    {
+        if (currentHour == hour && currentMinute == minute)
+        {
+            action?.Invoke();
+        }
+
+        return;
+    }
 }

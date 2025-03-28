@@ -8,4 +8,16 @@ public class WeatherSunnyState : WeatherBaseState
     {
 
     }
+
+    public override void Enter()
+    {
+        base.Enter();
+        Debug.Log("sunny start");
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        Debug.Log("sunny end");
+    }
 }

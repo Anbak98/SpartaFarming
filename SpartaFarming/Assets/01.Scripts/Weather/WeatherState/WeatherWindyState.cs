@@ -8,4 +8,15 @@ public class WeatherWindyState : WeatherBaseState
     {
 
     }
+    public override void Enter()
+    {
+        base.Enter();
+        Debug.Log("windy start");
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        Debug.Log("windy end");
+    }
 }

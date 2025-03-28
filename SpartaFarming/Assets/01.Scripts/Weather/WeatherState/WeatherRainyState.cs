@@ -9,4 +9,15 @@ public class WeatherRainyState : WeatherBaseState
 
     }
 
+    public override void Enter()
+    {
+        base.Enter();
+        Debug.Log("rainy start");
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        Debug.Log("rainy end");
+    }
 }

@@ -28,6 +28,8 @@ public class WeatherSystem : MonoBehaviour
 
     private SeasonData currentSeason;
 
+    public bool canChangeWeahter = true;
+
     private void Awake()
     {
         WeatherManager.Instance.WeatherSystem = this;
@@ -39,6 +41,8 @@ public class WeatherSystem : MonoBehaviour
     void Start()
     {
         TimeManager.Instance.TimeSystem.DateChanged += ChangeSeason;
+        TimeManager.Instance.TimeSystem.On8oClock += FixedTimeWeatherChange;
+        TimeManager.Instance.TimeSystem.On20oClock += FixedTimeWeatherChange;
     }
 
     void Update()
@@ -46,7 +50,7 @@ public class WeatherSystem : MonoBehaviour
 
     }
 
-    public void ChangeSeason()
+    public void GetSeason()
     {
         int currentMonth = TimeManager.Instance.TimeSystem.CurrentMonth;
 
@@ -57,22 +61,31 @@ public class WeatherSystem : MonoBehaviour
                 if (currentSeason == null || currentSeason != season)
                 {
                     currentSeason = season;
-                    ChangeToRandomWeather(currentSeason);
+                    Debug.Log(currentSeason.season);
                 }
             }
         }
     }
 
+    public void ChangeSeason()
+    {
+        GetSeason();
+        ChangeToRandomWeather(currentSeason);
+    }
+
     void ChangeToRandomWeather(SeasonData curSeason)
     {
         int totalWeight = 0;
-        int randomNum = Random.Range(0, curSeason.weatherChance.Values.Sum());
-        foreach (var weight in curSeason.weatherChance)
+        Debug.Log(curSeason.startMonth[0]);
+        Debug.Log(curSeason.weatherChancesValues[0]);
+        int randomNum = Random.Range(0, curSeason.weatherChancesValues.Sum());
+        for(int i = 0; i < curSeason.weatherChancesValues.Length; i++)
         {
-            totalWeight += weight.Value;
-            if (randomNum < totalWeight)
+            totalWeight += curSeason.weatherChancesValues[i];
+            if(randomNum < totalWeight)
             {
-                stateMachine.ChangeState(GetStatefromKey((int)weight.Key));
+                stateMachine.ChangeState(GetStatefromKey(i));
+                return;
             }
         }
     }
@@ -91,6 +104,15 @@ public class WeatherSystem : MonoBehaviour
                 return stateMachine.SnowyState;
             default:
                 return null;
+        }
+    }
+
+    public void FixedTimeWeatherChange()
+    {
+        if(canChangeWeahter)
+        {
+            ChangeToRandomWeather(currentSeason);
+            canChangeWeahter = false;
         }
     }
 }

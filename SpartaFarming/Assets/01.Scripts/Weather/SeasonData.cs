@@ -22,9 +22,14 @@ public class SeasonData
     public int[] startMonth;
 
     /// <summary>
+    /// 날씨
+    /// </summary>
+    public WeatherChance[] weatherChances;
+
+    /// <summary>
     /// 날씨별 확률
     /// </summary>
-    public Dictionary<WeatherChance, int> weatherChance;
+    public int[] weatherChancesValues;
 
 }
 public class SeasonDataLoader
