@@ -4,7 +4,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
+    public float curSpeed;
     public float moveSpeed;
+    public float runSpeed;
     
     private Vector2 curMovementInput;    
     private float horizontal;
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
         vertical = Input.GetAxisRaw("Vertical");
 
         Move();
+        animator.speed = curSpeed / moveSpeed;
 
         SetMoveRotAnime();
     }
@@ -32,8 +35,10 @@ public class PlayerController : MonoBehaviour
     // 플레이어 이동
     void Move()
     {
+        curSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : moveSpeed;
+
         Vector3 dir = transform.up * curMovementInput.y + transform.right * curMovementInput.x;
-        dir *= moveSpeed;        
+        dir *= curSpeed;
 
         _rigidbody.velocity = dir;        
     }    
