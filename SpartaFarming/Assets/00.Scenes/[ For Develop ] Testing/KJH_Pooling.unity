@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa5c6343b96f31f47ae5431abeee39bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orcPrefab: {fileID: 7765593430998781387, guid: 6e53734d8297a8644a996e98564a31db, type: 3}
+  orcPrefab: {fileID: 7765593430998781387, guid: 4367a1b065b9bdd43b92153e81493cda, type: 3}
   slimePrefab: {fileID: 7765593430998781387, guid: 722cfa3f0dedb3844a1bea6868b96cdc, type: 3}
   orcParent: {fileID: 256292787}
   slimeParent: {fileID: 699636565}
