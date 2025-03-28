@@ -14,6 +14,7 @@ public class WeatherStateMachine
 {
     private IWeatherState currentState;
 
+    public IWeatherState CurrentState { get { return currentState; } }
     public WeatherSystem WeatherSystem { get; }
     public WeatherSunnyState SunnyState { get; }
     public WeatherRainyState RainyState { get; }
