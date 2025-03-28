@@ -1,0 +1,32 @@
+{
+  "Items": [
+    {
+      "key": 3,
+      "season": 0,
+      "startMonth": [3, 4, 5],
+      "weatherChances":[0, 1, 2, 3],
+      "weatherChancesValues" : [55, 15, 30, 0]
+    },
+    {
+      "key": 6,
+      "season": 1,
+      "startMonth": [6, 7, 8],
+      "weatherChances":[0, 1, 2, 3],
+      "weatherChancesValues" : [65, 35, 0, 0]
+    },
+    {
+      "key": 9,
+      "season": 2,
+      "startMonth": [9, 10, 11],
+      "weatherChances":[0, 1, 2, 3],
+      "weatherChancesValues" : [55, 15, 30, 0]
+    },
+    {
+      "key": 12,
+      "season": 3,
+      "startMonth": [12, 1, 2],
+      "weatherChances":[0, 1, 2, 3],
+      "weatherChancesValues" : [55, 5, 0, 40]
+    }
+  ]
+}

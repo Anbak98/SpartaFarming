@@ -3,9 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IObjectFactory<T>
-    where T : class
+    where T : Component
 {
     public T CreateInstance();
+}
+
+public class EmptyFactory : IObjectFactory<Transform>
+{
+    private GameObject empty;
+
+    // »ý¼ºÀÚ
+    public EmptyFactory(GameObject em)
+    {
+        this.empty = em;
+    }
+
+    public Transform CreateInstance()
+    {
+        GameObject orc = UnityEngine.Object.Instantiate(empty);
+        return orc.GetComponent<Transform>();
+    }
 }
 
 public class EntityOrcFactory : IObjectFactory<PoolSlimeEntity>
