@@ -207,7 +207,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wood_Stick
+      name: Wood
       rect:
         serializedVersion: 2
         x: 17
@@ -228,7 +228,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wood
+      name: Log
       rect:
         serializedVersion: 2
         x: 33
@@ -261,10 +261,10 @@ TextureImporter:
     nameFileIdTable:
       Axe: -506111349
       Hoe: -603057306
+      Log: -705058811
       Stone: -1522718763
       Watering_Can: -1108763338
-      Wood: -705058811
-      Wood_Stick: 120458455
+      Wood: 120458455
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
