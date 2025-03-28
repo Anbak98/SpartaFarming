@@ -61,7 +61,6 @@ public class WeatherSystem : MonoBehaviour
                 if (currentSeason == null || currentSeason != season)
                 {
                     currentSeason = season;
-                    Debug.Log(currentSeason.season);
                 }
             }
         }
@@ -76,8 +75,6 @@ public class WeatherSystem : MonoBehaviour
     void ChangeToRandomWeather(SeasonData curSeason)
     {
         int totalWeight = 0;
-        Debug.Log(curSeason.startMonth[0]);
-        Debug.Log(curSeason.weatherChancesValues[0]);
         int randomNum = Random.Range(0, curSeason.weatherChancesValues.Sum());
         for(int i = 0; i < curSeason.weatherChancesValues.Length; i++)
         {
