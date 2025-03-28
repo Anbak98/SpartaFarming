@@ -398,7 +398,8 @@ Transform:
   m_LocalPosition: {x: -8.607964, y: -1.3186632, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 712839193}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &571645817
@@ -1964,25 +1965,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4afd635ae8c023a449e81742cfbd47ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldLight: {fileID: 712839192}
-  gradient:
+  lights: {fileID: 712839192}
+  gradientSunny:
     serializedVersion: 2
-    key0: {r: 0.30980393, g: 0.30980393, b: 0.34901962, a: 1}
-    key1: {r: 0.41344783, g: 0.41344783, b: 0.5377358, a: 1}
-    key2: {r: 0.8679245, g: 0.6959476, b: 0.50356, a: 0}
-    key3: {r: 0.8396226, g: 0.75587785, b: 0.74853146, a: 0}
-    key4: {r: 0.8584906, g: 0.48573005, b: 0.46569067, a: 0}
-    key5: {r: 0.41176474, g: 0.41176474, b: 0.5372549, a: 0}
-    key6: {r: 0.2774564, g: 0.2774564, b: 0.4056604, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 6361
-    ctime1: 11565
-    ctime2: 21823
-    ctime3: 32768
-    ctime4: 49151
-    ctime5: 53739
-    ctime6: 58018
-    ctime7: 0
+    key0: {r: 0.12941177, g: 0.20000002, b: 0.5176471, a: 1}
+    key1: {r: 0.20968586, g: 0.26835284, b: 0.544802, a: 1}
+    key2: {r: 0.60250366, g: 0.5731132, b: 0.764151, a: 0}
+    key3: {r: 0.8867924, g: 0.8449043, b: 0.7738519, a: 0}
+    key4: {r: 0.9245283, g: 0.9202469, b: 0.8416696, a: 0}
+    key5: {r: 0.8396226, g: 0.4000089, b: 0.40445042, a: 0}
+    key6: {r: 0.37728778, g: 0.36405307, b: 0.764151, a: 0}
+    key7: {r: 0.12941177, g: 0.20000002, b: 0.5176471, a: 0}
+    ctime0: 0
+    ctime1: 11758
+    ctime2: 17348
+    ctime3: 21823
+    ctime4: 32768
+    ctime5: 49151
+    ctime6: 54356
+    ctime7: 58403
     atime0: 0
     atime1: 65535
     atime2: 0
@@ -1993,7 +1994,97 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_ColorSpace: -1
-    m_NumColorKeys: 7
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
+  gradientRainy:
+    serializedVersion: 2
+    key0: {r: 0.1137255, g: 0.16078432, b: 0.36862746, a: 1}
+    key1: {r: 0.20968586, g: 0.26835284, b: 0.544802, a: 1}
+    key2: {r: 0.496351, g: 0.6240833, b: 0.735849, a: 0}
+    key3: {r: 0.77254903, g: 0.8862745, b: 0.8494863, a: 0}
+    key4: {r: 0.79432184, g: 0.902415, b: 0.9622642, a: 0}
+    key5: {r: 0.7830189, g: 0.56510323, b: 0.6907399, a: 0}
+    key6: {r: 0.37728778, g: 0.36405307, b: 0.764151, a: 0}
+    key7: {r: 0.11280705, g: 0.15919206, b: 0.3679245, a: 0}
+    ctime0: 1349
+    ctime1: 11758
+    ctime2: 17540
+    ctime3: 21823
+    ctime4: 32768
+    ctime5: 49151
+    ctime6: 54356
+    ctime7: 58403
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
+  gradientWindy:
+    serializedVersion: 2
+    key0: {r: 0.12941177, g: 0.20000002, b: 0.5176471, a: 1}
+    key1: {r: 0.20968586, g: 0.26835284, b: 0.544802, a: 1}
+    key2: {r: 0.60250366, g: 0.5731132, b: 0.764151, a: 0}
+    key3: {r: 0.9245283, g: 0.84016585, b: 0.70211816, a: 0}
+    key4: {r: 0.8867924, g: 0.879024, b: 0.72365606, a: 0}
+    key5: {r: 0.8679245, g: 0.6018156, b: 0.6041915, a: 0}
+    key6: {r: 0.37728778, g: 0.36405307, b: 0.764151, a: 0}
+    key7: {r: 0.12941177, g: 0.20000002, b: 0.5176471, a: 0}
+    ctime0: 0
+    ctime1: 11758
+    ctime2: 17348
+    ctime3: 21823
+    ctime4: 32768
+    ctime5: 49151
+    ctime6: 54356
+    ctime7: 58403
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
+  gradientSnowy:
+    serializedVersion: 2
+    key0: {r: 0.12941177, g: 0.20000002, b: 0.5176471, a: 1}
+    key1: {r: 0.20968586, g: 0.26835284, b: 0.544802, a: 1}
+    key2: {r: 0.6748525, g: 0.6537469, b: 0.7830189, a: 0}
+    key3: {r: 0.7076807, g: 0.8363395, b: 0.8773585, a: 0}
+    key4: {r: 0.3484336, g: 0.69954735, b: 0.8490566, a: 0}
+    key5: {r: 0.7924528, g: 0.7266487, b: 0.48220006, a: 0}
+    key6: {r: 0.58229584, g: 0.5730687, b: 0.8867924, a: 0}
+    key7: {r: 0.12941177, g: 0.20000002, b: 0.5176471, a: 0}
+    ctime0: 0
+    ctime1: 11758
+    ctime2: 17348
+    ctime3: 21823
+    ctime4: 32768
+    ctime5: 49151
+    ctime6: 54356
+    ctime7: 58403
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 8
     m_NumAlphaKeys: 2
 --- !u!114 &712839192
 MonoBehaviour:
@@ -2053,12 +2144,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712839190}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.06772, y: -0.59603024, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.459757, y: 0.722633, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 509451189}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &715794933
 GameObject:
@@ -12551,4 +12642,3 @@ SceneRoots:
   - {fileID: 1897884311}
   - {fileID: 60932127}
   - {fileID: 509451189}
-  - {fileID: 712839193}
