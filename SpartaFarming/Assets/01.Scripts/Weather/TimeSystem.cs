@@ -28,6 +28,7 @@ public class TimeSystem : MonoBehaviour
     public Action DateChanged;
     public Action On8oClock;
     public Action On20oClock;
+    public Action TimeChangeUpdate;
 
     [Header("시간대 이벤트")]
     [SerializeField] private int weatherChangeTime = 8;
@@ -100,6 +101,7 @@ public class TimeSystem : MonoBehaviour
         currentHour = Mathf.FloorToInt(currentGameTime);
         int min = Mathf.FloorToInt((currentGameTime - currentHour) * 60);
         currentMinute = Mathf.FloorToInt(min / 10f) * 10;
+        TimeChangeUpdate?.Invoke();
     }
 
     private void CheckDate()
