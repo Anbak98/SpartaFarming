@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DataManager
+public static class DataManager
 {
-    public ItemInfoLoader ItemLoader;
+    public static ItemInfoLoader ItemLoader = new ItemInfoLoader();
 }
