@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float curSpeed;
     public float moveSpeed;
     public float runSpeed;
+    public bool isMoving = false;
     
     private Vector2 curMovementInput;    
     private float horizontal;
@@ -19,20 +20,17 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnimator;
     public Animator toolAnimator;
     public bool equipped = false;
+    public bool nearWater = false;
     
     public GameObject curTool;
     public GameObject toolPivot;
     public GameObject harvestTool;
+    public GameObject fishingTool;    
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-    }
-
-    private void Update()
-    {
-        
     }
 
     private void FixedUpdate()
@@ -50,12 +48,16 @@ public class PlayerController : MonoBehaviour
     // 플레이어 이동
     void Move()
     {
+        isMoving = true;
+
         curSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : moveSpeed;
 
         Vector3 dir = transform.up * curMovementInput.y + transform.right * curMovementInput.x;
         dir *= curSpeed;
 
-        _rigidbody.velocity = dir;        
+        _rigidbody.velocity = dir;
+
+        if (_rigidbody.velocity == Vector2.zero) isMoving = false;        
     }    
 
     // Move InputAction
@@ -109,12 +111,24 @@ public class PlayerController : MonoBehaviour
     //Equip InputAction
     public void OnEquip(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !equipped)
+        if (context.phase == InputActionPhase.Started && !equipped && !nearWater)
         {            
             curTool = Instantiate(harvestTool, toolPivot.transform);            
             equipped = true;
         }
-        else if (context.phase == InputActionPhase.Started && equipped)
+        else if (context.phase == InputActionPhase.Started && equipped && !nearWater)
+        {
+            Destroy(curTool);
+            toolAnimator = null;
+            equipped = false;
+        }
+
+        if (context.phase == InputActionPhase.Started && !equipped && nearWater)
+        {
+            curTool = Instantiate(fishingTool, toolPivot.transform);
+            equipped = true;
+        }
+        else if (context.phase == InputActionPhase.Started && equipped && nearWater)
         {
             Destroy(curTool);
             toolAnimator = null;
@@ -125,10 +139,49 @@ public class PlayerController : MonoBehaviour
     // Use InputAction
     public void OnUse(InputAction.CallbackContext context)
     {
-        if (equipped && context.phase == InputActionPhase.Started)
+        if (equipped && !nearWater && context.phase == InputActionPhase.Started)
         {
             playerAnimator.SetTrigger("Use");
-            toolAnimator.SetTrigger("Use");
+            if (curTool.CompareTag("Pick")) toolAnimator.SetTrigger("Use");            
+        }
+
+        if (equipped && nearWater && context.phase == InputActionPhase.Started)
+        {
+            playerAnimator.SetTrigger("Use");
+            if (curTool.CompareTag("Rod")) toolAnimator.SetBool("Fishing", true);
+            else toolAnimator.SetTrigger("Use");
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water")) nearWater = true;
+
+        if (curTool != null && curTool.CompareTag("Rod"))
+        {
+            if (isMoving)
+            {
+                if (toolAnimator != null) toolAnimator.SetBool("Fishing", false);
+                Destroy(curTool);
+                toolAnimator = null;
+                equipped = false;
+            }            
+        } 
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
+        {
+            nearWater = false;
+
+            if (curTool != null && curTool.CompareTag("Rod"))
+            {
+                toolAnimator.SetBool("Fishing", false);
+                Destroy(curTool);
+                toolAnimator = null;
+                equipped = false;
+            }
         }
     }
 }
