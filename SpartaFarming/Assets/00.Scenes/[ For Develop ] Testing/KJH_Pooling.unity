@@ -267,7 +267,7 @@ MonoBehaviour:
   emptyObject: {fileID: 3099113072699846536, guid: 71d1c927503f95a42910340acb48d2e2, type: 3}
   orcParent: {fileID: 256292787}
   slimeParent: {fileID: 699636565}
-  emptyObjectParent: {fileID: 0}
+  emptyObjectParent: {fileID: 1010122728}
 --- !u!1 &1010122727
 GameObject:
   m_ObjectHideFlags: 0
