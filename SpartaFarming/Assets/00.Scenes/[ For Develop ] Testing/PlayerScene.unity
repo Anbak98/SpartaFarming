@@ -4631,6 +4631,7 @@ MonoBehaviour:
   equipTools: []
   axeTool: {fileID: 132538316392624365, guid: e9de290166b519043974815b5bf49ef6, type: 3}
   harvestTool: {fileID: 3671608199247056103, guid: 5ae1a40e82ace9c47aab0e651e354b99, type: 3}
+  wateringTool: {fileID: 812860788820672821, guid: 2c83d0b8511af9746ace2f91f3b1a5dc, type: 3}
   fishingTool: {fileID: 490140306873702299, guid: 14df9d8560f1fee42811b2367856c014, type: 3}
 --- !u!114 &710432761
 MonoBehaviour:

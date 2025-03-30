@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public List<GameObject> equipTools;
     public GameObject axeTool;
     public GameObject harvestTool;
+    public GameObject wateringTool;
     public GameObject fishingTool;    
 
     private void Awake()
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
 
-        equipTools = new List<GameObject>(){ axeTool, harvestTool, fishingTool, fishingTool };
+        equipTools = new List<GameObject>(){ axeTool, harvestTool, wateringTool, fishingTool };
     }
 
     private void FixedUpdate()
@@ -142,7 +143,7 @@ public class PlayerController : MonoBehaviour
         if (equipped && !nearWater && context.phase == InputActionPhase.Started)
         {
             playerAnimator.SetTrigger("Use");
-            if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe")) toolAnimator.SetTrigger("Use");            
+            if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");            
         }
 
         if (equipped && nearWater && context.phase == InputActionPhase.Started)
