@@ -4,7 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Pick
+  - Axe
+  - Hoe
+  - WateringCan
   - Rod
   layers:
   - Default

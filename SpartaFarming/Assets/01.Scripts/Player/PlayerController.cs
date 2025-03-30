@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,8 +23,11 @@ public class PlayerController : MonoBehaviour
     public bool equipped = false;
     public bool nearWater = false;
     
+    public EquipItemUI equipItemUI;
     public GameObject curTool;
     public GameObject toolPivot;
+    public List<GameObject> equipTools;
+    public GameObject axeTool;
     public GameObject harvestTool;
     public GameObject fishingTool;    
 
@@ -31,6 +35,8 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+
+        equipTools = new List<GameObject>(){ axeTool, harvestTool, fishingTool, fishingTool };
     }
 
     private void FixedUpdate()
@@ -111,29 +117,23 @@ public class PlayerController : MonoBehaviour
     //Equip InputAction
     public void OnEquip(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !equipped && !nearWater)
-        {            
-            curTool = Instantiate(harvestTool, toolPivot.transform);            
-            equipped = true;
-        }
-        else if (context.phase == InputActionPhase.Started && equipped && !nearWater)
+        for (int i = 0; i < equipTools.Count; i++)
         {
-            Destroy(curTool);
-            toolAnimator = null;
-            equipped = false;
-        }
-
-        if (context.phase == InputActionPhase.Started && !equipped && nearWater)
-        {
-            curTool = Instantiate(fishingTool, toolPivot.transform);
-            equipped = true;
-        }
-        else if (context.phase == InputActionPhase.Started && equipped && nearWater)
-        {
-            Destroy(curTool);
-            toolAnimator = null;
-            equipped = false;
-        }
+            if (equipItemUI.itemSlots[i].isSelected)
+            {
+                if (context.phase == InputActionPhase.Started && !equipped)
+                {
+                    curTool = Instantiate(equipTools[i], toolPivot.transform);
+                    equipped = true;
+                }
+                else if (context.phase == InputActionPhase.Started && equipped)
+                {
+                    Destroy(curTool);
+                    toolAnimator = null;
+                    equipped = false;
+                }
+            }
+        }        
     }
 
     // Use InputAction
@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
         if (equipped && !nearWater && context.phase == InputActionPhase.Started)
         {
             playerAnimator.SetTrigger("Use");
-            if (curTool.CompareTag("Pick")) toolAnimator.SetTrigger("Use");            
+            if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe")) toolAnimator.SetTrigger("Use");            
         }
 
         if (equipped && nearWater && context.phase == InputActionPhase.Started)
