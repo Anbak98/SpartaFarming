@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1670246701526835696}
   - component: {fileID: 8943587809049149867}
   m_Layer: 0
-  m_Name: Tool_Pick
+  m_Name: Tool_Hoe
   m_TagString: Pick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
