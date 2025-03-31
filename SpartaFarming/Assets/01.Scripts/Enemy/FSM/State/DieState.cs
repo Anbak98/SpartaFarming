@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DieState<T , F> : FSM
+public class DieState<T> : FSM
 {
     private T Owner;
-    private IDie<F> Idie;
+    private IDie<T> Idie;
 
     // »ý¼ºÀÚ
-    public DieState(T owner, IDie<F> die = null)
+    public DieState(T owner, IDie<T> die = null)
     {
         this.Owner = owner;
         this.Idie = die;
