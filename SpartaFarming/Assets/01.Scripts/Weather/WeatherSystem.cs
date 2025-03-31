@@ -33,7 +33,7 @@ public class WeatherSystem : MonoBehaviour
     public SeasonData CurrentSeason { get { return currentSeason; } }
     public IWeatherState CurrentState { get { return currentState; } }
 
-    public bool canChangeWeahter = true;
+    public bool canChangeWeather = true;
 
     private void Awake()
     {
@@ -109,10 +109,10 @@ public class WeatherSystem : MonoBehaviour
 
     public void FixedTimeWeatherChange()
     {
-        if(canChangeWeahter)
+        if(canChangeWeather)
         {
             ChangeToRandomWeather(currentSeason);
-            canChangeWeahter = false;
+            canChangeWeather = false;
         }
     }
 }

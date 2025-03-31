@@ -79,16 +79,16 @@ public class TimeSystem : MonoBehaviour
 
         TimeCountDisplay();
 
-        if (WeatherManager.Instance.WeatherSystem.canChangeWeahter)
+        if (WeatherManager.Instance.WeatherSystem.canChangeWeather)
         {
             TimeEvent(On8oClock, weatherChangeTime);
             TimeEvent(On20oClock, weatherChangeTime + weatherChangeGap);
         }
         if (currentHour == weatherChangeTime + 1 
             || currentHour == weatherChangeTime + weatherChangeGap + 1
-            && !WeatherManager.Instance.WeatherSystem.canChangeWeahter)
+            && !WeatherManager.Instance.WeatherSystem.canChangeWeather)
         {
-            WeatherManager.Instance.WeatherSystem.canChangeWeahter = true;
+            WeatherManager.Instance.WeatherSystem.canChangeWeather = true;
         }
     }
 
