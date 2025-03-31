@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -14,10 +13,6 @@ public class WorldLight : MonoBehaviour
 
     private Coroutine colorCoroutine;
     public Light2D Lights { get { return lights; } }
-
-    private void Start()
-    {
-    }
 
     public void OnTimeChangedSunny()
     {
