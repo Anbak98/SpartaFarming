@@ -82,7 +82,7 @@ public class WeatherSystem : MonoBehaviour
     void ChangeToRandomWeather(SeasonData curSeason)
     {
         int totalWeight = 0;
-        int randomNum = Random.Range(0, curSeason.weatherChancesValues.Sum());
+        int randomNum = UnityEngine.Random.Range(0, curSeason.weatherChancesValues.Sum());
         for(int i = 0; i < curSeason.weatherChancesValues.Length; i++)
         {
             totalWeight += curSeason.weatherChancesValues[i];
