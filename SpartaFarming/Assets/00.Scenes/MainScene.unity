@@ -1447,19 +1447,16 @@ MonoBehaviour:
   moveSpeed: 3
   runSpeed: 5
   isMoving: 0
-  plLastMoveX: 0
-  plLastMoveY: 0
-  toolAnimator: {fileID: 0}
   equipped: 0
   nearWater: 0
   equipItemUI: {fileID: 0}
   curTool: {fileID: 0}
   toolPivot: {fileID: 36982060}
-  equipTools: []
   axeTool: {fileID: 0}
   harvestTool: {fileID: 3671608199247056103, guid: 5ae1a40e82ace9c47aab0e651e354b99, type: 3}
   wateringTool: {fileID: 0}
   fishingTool: {fileID: 490140306873702299, guid: 14df9d8560f1fee42811b2367856c014, type: 3}
+  equipTools: []
   floorMap: {fileID: 0}
   floorTile: {fileID: 0}
 --- !u!114 &194535492
@@ -2033,7 +2030,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.88309896, g: 0.90367776, b: 0.990566, a: 0.23529412}
+      maxColor: {r: 0.53960484, g: 0.60160255, b: 0.8867924, a: 0.23529412}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -2790,8 +2787,8 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.002
-      minScalar: 0.01
+      scalar: 0.04
+      minScalar: 0.02
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2843,8 +2840,8 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2
-      minScalar: 0.4
+      scalar: 0.4
+      minScalar: 0.6
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -17909,7 +17906,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.16
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -29413,11 +29410,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0e94b9b5525ac488343fe6abd9bf1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialGameTime: 16.76
+  initialGameTime: 8
   timeMultiplier: 60
   currentGameTime: 0
   initialDay: 1
-  initialMonth: 12
+  initialMonth: 8
   initialYear: 2025
   weatherChangeTime: 8
   weatherChangeGap: 12
@@ -44027,7 +44024,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.85
+  m_Intensity: 1.04
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 0000000073d140a0d386056fb9aba253
