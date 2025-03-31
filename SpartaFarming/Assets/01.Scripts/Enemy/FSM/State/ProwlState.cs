@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProwlState<T> : FSM
+public class ProwlState<T, F> : FSM
 {
     private T Owner;
-    private IProwl Iprowl;
+    private IProwl<F> Iprowl;
 
     // »ý¼ºÀÚ
-    public ProwlState(T owner, IProwl iprowl = null)
+    public ProwlState(T owner, IProwl<F> iprowl = null)
     {
         this.Owner      = owner;
         this.Iprowl     = iprowl;
@@ -17,7 +17,7 @@ public class ProwlState<T> : FSM
     public override void FSM_Enter()
     {
         //Debug.Log($"Owner : {Owner.GetType().Name} : ProwlState Enter");
-
+        Iprowl.IProwl_Enter();
     }
 
     public override void FSM_Excute()
