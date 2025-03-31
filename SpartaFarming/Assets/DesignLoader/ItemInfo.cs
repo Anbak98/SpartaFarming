@@ -22,6 +22,11 @@ public class ItemInfo
     public string description;
 
     /// <summary>
+    /// ItemType
+    /// </summary>
+    public DesignEnums.ItemType itemType;
+
+    /// <summary>
     /// SpritePath
     /// </summary>
     public string spritePath;
@@ -35,11 +40,6 @@ public class ItemInfo
     /// Durability
     /// </summary>
     public int durability;
-
-    /// <summary>
-    /// ItemType
-    /// </summary>
-    public DesignEnums.ItemType itemType;
 
     /// <summary>
     /// Atk
@@ -60,6 +60,11 @@ public class ItemInfo
     /// EnergyRecovery
     /// </summary>
     public float energyRecovery;
+
+    /// <summary>
+    /// MaxStack
+    /// </summary>
+    public int maxStack;
 
 }
 public class ItemInfoLoader

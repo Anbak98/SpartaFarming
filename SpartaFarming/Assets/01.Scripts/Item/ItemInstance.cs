@@ -1,18 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class ItemInstance
 {
-    public ItemInfo ItemInfo { get; }
+    public ItemInfo itemInfo { get; }
 
     public float currentDurability;
-    public bool isHolding;
-    public bool isEquiped;
+    public int quantity;
+    public bool isHolding = false;
+    public bool isEquiped = false;
 
-    public ItemInstance(ItemInfo itemInfo)
+    public ItemInstance(ItemInfo itemInfo, int quantity = 1)
     {
-        ItemInfo = itemInfo;
-        currentDurability = itemInfo.durability;
+        this.itemInfo = itemInfo;
+        this.quantity = quantity;
     }
 }

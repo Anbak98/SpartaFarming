@@ -11,6 +11,7 @@ public class WeatherRainyState : WeatherBaseState
 
     public override void Enter()
     {
+        WeatherManager.Instance.WeatherSystem.WorldLight.ChangedWeatherColor(WeatherChance.RainChance);
         base.Enter();
         Debug.Log("rainy start");
     }
@@ -19,5 +20,6 @@ public class WeatherRainyState : WeatherBaseState
     {
         base.Exit();
         Debug.Log("rainy end");
+        TimeManager.Instance.TimeSystem.TimeChangeUpdate -= WeatherManager.Instance.WeatherSystem.WorldLight.OnTimeChangedRainy;
     }
 }
