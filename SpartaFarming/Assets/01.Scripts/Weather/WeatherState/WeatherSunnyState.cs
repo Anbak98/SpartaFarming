@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class WeatherSunnyState : WeatherBaseState
 {
@@ -11,15 +8,13 @@ public class WeatherSunnyState : WeatherBaseState
 
     public override void Enter()
     {
-        WeatherManager.Instance.WeatherSystem.WorldLight.ChangedWeatherColor(WeatherChance.SunChance);
         base.Enter();
-        Debug.Log("sunny start");
+        WeatherManager.Instance.WeatherSystem.WorldLight.ChangedWeatherColor(WeatherChance.SunChance);
     }
 
     public override void Exit()
     {
         base.Exit();
-        Debug.Log("sunny end");
         TimeManager.Instance.TimeSystem.TimeChangeUpdate -= WeatherManager.Instance.WeatherSystem.WorldLight.OnTimeChangedSunny;
     }
 }

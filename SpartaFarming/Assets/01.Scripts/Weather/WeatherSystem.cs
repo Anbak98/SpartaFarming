@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-
 
 public enum SeasonType
 {
@@ -54,11 +51,6 @@ public class WeatherSystem : MonoBehaviour
         TimeManager.Instance.TimeSystem.On8oClock += FixedTimeWeatherChange;
         TimeManager.Instance.TimeSystem.On20oClock += FixedTimeWeatherChange;
         currentState = stateMachine.CurrentState;
-    }
-
-    void Update()
-    {
-
     }
 
     public void GetSeason()

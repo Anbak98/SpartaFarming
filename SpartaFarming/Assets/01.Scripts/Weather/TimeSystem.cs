@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TimeSystem : MonoBehaviour
@@ -64,8 +62,6 @@ public class TimeSystem : MonoBehaviour
     void Update()
     {
         CountTime();
-        //Debug.Log($"{currentHour}시{currentMinute}분 10분 단위");
-        //Debug.Log($"{currentMonth}{currentDay}");
     }
 
     private void CountTime()

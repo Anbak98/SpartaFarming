@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class WeatherWindyState : WeatherBaseState
 {
@@ -10,8 +7,8 @@ public class WeatherWindyState : WeatherBaseState
     }
     public override void Enter()
     {
-        WeatherManager.Instance.WeatherSystem.WorldLight.ChangedWeatherColor(WeatherChance.WindChance);
         base.Enter();
+        WeatherManager.Instance.WeatherSystem.WorldLight.ChangedWeatherColor(WeatherChance.WindChance);
         if(WeatherManager.Instance.WeatherSystem.CurrentSeason.season == SeasonType.Spring)
         {
             WeatherManager.Instance.WeatherSystem.WeatherVFX.SpringWindEffect.OnEnable();
@@ -20,7 +17,6 @@ public class WeatherWindyState : WeatherBaseState
         {
             WeatherManager.Instance.WeatherSystem.WeatherVFX.FallWindEffect.OnEnable();
         }
-        Debug.Log("windy start");
     }
 
     public override void Exit()
@@ -28,7 +24,6 @@ public class WeatherWindyState : WeatherBaseState
         base.Exit();
         WeatherManager.Instance.WeatherSystem.WeatherVFX.SpringWindEffect.OnDisable();
         WeatherManager.Instance.WeatherSystem.WeatherVFX.FallWindEffect.OnDisable();
-        Debug.Log("windy end");
         TimeManager.Instance.TimeSystem.TimeChangeUpdate -= WeatherManager.Instance.WeatherSystem.WorldLight.OnTimeChangedWindy;
     }
 }
