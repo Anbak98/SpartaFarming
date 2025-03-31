@@ -25,6 +25,33 @@ public class UnitTracking : MonoBehaviour, ITraking<BaseUnit>
             return;
         }
 
+        // 추적 
+        LerpTracking();
+
+        // attack 범위 안에 들어오면 -> Attack으로 변경 
+        if (Owner.isInRange(Owner.UnitState.attackTriggerRange))
+        {
+            Owner.ChageState(EnemyState.Attack);
+        }
+        // 만약 플레이어가 멀어지면 -> Prowl 변경 
+        if ( ! Owner.isInRange(Owner.UnitState.trackingTriggerRange) ) 
+        {
+            Owner.ChageState(EnemyState.Prowl);
+        }
+    }
+
+    public void ITraking_Enter()
+    {
+                   
+    }
+
+    public void ITraking_Exit()
+    {
+
+    }
+
+    private void LerpTracking() 
+    {
         targetPosition = Owner.Player.transform.position;
 
         // 현재 유닛의 위치
@@ -39,27 +66,5 @@ public class UnitTracking : MonoBehaviour, ITraking<BaseUnit>
 
         // 실제 이동 (Lerp 사용)
         transform.position = Vector2.Lerp(currentPosition, targetPosition, t);
-
-        // attack 범위 안에 들어오면 -> Attack으로 변경 
-        distanceToPlayer = Vector2.Distance(transform.position, Owner.Player.position);
-        if (distanceToPlayer <= Owner.UnitState.attackTriggerRange)
-        {
-            Owner.ChageState(EnemyState.Attack);
-        }
-        // 만약 플레이어가 멀어지면 -> Prowl 변경 
-        if (Vector2.Distance(transform.position, Owner.Player.position) >= Owner.UnitState.trackingTriggerRange) 
-        {
-            Owner.ChageState(EnemyState.Prowl);
-        }
-    }
-
-    public void ITraking_Enter()
-    {
-                   
-    }
-
-    public void ITraking_Exit()
-    {
-
     }
 }

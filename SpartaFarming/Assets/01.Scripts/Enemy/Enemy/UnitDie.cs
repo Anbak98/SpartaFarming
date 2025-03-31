@@ -14,7 +14,7 @@ public class UnitDie : MonoBehaviour, IDie<BaseUnit>
 
     public void IDie()
     {
-    
+        Debug.Log($"{Owner.name}이 죽었습니다. ");
     }
 
 }

@@ -127,11 +127,11 @@ public class BaseUnit : MonoBehaviour
     {
         // prowl -> Tracking 범위 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position , 5f);
+        Gizmos.DrawWireSphere(transform.position , unitState.trackingTriggerRange);
 
         // Tracking -> Attack 범위
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 1f);
+        Gizmos.DrawWireSphere(transform.position, unitState.attackTriggerRange);
     }
 
     // 플레이어 기준 플립
@@ -148,5 +148,23 @@ public class BaseUnit : MonoBehaviour
             // 왼쪽 바라보기
             transform.localScale = new Vector3(-1, 1, 1);
         }
+    }
+
+    public bool isInRange(float standardDistance) 
+    {
+        // 내 위치 , 플레이어 위치 거리 
+        // 기준 거리 안에 있으면 true
+        float dis = Vector2.Distance(transform.position , player.position);
+        if (dis <= standardDistance)
+            return true;
+        // 없으면 false
+        else 
+            return false;
+    }
+
+    public void IsDie() 
+    {
+        if (unitState.hp <= 0)
+            ChageState(EnemyState.Die);
     }
 }
