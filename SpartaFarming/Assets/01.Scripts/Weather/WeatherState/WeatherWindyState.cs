@@ -10,6 +10,7 @@ public class WeatherWindyState : WeatherBaseState
     }
     public override void Enter()
     {
+        WeatherManager.Instance.WeatherSystem.WorldLight.ChangedWeatherColor(WeatherChance.WindChance);
         base.Enter();
         Debug.Log("windy start");
     }
@@ -18,5 +19,6 @@ public class WeatherWindyState : WeatherBaseState
     {
         base.Exit();
         Debug.Log("windy end");
+        TimeManager.Instance.TimeSystem.TimeChangeUpdate -= WeatherManager.Instance.WeatherSystem.WorldLight.OnTimeChangedWindy;
     }
 }
