@@ -127,11 +127,15 @@ MonoBehaviour:
   unitState:
     hp: 0
     speed: 0
-    searchRange: 0
-    attackRange: 0
+    trackingTriggerRange: 0
+    attackTriggerRange: 0
+    hitRange: 0
+    attackDamage: 0
+    attackCoolTime: 0
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
+  player: {fileID: 0}
   unitHeadMachine:
     Owner: {fileID: 0}
   currState: 0
@@ -188,3 +192,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  distanceToPlayer: 0
