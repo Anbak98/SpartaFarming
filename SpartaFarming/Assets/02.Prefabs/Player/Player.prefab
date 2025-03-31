@@ -197,18 +197,19 @@ MonoBehaviour:
   - {fileID: 0}
   objectMap: {fileID: 0}
   fences:
-  - {fileID: 11400000, guid: 5ba1ec7480a77934da581957ca600db8, type: 2}
-  - {fileID: 11400000, guid: 3d6272b6e55ce554e93b77e14fd16aad, type: 2}
-  - {fileID: 11400000, guid: 76fca6105b50871498505a0a657180c0, type: 2}
-  - {fileID: 11400000, guid: 17e01263be4ecee43899f7827b72c58c, type: 2}
-  - {fileID: 11400000, guid: 47f5a840841f89349951124d5cde6cf9, type: 2}
-  - {fileID: 11400000, guid: b51c0fc2de955b44ca0c027d658baa36, type: 2}
-  - {fileID: 11400000, guid: b0a81f08e002fab45b2461ccce649591, type: 2}
-  - {fileID: 11400000, guid: 31f64d5234c1e1b43a6d692b0bff8f4b, type: 2}
-  - {fileID: 11400000, guid: aaac2b4bcdd799347b9964433d99dfff, type: 2}
-  - {fileID: 11400000, guid: 41efcd95bdf42ba499c8b52a8f2700ed, type: 2}
+  - {fileID: 11400000, guid: 8c9e0960b28accf48a0b9a3e823749c1, type: 2}
+  - {fileID: 11400000, guid: 28269768b16b40b41ab8863157ee2676, type: 2}
+  - {fileID: 11400000, guid: c0b186e4b6d6dac41801da251a40c4bc, type: 2}
+  - {fileID: 11400000, guid: ae8f1d8496627b547835f8a791ceb379, type: 2}
+  - {fileID: 11400000, guid: 350e605e020550c418f0d99c1d1176d7, type: 2}
+  - {fileID: 11400000, guid: f24a4d349340d504ab02fff1a4a3b089, type: 2}
+  - {fileID: 11400000, guid: 63b1eb2cfb021b44cb77d492f8797d67, type: 2}
+  - {fileID: 11400000, guid: 36924dbc45c5aab4c9abf589216c018f, type: 2}
+  - {fileID: 11400000, guid: b0aa437505d330a40b9f5294570aec27, type: 2}
+  - {fileID: 11400000, guid: 21eebba69b70feb468ff50968c764459, type: 2}
   floorMap: {fileID: 0}
   floorTile: {fileID: 11400000, guid: 77480abfd64960445b413d86d2b1401f, type: 2}
+  waterMap: {fileID: 0}
 --- !u!114 &2261244728267990952
 MonoBehaviour:
   m_ObjectHideFlags: 0

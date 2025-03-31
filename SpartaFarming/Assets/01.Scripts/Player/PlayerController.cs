@@ -133,25 +133,26 @@ public class PlayerController : MonoBehaviour
     //Equip InputAction
     public void OnEquip(InputAction.CallbackContext context)
     {
-        for (int i = 0; i < equipTools.Count; i++)
+        if (equipItemUI.gameObject.activeInHierarchy)
         {
-            if (!equipItemUI.itemSlots[i].isSelected) return;
-
-            if (equipItemUI.itemSlots[i].isSelected)
+            for (int i = 0; i < equipTools.Count; i++)
             {
-                if (context.phase == InputActionPhase.Started && !equipped)
+                if (equipItemUI.itemSlots[i].isSelected)
                 {
-                    curTool = Instantiate(equipTools[i], toolPivot.transform);
-                    equipped = true;
+                    if (context.phase == InputActionPhase.Started && !equipped)
+                    {
+                        curTool = Instantiate(equipTools[i], toolPivot.transform);
+                        equipped = true;
+                    }
+                    else if (context.phase == InputActionPhase.Started && equipped)
+                    {
+                        Destroy(curTool);
+                        toolAnimator = null;
+                        equipped = false;
+                    }
                 }
-                else if (context.phase == InputActionPhase.Started && equipped)
-                {
-                    Destroy(curTool);
-                    toolAnimator = null;
-                    equipped = false;
-                }
-            }            
-        }        
+            }
+        }                
     }
 
     // Use InputAction
