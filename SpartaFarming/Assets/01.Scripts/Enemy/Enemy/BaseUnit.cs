@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum EnemyState 
@@ -18,6 +20,10 @@ public class BaseUnit : MonoBehaviour
     [Header("===State===")]
     [SerializeField] private int unitNumber;
     [SerializeField] private Unit unitState;
+    [SerializeField] private LayerMask obstacleLayer;
+
+    [Header("===Player===")]
+    [SerializeField] private Transform player;
 
     // ##TODO : FSMHanlder로 분리 예정 
     // FSM
@@ -27,33 +33,40 @@ public class BaseUnit : MonoBehaviour
     [SerializeField] private EnemyState currState;
     [SerializeField] private EnemyState preState;
 
+    public Transform Player { get => player; }
+    public LayerMask ObstacleLayer { get => obstacleLayer; }
+    public Unit UnitState { get => unitState; }
+
     private void Awake()
     {
         // FSM 초기화
         InitFSMArray();
 
         // ##TODO : unit클래스 초기화 
-        unitNumber = 0;
-        unitState = UnitManager.Instance.GetUnit(unitNumber);
+        unitNumber      = 0;
+        unitState       = UnitManager.Instance.GetUnit(unitNumber);
+
+        // UnitManager에서 초기화 
+        player          = UnitManager.Instance.PlayerTrs;
+        obstacleLayer   = UnitManager.Instance.ObstacleLayer;
     }
 
     private void Start() 
     {
         // 현재 상태 실행
-        unitHeadMachine.HM_StateEnter();
+        // unitHeadMachine.HM_StateEnter();
     }
 
     private void OnEnable()
     {
         // 현재 상태 실행
-        // unitHeadMachine.HM_StateEnter();
+        unitHeadMachine.HM_StateEnter();
     }
 
     private void Update()
     {
         unitHeadMachine.HM_StateExcute();
     }
-
 
     private void InitFSMArray() 
     {
@@ -64,28 +77,74 @@ public class BaseUnit : MonoBehaviour
         stateArray = new FSM[Enum.GetValues(typeof(EnemyState)).Length];
 
         // 인터페이스 가져오기 
-        IAttack<Unit> attackComponent       = GetComponent<IAttack<Unit>>();
-        ITraking<Unit> trackingComponent    = GetComponent<ITraking<Unit>>();
-        IProwl<Unit> prowlComponent         = GetComponent<IProwl<Unit>>();
-        IDie<Unit> dieComponent             = GetComponent<IDie<Unit>>();
+        IAttack<BaseUnit> attackComponent       = GetComponent<IAttack<BaseUnit>>();
+        ITraking<BaseUnit> trackingComponent    = GetComponent<ITraking<BaseUnit>>();
+        IProwl<BaseUnit> prowlComponent         = GetComponent<IProwl<BaseUnit>>();
+        IDie<BaseUnit> dieComponent             = GetComponent<IDie<BaseUnit>>();
 
         // unit 데이터 넣어주기
-        attackComponent.IAttackInit(unitState);
-        trackingComponent.ITrakingInit(unitState);
-        prowlComponent.IProwlInit(unitState);
-        dieComponent.IDieInit(unitState);
+        attackComponent.IAttackInit(this);
+        trackingComponent.ITrakingInit(this);
+        prowlComponent.IProwlInit(this);
+        dieComponent.IDieInit(this);
 
         // FSM 배열 초기화 
-        stateArray[(int)EnemyState.Attack]      = new AttackState<BaseUnit,Unit>(this, attackComponent);
-        stateArray[(int)EnemyState.Tracking]    = new TrackingState<BaseUnit , Unit>(this , trackingComponent);
-        stateArray[(int)EnemyState.Prowl]       = new ProwlState<BaseUnit, Unit>(this, prowlComponent);
-        stateArray[(int)EnemyState.Die]         = new DieState<BaseUnit , Unit>(this , dieComponent);
+        stateArray[(int)EnemyState.Attack]      = new AttackState<BaseUnit>(this, attackComponent);
+        stateArray[(int)EnemyState.Tracking]    = new TrackingState<BaseUnit>(this , trackingComponent);
+        stateArray[(int)EnemyState.Prowl]       = new ProwlState<BaseUnit>(this, prowlComponent);
+        stateArray[(int)EnemyState.Die]         = new DieState<BaseUnit>(this , dieComponent);
 
         // ##TODO : 임시 배회 상태 
         currState = EnemyState.Prowl;
 
         // 현재 상태 초기화 
-        unitHeadMachine.HM_InitMachine(stateArray[(int)currState]);
+        unitHeadMachine.HM_InitMachine(StateToFSM(currState));
     }
 
+    public void ChageState(EnemyState nextState) 
+    {
+        // 시각용 
+        preState = currState;
+        currState = nextState;
+
+        // 헤드머신에 넣기 
+        unitHeadMachine.HM_ChangeState(StateToFSM(nextState));
+    }
+
+    private FSM StateToFSM(EnemyState staste) 
+    {
+        try 
+        {
+            return stateArray[(int)staste];
+        }
+        catch { return null; }
+    }
+
+    // Draw
+    private void OnDrawGizmos()
+    {
+        // prowl -> Tracking 범위 
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position , 5f);
+
+        // Tracking -> Attack 범위
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 1f);
+    }
+
+    // 플레이어 기준 플립
+    public void Flip() 
+    {
+        // 플레이어 기준 flip
+        if (player.position.x > transform.position.x)
+        {
+            // 오른쪽 바라보기
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            // 왼쪽 바라보기
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
 }

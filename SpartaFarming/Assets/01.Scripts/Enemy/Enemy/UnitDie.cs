@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitDie : MonoBehaviour, IDie<Unit>
+public class UnitDie : MonoBehaviour, IDie<BaseUnit>
 {
     [SerializeField]
-    private Unit Owner;
+    private BaseUnit Owner;
 
-    public void IDieInit(Unit temp)
+    public void IDieInit(BaseUnit temp)
     {
-            
+        this.Owner = temp;
     }
 
     public void IDie()
