@@ -15,23 +15,25 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     private float vertical;
 
-    public float plLastMoveX;
-    public float plLastMoveY;
+    private float plLastMoveX;
+    private float plLastMoveY;
 
     private Rigidbody2D _rigidbody;
     private Animator playerAnimator;
-    public Animator toolAnimator;
+    private Animator toolAnimator;    
+
+    [Header("Equipment")]
     public bool equipped = false;
     public bool nearWater = false;
-    
     public EquipItemUI equipItemUI;
     public GameObject curTool;
     public GameObject toolPivot;
-    public List<GameObject> equipTools;
+    
     public GameObject axeTool;
     public GameObject harvestTool;
     public GameObject wateringTool;
     public GameObject fishingTool;
+    public List<GameObject> equipTools;
 
     public Tilemap floorMap;
     public TileBase floorTile;    
