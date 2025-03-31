@@ -155,8 +155,8 @@ public class PlayerController : MonoBehaviour
                 Vector3Int gridPos = floorMap.WorldToCell(pos);
                 if (plLastMoveX == 1) floorMap.SetTile(gridPos + Vector3Int.right, floorTile);
                 else if (plLastMoveX == -1) floorMap.SetTile(gridPos + Vector3Int.left, floorTile);
-                else if (plLastMoveY == 1) floorMap.SetTile(gridPos + Vector3Int.forward, floorTile);
-                else if (plLastMoveY == -1) floorMap.SetTile(gridPos + Vector3Int.back, floorTile);
+                else if (plLastMoveY == 1) floorMap.SetTile(gridPos + Vector3Int.up, floorTile);
+                else if (plLastMoveY == -1) floorMap.SetTile(gridPos + Vector3Int.down, floorTile);
                 else return;
             }           
         }
