@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
@@ -35,8 +36,9 @@ public class PlayerController : MonoBehaviour
     public GameObject fishingTool;
     public List<GameObject> equipTools;
 
-    public Tilemap floorMap;
-    public TileBase floorTile;    
+    public Tilemap objectMap;
+    public Tilemap floorMap;    
+    public TileBase floorTile;        
 
     private void Awake()
     {
@@ -146,28 +148,44 @@ public class PlayerController : MonoBehaviour
     // Use InputAction
     public void OnUse(InputAction.CallbackContext context)
     {
-        if (equipped && !nearWater && context.phase == InputActionPhase.Started)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            playerAnimator.SetTrigger("Use");
-            if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");
-
-            if (curTool.CompareTag("Hoe"))
+            if (equipped && !nearWater && context.phase == InputActionPhase.Started)
             {
-                Vector3 pos = transform.position;
-                Vector3Int gridPos = floorMap.WorldToCell(pos);
-                if (plLastMoveX == 1) floorMap.SetTile(gridPos + Vector3Int.right, floorTile);
-                else if (plLastMoveX == -1) floorMap.SetTile(gridPos + Vector3Int.left, floorTile);
-                else if (plLastMoveY == 1) floorMap.SetTile(gridPos + Vector3Int.up, floorTile);
-                else if (plLastMoveY == -1) floorMap.SetTile(gridPos + Vector3Int.down, floorTile);
-                else return;
-            }           
-        }
+                playerAnimator.SetTrigger("Use");
+                if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");
 
-        if (equipped && nearWater && context.phase == InputActionPhase.Started)
-        {
-            playerAnimator.SetTrigger("Use");
-            if (curTool.CompareTag("Rod")) toolAnimator.SetBool("Fishing", true);
-            else toolAnimator.SetTrigger("Use");
+                Vector3 pos = transform.position;
+
+                // Axe 플레이어 이전 이동방향 따라 앞의 타일맵 오브젝트 파괴
+                if (curTool.CompareTag("Axe"))
+                {                
+                    Vector3Int objGridPos = objectMap.WorldToCell(pos);
+                    if (plLastMoveX == 1) objectMap.SetTile(objGridPos + Vector3Int.right, null);
+                    else if (plLastMoveX == -1) objectMap.SetTile(objGridPos + Vector3Int.left, null);
+                    else if (plLastMoveY == 1) objectMap.SetTile(objGridPos + Vector3Int.up, null);
+                    else if (plLastMoveY == -1) objectMap.SetTile(objGridPos + Vector3Int.down, null);
+                    else return;
+                }
+
+                // Hoe 플레이어 이전 이동방향 따라 앞의 땅 파기
+                if (curTool.CompareTag("Hoe"))
+                {                
+                    Vector3Int FlrGridPos = floorMap.WorldToCell(pos);
+                    if (plLastMoveX == 1) floorMap.SetTile(FlrGridPos + Vector3Int.right, floorTile);
+                    else if (plLastMoveX == -1) floorMap.SetTile(FlrGridPos + Vector3Int.left, floorTile);
+                    else if (plLastMoveY == 1) floorMap.SetTile(FlrGridPos + Vector3Int.up, floorTile);
+                    else if (plLastMoveY == -1) floorMap.SetTile(FlrGridPos + Vector3Int.down, floorTile);
+                    else return;
+                }        
+            }
+
+            if (equipped && nearWater && context.phase == InputActionPhase.Started)
+            {
+                playerAnimator.SetTrigger("Use");
+                if (curTool.CompareTag("Rod")) toolAnimator.SetBool("Fishing", true);
+                else toolAnimator.SetTrigger("Use");
+            }
         }
     }
 
