@@ -32,6 +32,7 @@ public class BaseUnit : MonoBehaviour
         // FSM 초기화
         InitFSMArray();
 
+        // ##TODO : unit클래스 초기화 
         unitNumber = 0;
         unitState = UnitManager.Instance.GetUnit(unitNumber);
     }
@@ -59,12 +60,26 @@ public class BaseUnit : MonoBehaviour
         // 해드머신 초기화 
         unitHeadMachine = new HeadMachine<BaseUnit>(this);
 
+        // 배열 초기화 
         stateArray = new FSM[Enum.GetValues(typeof(EnemyState)).Length];
 
-        stateArray[(int)EnemyState.Prowl]       = new ProwlState<BaseUnit>(this, gameObject.GetComponent<IProwl>());
-        stateArray[(int)EnemyState.Tracking]    = new TrackingState<BaseUnit>(this , gameObject.GetComponent<ITraking>());
-        // stateArray[(int)EnemyState.Attack]      = new AttackState<BaseUnit>(this, gameObject.GetComponent<IAttack>());
-        stateArray[(int)EnemyState.Die]         = new DieState<BaseUnit>(this , gameObject.GetComponent<IDie>());
+        // 인터페이스 가져오기 
+        IAttack<Unit> attackComponent       = GetComponent<IAttack<Unit>>();
+        ITraking<Unit> trackingComponent    = GetComponent<ITraking<Unit>>();
+        IProwl<Unit> prowlComponent         = GetComponent<IProwl<Unit>>();
+        IDie<Unit> dieComponent             = GetComponent<IDie<Unit>>();
+
+        // unit 데이터 넣어주기
+        attackComponent.IAttackInit(unitState);
+        trackingComponent.ITrakingInit(unitState);
+        prowlComponent.IProwlInit(unitState);
+        dieComponent.IDieInit(unitState);
+
+        // FSM 배열 초기화 
+        stateArray[(int)EnemyState.Attack]      = new AttackState<BaseUnit,Unit>(this, attackComponent);
+        stateArray[(int)EnemyState.Tracking]    = new TrackingState<BaseUnit , Unit>(this , trackingComponent);
+        stateArray[(int)EnemyState.Prowl]       = new ProwlState<BaseUnit, Unit>(this, prowlComponent);
+        stateArray[(int)EnemyState.Die]         = new DieState<BaseUnit , Unit>(this , dieComponent);
 
         // ##TODO : 임시 배회 상태 
         currState = EnemyState.Prowl;

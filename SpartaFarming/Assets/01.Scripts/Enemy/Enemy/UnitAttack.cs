@@ -6,7 +6,8 @@ public class UnitAttack : MonoBehaviour, IAttack<Unit>
 {
     [SerializeField]
     private Unit Owner;
-    public void IAttackClass(Unit temp)
+
+    public void IAttackInit(Unit temp)
     {
         this.Owner = temp;
     }
