@@ -22,8 +22,14 @@ public class WeatherWindyState : WeatherBaseState
     public override void Exit()
     {
         base.Exit();
-        WeatherManager.Instance.WeatherSystem.WeatherVFX.SpringWindEffect.OnDisable();
-        WeatherManager.Instance.WeatherSystem.WeatherVFX.FallWindEffect.OnDisable();
+        if (WeatherManager.Instance.WeatherSystem.CurrentSeason.season == SeasonType.Spring)
+        {
+            WeatherManager.Instance.WeatherSystem.WeatherVFX.SpringWindEffect.OnDisable();
+        }
+        else if (WeatherManager.Instance.WeatherSystem.CurrentSeason.season == SeasonType.Fall)
+        {
+            WeatherManager.Instance.WeatherSystem.WeatherVFX.FallWindEffect.OnDisable();
+        }
         TimeManager.Instance.TimeSystem.TimeChangeUpdate -= WeatherManager.Instance.WeatherSystem.WorldLight.OnTimeChangedWindy;
     }
 }

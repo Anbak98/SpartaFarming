@@ -30178,7 +30178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ac0101cde71ed45acc8abcf151adaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canChangeWeahter: 1
+  canChangeWeather: 1
 --- !u!4 &1520037106
 Transform:
   m_ObjectHideFlags: 0
