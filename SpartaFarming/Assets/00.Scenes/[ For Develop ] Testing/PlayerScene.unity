@@ -629,6 +629,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62a2897acf93b7d4886422c49d1667af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &945969412 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7038218445608456976, guid: c9e0154711042464da9842dc4e608a31, type: 3}
+  m_PrefabInstance: {fileID: 6929564740941988438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3330e65a41bc14d935d33824e95f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &960924496
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,7 +963,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6622064342150494124, guid: c9e0154711042464da9842dc4e608a31, type: 3}
       propertyPath: m_Name
-      value: PlayerQuickSlot
+      value: PlayerUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -967,6 +978,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1099140860747342259, guid: b2fa9ea5cff633146af9b062a9c74f8d, type: 3}
+      propertyPath: uiCondition
+      value: 
+      objectReference: {fileID: 945969412}
     - target: {fileID: 1988257424624100116, guid: b2fa9ea5cff633146af9b062a9c74f8d, type: 3}
       propertyPath: floorMap
       value: 

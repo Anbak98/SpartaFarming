@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1773823253318017998}
   - component: {fileID: 6671468506489338582}
   - component: {fileID: 899616381027090759}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,10 +118,11 @@ GameObject:
   - component: {fileID: 7625814655550264644}
   - component: {fileID: 6739033173175877088}
   - component: {fileID: 1988257424624100116}
+  - component: {fileID: 1099140860747342259}
   - component: {fileID: 2261244728267990952}
   - component: {fileID: 3188056396361866998}
   - component: {fileID: 6200842095440327238}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,6 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controller: {fileID: 0}
+  Condition: {fileID: 0}
 --- !u!114 &1988257424624100116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +217,19 @@ MonoBehaviour:
   floorMap: {fileID: 0}
   floorTile: {fileID: 11400000, guid: 77480abfd64960445b413d86d2b1401f, type: 2}
   waterMap: {fileID: 0}
+--- !u!114 &1099140860747342259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7899993760276386923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2366327007064cb45bec7b59b8a3c102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiCondition: {fileID: 0}
 --- !u!114 &2261244728267990952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +395,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7622886711600934740}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ToolPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
