@@ -18,20 +18,23 @@ public class TrackingState<T> : FSM
     {
         //Debug.Log($"Owner : {Owner.GetType().Name} : Tracking Enter");
 
-        Itracking.ITraking_Enter();
+        if (Itracking != null)
+            Itracking.ITraking_Enter();
     }
 
     public override void FSM_Excute()
     {
         //Debug.Log($"Owner : {Owner.GetType().Name} : Tracking");
 
-        Itracking.ITraking();
+        if (Itracking != null)
+            Itracking.ITraking();
     }
 
     public override void FSM_Exit()
     {
         //Debug.Log($"Owner : {Owner.GetType().Name} : Tracking Exit");
 
-        Itracking.ITraking_Exit();
+        if (Itracking != null)
+            Itracking.ITraking_Exit();
     }
 }
