@@ -135,6 +135,8 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0; i < equipTools.Count; i++)
         {
+            if (!equipItemUI.itemSlots[i].isSelected) return;
+
             if (equipItemUI.itemSlots[i].isSelected)
             {
                 if (context.phase == InputActionPhase.Started && !equipped)
@@ -148,7 +150,7 @@ public class PlayerController : MonoBehaviour
                     toolAnimator = null;
                     equipped = false;
                 }
-            }
+            }            
         }        
     }
 
