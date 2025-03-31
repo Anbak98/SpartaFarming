@@ -46,6 +46,8 @@ public class UnitAttack : MonoBehaviour, IAttack<BaseUnit>
     {
         while (true) 
         {
+            // 애니메이션 실행 Attack 
+            Owner.ChangeAnimation(EnemyAnimationState.Attack);
 
             // 히트 범위 만큼 overlapSpere , player 레이어만
             Collider2D[] collider = Physics2D.OverlapCircleAll

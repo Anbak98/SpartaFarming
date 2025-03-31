@@ -16,6 +16,10 @@ public class UnitTracking : MonoBehaviour, ITraking<BaseUnit>
     {
         this.Owner = temp;
     }
+    public void ITraking_Enter()
+    {
+        Owner.ChangeAnimation(EnemyAnimationState.Run);
+    }
 
     public void ITraking()
     {
@@ -43,11 +47,6 @@ public class UnitTracking : MonoBehaviour, ITraking<BaseUnit>
         {
             Owner.ChageState(EnemyState.Prowl);
         }
-    }
-
-    public void ITraking_Enter()
-    {
-                   
     }
 
     public void ITraking_Exit()

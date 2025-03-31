@@ -15,6 +15,15 @@ public enum EnemyState
 
 }
 
+public enum EnemyAnimationState 
+{
+    Idle,
+    Run,
+    Attack,
+    Hit,
+    Die
+}
+
 public class BaseUnit : MonoBehaviour
 {
     [Header("===State===")]
@@ -25,30 +34,30 @@ public class BaseUnit : MonoBehaviour
     [Header("===Player===")]
     [SerializeField] private Transform player;
 
-    // ##TODO : FSMHanlder로 분리 예정 
-    // FSM
+    [Header("===Handler===")]
+    [SerializeField] EnemyAnimationHandler animaionHandler;
+
+    // ## TODO : handler로 바꾸기
     [Header("===FSM===")]
     [SerializeField] private HeadMachine<BaseUnit> unitHeadMachine;
     [SerializeField] private FSM[] stateArray;
     [SerializeField] private EnemyState currState;
     [SerializeField] private EnemyState preState;
 
+    // 프로퍼티
     public Transform Player { get => player; }
     public LayerMask ObstacleLayer { get => obstacleLayer; }
     public Unit UnitState { get => unitState; }
 
-    private void Awake()
-    {
-        
-    }
-
     private void Start() 
     {
+        // 핸들러 초기화
+        animaionHandler = new EnemyAnimationHandler(GetComponent<Animator>());
+
         // FSM 초기화
         InitFSMArray();
 
         // ##TODO : unit클래스 초기화 
-        unitNumber = 0;
         unitState = UnitManager.Instance.GetUnit(unitNumber);
 
         // UnitManager에서 초기화 
@@ -85,10 +94,10 @@ public class BaseUnit : MonoBehaviour
         IDie<BaseUnit> dieComponent             = GetComponent<IDie<BaseUnit>>();
 
         // unit 데이터 넣어주기
-        attackComponent.IAttackInit(this);
-        trackingComponent.ITrakingInit(this);
-        prowlComponent.IProwlInit(this);
-        dieComponent.IDieInit(this);
+        if(attackComponent != null) attackComponent.IAttackInit(this);
+        if(trackingComponent != null) trackingComponent.ITrakingInit(this);
+        if(prowlComponent != null) prowlComponent.IProwlInit(this);
+        if(dieComponent != null) dieComponent.IDieInit(this);
 
         // FSM 배열 초기화 
         stateArray[(int)EnemyState.Attack]      = new AttackState<BaseUnit>(this, attackComponent);
@@ -105,6 +114,9 @@ public class BaseUnit : MonoBehaviour
 
     public void ChageState(EnemyState nextState) 
     {
+        if (StateToFSM(nextState) == null) 
+            return;
+        
         // 시각용 
         preState = currState;
         currState = nextState;
@@ -150,6 +162,7 @@ public class BaseUnit : MonoBehaviour
         }
     }
 
+    // 범위안에 있는지 ?
     public bool isInRange(float standardDistance) 
     {
         // 내 위치 , 플레이어 위치 거리 
@@ -162,9 +175,17 @@ public class BaseUnit : MonoBehaviour
             return false;
     }
 
+    // 죽으면 -> 상태변화 
     public void IsDie() 
     {
         if (unitState.hp <= 0)
             ChageState(EnemyState.Die);
     }
+
+    // 애니메이션 변경
+    public void ChangeAnimation( EnemyAnimationState state ) 
+    {
+        animaionHandler.ChangeAnimator(state);
+    }
+
 }
