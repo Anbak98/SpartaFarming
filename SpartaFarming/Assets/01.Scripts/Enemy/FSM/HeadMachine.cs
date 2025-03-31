@@ -10,9 +10,7 @@ public class HeadMachine<T>
     private T Owner;
 
     [Header("===State===")]
-    [SerializeField]
     private FSM currState;
-    [SerializeField]
     private FSM prevState;
 
     // 생성자
@@ -47,9 +45,19 @@ public class HeadMachine<T>
     // 상태 변환
     public void HM_ChangeState(FSM nextState) 
     {
+        // null 이면 
+        if (nextState == null)
+        {
+            Debug.Log($"{nextState} 의 상태가 null");
+            return;
+        }
+
         // 같으면 
         if (currState == nextState)
+        {
+            Debug.Log($"{nextState}가 {currState}와 같음");
             return;
+        }
 
         // 이전상태 = 현재상태 
         prevState = currState;
