@@ -136,7 +136,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7899993760276386923}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
@@ -173,19 +173,17 @@ MonoBehaviour:
   moveSpeed: 3
   runSpeed: 5
   isMoving: 0
-  plLastMoveX: 0
-  plLastMoveY: 0
-  toolAnimator: {fileID: 0}
   equipped: 0
   nearWater: 0
   equipItemUI: {fileID: 0}
   curTool: {fileID: 0}
   toolPivot: {fileID: 8922720355537886533}
-  equipTools: []
   axeTool: {fileID: 132538316392624365, guid: e9de290166b519043974815b5bf49ef6, type: 3}
   harvestTool: {fileID: 3671608199247056103, guid: 5ae1a40e82ace9c47aab0e651e354b99, type: 3}
   wateringTool: {fileID: 812860788820672821, guid: 2c83d0b8511af9746ace2f91f3b1a5dc, type: 3}
   fishingTool: {fileID: 490140306873702299, guid: 14df9d8560f1fee42811b2367856c014, type: 3}
+  equipTools: []
+  objectMap: {fileID: 0}
   floorMap: {fileID: 0}
   floorTile: {fileID: 11400000, guid: 77480abfd64960445b413d86d2b1401f, type: 2}
 --- !u!114 &2261244728267990952
@@ -325,8 +323,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.7}
-  m_Size: {x: 1, y: 1.4}
+  m_Offset: {x: 0, y: 0.4}
+  m_Size: {x: 0.8, y: 0.8}
   m_Direction: 0
 --- !u!1 &8922720355537886533
 GameObject:

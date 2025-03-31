@@ -18811,18 +18811,6 @@ PrefabInstance:
       propertyPath: equipItemUI
       value: 
       objectReference: {fileID: 1414186104}
-    - target: {fileID: 6200842095440327238, guid: b2fa9ea5cff633146af9b062a9c74f8d, type: 3}
-      propertyPath: m_Size.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6200842095440327238, guid: b2fa9ea5cff633146af9b062a9c74f8d, type: 3}
-      propertyPath: m_Size.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6200842095440327238, guid: b2fa9ea5cff633146af9b062a9c74f8d, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 7625814655550264644, guid: b2fa9ea5cff633146af9b062a9c74f8d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

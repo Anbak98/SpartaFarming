@@ -156,11 +156,12 @@ public class PlayerController : MonoBehaviour
                 if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");
 
                 Vector3 pos = transform.position;
+                Vector3Int objGridPos = objectMap.WorldToCell(pos);
+                Vector3Int FlrGridPos = floorMap.WorldToCell(pos);
 
                 // Axe 플레이어 이전 이동방향 따라 앞의 타일맵 오브젝트 파괴
                 if (curTool.CompareTag("Axe"))
-                {                
-                    Vector3Int objGridPos = objectMap.WorldToCell(pos);
+                {                   
                     if (plLastMoveX == 1) objectMap.SetTile(objGridPos + Vector3Int.right, null);
                     else if (plLastMoveX == -1) objectMap.SetTile(objGridPos + Vector3Int.left, null);
                     else if (plLastMoveY == 1) objectMap.SetTile(objGridPos + Vector3Int.up, null);
@@ -170,12 +171,15 @@ public class PlayerController : MonoBehaviour
 
                 // Hoe 플레이어 이전 이동방향 따라 앞의 땅 파기
                 if (curTool.CompareTag("Hoe"))
-                {                
-                    Vector3Int FlrGridPos = floorMap.WorldToCell(pos);
-                    if (plLastMoveX == 1) floorMap.SetTile(FlrGridPos + Vector3Int.right, floorTile);
-                    else if (plLastMoveX == -1) floorMap.SetTile(FlrGridPos + Vector3Int.left, floorTile);
-                    else if (plLastMoveY == 1) floorMap.SetTile(FlrGridPos + Vector3Int.up, floorTile);
-                    else if (plLastMoveY == -1) floorMap.SetTile(FlrGridPos + Vector3Int.down, floorTile);
+                {                   
+                    if (plLastMoveX == 1 && !objectMap.HasTile(objGridPos + Vector3Int.right))
+                        floorMap.SetTile(FlrGridPos + Vector3Int.right, floorTile);
+                    else if (plLastMoveX == -1 && !objectMap.HasTile(objGridPos + Vector3Int.left))
+                        floorMap.SetTile(FlrGridPos + Vector3Int.left, floorTile);
+                    else if (plLastMoveY == 1 && !objectMap.HasTile(objGridPos + Vector3Int.up))
+                        floorMap.SetTile(FlrGridPos + Vector3Int.up, floorTile);
+                    else if (plLastMoveY == -1 && !objectMap.HasTile(objGridPos + Vector3Int.down))
+                        floorMap.SetTile(FlrGridPos + Vector3Int.down, floorTile);
                     else return;
                 }        
             }
