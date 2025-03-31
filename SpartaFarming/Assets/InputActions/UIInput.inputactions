@@ -1,0 +1,34 @@
+{
+    "name": "UIInput",
+    "maps": [
+        {
+            "name": "Inventory",
+            "id": "3b87da86-da4f-492e-86d4-1bec5a6f0154",
+            "actions": [
+                {
+                    "name": "OnSplit",
+                    "type": "Button",
+                    "id": "a5685665-cec5-46a6-9b0d-ff5ad84d8d76",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b295b9e7-d393-44f9-be9f-d6ec2cb111f5",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnSplit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

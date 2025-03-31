@@ -1345,8 +1345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87ea844cb75ea847a8f23a6844e3a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSlots: []
-  storageType: 0
+  _storageType: 0
 --- !u!1001 &445982229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3369,154 +3368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a34d8245a10cf498c2a0fd5fc71ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quickStorage:
-    items:
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-  storage:
-    items:
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
-    - currentDurability: 0
-      quantity: 0
-      isHolding: 0
-      isEquiped: 0
+  quickStorageSize: 12
+  mainStorageSize: 24
 --- !u!1001 &1247091154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4254,8 +4107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87ea844cb75ea847a8f23a6844e3a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSlots: []
-  storageType: 1
+  _storageType: 0
 --- !u!1001 &1449000795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5327,6 +5179,7 @@ GameObject:
   - component: {fileID: 1630332007}
   - component: {fileID: 1630332008}
   - component: {fileID: 1630332009}
+  - component: {fileID: 1630332010}
   m_Layer: 5
   m_Name: InventoryUI
   m_TagString: Untagged
@@ -5381,16 +5234,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96979a349c628bf43b28e514e506c5a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  storageUI: {fileID: 410470833}
-  quickStorageUI: {fileID: 1411500615}
-  inventory: {fileID: 1214643926}
-  holdItemUI: {fileID: 5610378762964718392}
-  holdItem:
-    currentDurability: 0
-    quantity: 0
-    isHolding: 0
-    isEquiped: 0
-  onItemHold: 0
+  _mainStorageUI: {fileID: 410470833}
+  _quickStorageUI: {fileID: 1411500615}
+  _holdItemUI: {fileID: 5610378762964718392}
+  _inventory: {fileID: 1214643926}
+--- !u!114 &1630332010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630332006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45540f936cc858643a9534720655a6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSplitMode: 0
 --- !u!1 &1677682864
 GameObject:
   m_ObjectHideFlags: 0
@@ -6622,8 +6482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be919096c5927434facf5c09ce88ed3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdItemImage: {fileID: 5443040573987372344}
-  holdItemText: {fileID: 4171435367853660316}
+  _itemImage: {fileID: 5443040573987372344}
+  _quantityText: {fileID: 4171435367853660316}
 --- !u!224 &5617991580251415884
 RectTransform:
   m_ObjectHideFlags: 0

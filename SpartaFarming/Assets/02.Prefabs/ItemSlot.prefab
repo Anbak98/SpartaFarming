@@ -299,6 +299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641f861c9e24a66418972b710bcf252f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 6421457599046954725}
-  quantityText: {fileID: 3132222084856941377}
-  slotIndex: 0
+  _icon: {fileID: 6421457599046954725}
+  _quantityText: {fileID: 3132222084856941377}
+  _slotIndex: 0

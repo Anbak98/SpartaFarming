@@ -4,7 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Pick
+  - Axe
+  - Hoe
+  - WateringCan
   - Rod
   layers:
   - Default
@@ -48,4 +50,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 1862633171
+    locked: 0
+  - name: Effects
+    uniqueID: 1403169721
     locked: 0
