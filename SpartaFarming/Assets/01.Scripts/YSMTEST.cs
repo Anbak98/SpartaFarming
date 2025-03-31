@@ -18,7 +18,7 @@ public class YSMTEST : MonoBehaviour
         {
             if (!buildingMod.IsActivated)
             {
-                buildingMod.Activate(building, 3, 2, tilemap);
+                buildingMod.Activate(building, 0, 1, 1, tilemap);
             }
             else
             {
