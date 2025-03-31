@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class WeatherVFX : MonoBehaviour
 {
-    [SerializeField] private GameObject rainEffect;
-    [SerializeField] private GameObject snowEffect;
-    [SerializeField] private GameObject fallWindEffect;
-    [SerializeField] private GameObject springWindEffect;
+    [SerializeField] private ParticleController rainEffect;
+    [SerializeField] private ParticleController snowEffect;
+    [SerializeField] private ParticleController fallWindEffect;
+    [SerializeField] private ParticleController springWindEffect;
 
-    public GameObject RainEffect {  get { return rainEffect; } }
-    public GameObject SnowEffect { get {return snowEffect; } }
-    public GameObject FallWindEffect { get { return fallWindEffect; } }
-    public GameObject SpringWindEffect { get { return springWindEffect; } }
+    public ParticleController RainEffect {  get { return rainEffect; } }
+    public ParticleController SnowEffect { get {return snowEffect; } }
+    public ParticleController FallWindEffect { get { return fallWindEffect; } }
+    public ParticleController SpringWindEffect { get { return springWindEffect; } }
 
+    private void Update()
+    {
+        this.transform.position = GameManager.Instance.Player.transform.position;
+    }
 }

@@ -167,11 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0e94b9b5525ac488343fe6abd9bf1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialGameTime: 8
+  initialGameTime: 16.76
   timeMultiplier: 60
   currentGameTime: 0
   initialDay: 1
-  initialMonth: 8
+  initialMonth: 12
   initialYear: 2025
   weatherChangeTime: 8
   weatherChangeGap: 12
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 131615095}
   - component: {fileID: 131615096}
   m_Layer: 0
-  m_Name: WeatherEffect
+  m_Name: WeatherVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -200,14 +200,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131615094}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.6662827, y: 0.6247202, z: 2.285763}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.607964, y: 1.3186632, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1419157140}
   - {fileID: 1449285684}
-  m_Father: {fileID: 0}
+  - {fileID: 607870175}
+  - {fileID: 1901941329}
+  m_Father: {fileID: 509451189}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &131615096
 MonoBehaviour:
@@ -221,10 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db83e31c108ba64181def6302bc858b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rainEffect: {fileID: 1449285681}
-  snowEffect: {fileID: 1419157137}
-  fallWindEffect: {fileID: 607870172}
-  springWindEffect: {fileID: 1901941326}
+  rainEffect: {fileID: 1449285685}
+  snowEffect: {fileID: 1419157141}
+  fallWindEffect: {fileID: 607870176}
+  springWindEffect: {fileID: 1901941330}
 --- !u!1 &173726803
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,6 +452,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 712839193}
+  - {fileID: 131615095}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &571645817
@@ -1996,13 +1999,14 @@ GameObject:
   - component: {fileID: 607870175}
   - component: {fileID: 607870174}
   - component: {fileID: 607870173}
+  - component: {fileID: 607870176}
   m_Layer: 0
   m_Name: FallLeafEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &607870173
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -2150,7 +2154,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -6808,13 +6812,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 607870172}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.98, y: 5.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 131615095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &607870176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607870172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50596a816aaf0a4a98ddaedd1a7a18b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &712839190
 GameObject:
   m_ObjectHideFlags: 0
@@ -6942,18 +6958,18 @@ MonoBehaviour:
     key1: {r: 0.20968586, g: 0.26835284, b: 0.544802, a: 1}
     key2: {r: 0.6748525, g: 0.6537469, b: 0.7830189, a: 0}
     key3: {r: 0.7076807, g: 0.8363395, b: 0.8773585, a: 0}
-    key4: {r: 0.3484336, g: 0.69954735, b: 0.8490566, a: 0}
-    key5: {r: 0.7924528, g: 0.7266487, b: 0.48220006, a: 0}
+    key4: {r: 0.73794055, g: 0.9004751, b: 0.9716981, a: 0}
+    key5: {r: 0.48235294, g: 0.7921569, b: 0.5090834, a: 0}
     key6: {r: 0.58229584, g: 0.5730687, b: 0.8867924, a: 0}
     key7: {r: 0.12941177, g: 0.20000002, b: 0.5176471, a: 0}
     ctime0: 0
-    ctime1: 11758
-    ctime2: 17348
-    ctime3: 21823
+    ctime1: 13685
+    ctime2: 20046
+    ctime3: 24865
     ctime4: 32768
-    ctime5: 49151
-    ctime6: 54356
-    ctime7: 58403
+    ctime5: 45296
+    ctime6: 50501
+    ctime7: 55127
     atime0: 0
     atime1: 65535
     atime2: 0
@@ -12096,13 +12112,14 @@ GameObject:
   - component: {fileID: 1419157140}
   - component: {fileID: 1419157139}
   - component: {fileID: 1419157138}
+  - component: {fileID: 1419157141}
   m_Layer: 0
   m_Name: SnowEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1419157138
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -12185,9 +12202,9 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419157137}
   serializedVersion: 8
-  lengthInSec: 10
+  lengthInSec: 5
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 1
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -12250,8 +12267,8 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
-  moveWithCustomTransform: {fileID: 0}
+  moveWithTransform: 1
+  moveWithCustomTransform: {fileID: 1419157140}
   scalingMode: 1
   randomSeed: 0
   InitialModule:
@@ -13692,7 +13709,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 3
-      scalar: -1
+      scalar: 0.47
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -16909,12 +16926,24 @@ Transform:
   m_GameObject: {fileID: 1419157137}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 4.796283, y: 13.085279, z: -2.285763}
+  m_LocalPosition: {x: 0.03, y: 13.085279, z: -2.285763}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 131615095}
   m_LocalEulerAnglesHint: {x: -270, y: 0, z: 0}
+--- !u!114 &1419157141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419157137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50596a816aaf0a4a98ddaedd1a7a18b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1449285681
 GameObject:
   m_ObjectHideFlags: 0
@@ -16926,13 +16955,14 @@ GameObject:
   - component: {fileID: 1449285684}
   - component: {fileID: 1449285683}
   - component: {fileID: 1449285682}
+  - component: {fileID: 1449285685}
   m_Layer: 0
   m_Name: RainEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1449285682
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -17080,7 +17110,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -21739,13 +21769,25 @@ Transform:
   m_GameObject: {fileID: 1449285681}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.17364825, w: 0.9848078}
-  m_LocalPosition: {x: 8.906282, y: 7.37528, z: -2.285763}
+  m_LocalPosition: {x: 1.88, y: 7.74, z: -2.285763}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1304347653}
   m_Father: {fileID: 131615095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -20}
+--- !u!114 &1449285685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449285681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50596a816aaf0a4a98ddaedd1a7a18b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1474021605
 GameObject:
   m_ObjectHideFlags: 3
@@ -22278,13 +22320,14 @@ GameObject:
   - component: {fileID: 1901941329}
   - component: {fileID: 1901941328}
   - component: {fileID: 1901941327}
+  - component: {fileID: 1901941330}
   m_Layer: 0
   m_Name: SpringLeafEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1901941327
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -22432,7 +22475,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -27090,13 +27133,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901941326}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.98, y: 5.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 131615095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1901941330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901941326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50596a816aaf0a4a98ddaedd1a7a18b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2075891672
 GameObject:
   m_ObjectHideFlags: 0
@@ -36919,6 +36974,3 @@ SceneRoots:
   - {fileID: 1897884311}
   - {fileID: 60932127}
   - {fileID: 509451189}
-  - {fileID: 131615095}
-  - {fileID: 607870175}
-  - {fileID: 1901941329}

@@ -29,8 +29,10 @@ public class WeatherSystem : MonoBehaviour
     private SeasonData currentSeason;
     private IWeatherState currentState;
     private WorldLight worldLight;
+    private WeatherVFX weatherVFX;
 
     public WorldLight WorldLight { get { return worldLight; } }
+    public WeatherVFX WeatherVFX {  get { return weatherVFX; } }
     public SeasonData CurrentSeason { get { return currentSeason; } }
     public IWeatherState CurrentState { get { return currentState; } }
 
@@ -40,6 +42,7 @@ public class WeatherSystem : MonoBehaviour
     {
         WeatherManager.Instance.WeatherSystem = this;
         worldLight = GetComponentInChildren<WorldLight>();
+        weatherVFX = GetComponentInChildren<WeatherVFX>();
 
         stateMachine = new WeatherStateMachine(this);
         seasons = new SeasonDataLoader();
