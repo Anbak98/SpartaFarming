@@ -14,9 +14,14 @@ public class UnitAttack : MonoBehaviour, IAttack<BaseUnit>
 
     public void IAttack_Enter()
     {
-        // 히트 범위 만큼 overlapSpere 해서 안에 플레이어 검출하면 데미지주기
+        // 히트 범위 만큼 overlapSpere , player 레이어만
+        Collider2D[] collider = Physics2D.OverlapCircleAll
+            (transform.position , Owner.UnitState.hitRange, UnitManager.Instance.PlayerLayer);
 
-        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position , Owner.UnitState.hitRange);
+        if (collider.Length != 0) 
+        {
+            // ##TODO 플레이어에게 데미지 
+        }
     }
 
     public void IAttack()
