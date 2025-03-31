@@ -30,8 +30,7 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
         }
 
         // 플레이어와 일정거리 만큼 가까워지면 -> Tracking으로 변경 
-        distanceToPlayer = Vector2.Distance(transform.position , Owner.Player.position);
-        if (distanceToPlayer <= Owner.UnitState.trackingTriggerRange) 
+        if (Owner.isInRange(Owner.UnitState.trackingTriggerRange)) 
         {
             Owner.ChageState(EnemyState.Tracking);
         }
