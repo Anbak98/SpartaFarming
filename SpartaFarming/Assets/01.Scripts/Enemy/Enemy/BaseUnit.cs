@@ -15,6 +15,15 @@ public enum EnemyState
 
 }
 
+public enum EnemyAnimationState 
+{
+    Idle,
+    Run,
+    Attack,
+    Hit,
+    Die
+}
+
 public class BaseUnit : MonoBehaviour
 {
     [Header("===State===")]
@@ -25,42 +34,44 @@ public class BaseUnit : MonoBehaviour
     [Header("===Player===")]
     [SerializeField] private Transform player;
 
-    // ##TODO : FSMHanlder로 분리 예정 
-    // FSM
+    [Header("===Handler===")]
+    [SerializeField] EnemyAnimationHandler animaionHandler;
+
+    // ## TODO : handler로 바꾸기
     [Header("===FSM===")]
     [SerializeField] private HeadMachine<BaseUnit> unitHeadMachine;
     [SerializeField] private FSM[] stateArray;
     [SerializeField] private EnemyState currState;
     [SerializeField] private EnemyState preState;
 
+    // 프로퍼티
     public Transform Player { get => player; }
     public LayerMask ObstacleLayer { get => obstacleLayer; }
     public Unit UnitState { get => unitState; }
 
-    private void Awake()
+    private void Start() 
     {
+        // 핸들러 초기화
+        animaionHandler = new EnemyAnimationHandler(GetComponent<Animator>());
+
         // FSM 초기화
         InitFSMArray();
 
         // ##TODO : unit클래스 초기화 
-        unitNumber      = 0;
-        unitState       = UnitManager.Instance.GetUnit(unitNumber);
+        unitState = UnitManager.Instance.GetUnit(unitNumber);
 
         // UnitManager에서 초기화 
-        player          = UnitManager.Instance.PlayerTrs;
-        obstacleLayer   = UnitManager.Instance.ObstacleLayer;
-    }
+        player = UnitManager.Instance.PlayerTrs;
+        obstacleLayer = UnitManager.Instance.ObstacleLayer;
 
-    private void Start() 
-    {
         // 현재 상태 실행
-        // unitHeadMachine.HM_StateEnter();
+        unitHeadMachine.HM_StateEnter();
     }
 
     private void OnEnable()
     {
         // 현재 상태 실행
-        unitHeadMachine.HM_StateEnter();
+        // unitHeadMachine.HM_StateEnter();
     }
 
     private void Update()
@@ -83,10 +94,10 @@ public class BaseUnit : MonoBehaviour
         IDie<BaseUnit> dieComponent             = GetComponent<IDie<BaseUnit>>();
 
         // unit 데이터 넣어주기
-        attackComponent.IAttackInit(this);
-        trackingComponent.ITrakingInit(this);
-        prowlComponent.IProwlInit(this);
-        dieComponent.IDieInit(this);
+        if(attackComponent != null) attackComponent.IAttackInit(this);
+        if(trackingComponent != null) trackingComponent.ITrakingInit(this);
+        if(prowlComponent != null) prowlComponent.IProwlInit(this);
+        if(dieComponent != null) dieComponent.IDieInit(this);
 
         // FSM 배열 초기화 
         stateArray[(int)EnemyState.Attack]      = new AttackState<BaseUnit>(this, attackComponent);
@@ -103,6 +114,9 @@ public class BaseUnit : MonoBehaviour
 
     public void ChageState(EnemyState nextState) 
     {
+        if (StateToFSM(nextState) == null) 
+            return;
+        
         // 시각용 
         preState = currState;
         currState = nextState;
@@ -125,26 +139,53 @@ public class BaseUnit : MonoBehaviour
     {
         // prowl -> Tracking 범위 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position , 5f);
+        Gizmos.DrawWireSphere(transform.position , unitState.trackingTriggerRange);
 
         // Tracking -> Attack 범위
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 1f);
+        Gizmos.DrawWireSphere(transform.position, unitState.attackTriggerRange);
     }
 
     // 플레이어 기준 플립
-    public void Flip() 
+    public void Flip( float standardX  ) 
     {
-        // 플레이어 기준 flip
-        if (player.position.x > transform.position.x)
+        // 매개변수로들어온 x 기준 flip
+        if (standardX > transform.position.x)
         {
             // 오른쪽 바라보기
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localEulerAngles = new Vector3(0,0,0);
         }
         else
         {
             // 왼쪽 바라보기
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localEulerAngles = new Vector3(0, 180, 0);
         }
     }
+
+    // 범위안에 있는지 ?
+    public bool isInRange(float standardDistance) 
+    {
+        // 내 위치 , 플레이어 위치 거리 
+        // 기준 거리 안에 있으면 true
+        float dis = Vector2.Distance(transform.position , player.position);
+        if (dis <= standardDistance)
+            return true;
+        // 없으면 false
+        else 
+            return false;
+    }
+
+    // 죽으면 -> 상태변화 
+    public void IsDie() 
+    {
+        if (unitState.hp <= 0)
+            ChageState(EnemyState.Die);
+    }
+
+    // 애니메이션 변경
+    public void ChangeAnimation( EnemyAnimationState state ) 
+    {
+        animaionHandler.ChangeAnimator(state);
+    }
+
 }

@@ -16,19 +16,26 @@ public class AttackState<T> : FSM
 
     public override void FSM_Enter()
     {
-        Debug.Log($"Owner : {Owner.GetType().Name} : Attack Enter");
+        //Debug.Log($"Owner : {Owner.GetType().Name} : Attack Enter");
 
+        if(Iattack != null)
+            Iattack.IAttack_Enter();
     }
 
     public override void FSM_Excute()
     {
-        Debug.Log($"Owner : {Owner.GetType().Name} : Attack");
+        //Debug.Log($"Owner : {Owner.GetType().Name} : Attack");
 
+        if (Iattack != null)
+            Iattack.IAttack();
     }
 
     public override void FSM_Exit()
     {
-        Debug.Log($"Owner : {Owner.GetType().Name} : Attack Exit");
+        //Debug.Log($"Owner : {Owner.GetType().Name} : Attack Exit");
+
+        if (Iattack != null)
+            Iattack.IAttack_Exit();
 
     }
 }

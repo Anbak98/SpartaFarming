@@ -8,7 +8,7 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
     [SerializeField]
     private BaseUnit Owner;
     [SerializeField]
-    private float distanceToPlayer;
+    private float prowlRange;
 
     public void IProwlInit(BaseUnit temp)
     {
@@ -17,7 +17,7 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
 
     public void IProwl_Enter()
     {
-        distanceToPlayer = 100f;    // 초기에 임시로 잡아놓기 
+        // 동작 실행 
         StartCoroutine(Prowl());
     }
 
@@ -29,9 +29,13 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
             return;
         }
 
+        // 플립
+        // Owner.Flip();
+        // 사망
+        Owner.IsDie();
+
         // 플레이어와 일정거리 만큼 가까워지면 -> Tracking으로 변경 
-        distanceToPlayer = Vector2.Distance(transform.position , Owner.Player.position);
-        if (distanceToPlayer <= Owner.UnitState.trackingTriggerRange) 
+        if (Owner.isInRange(Owner.UnitState.trackingTriggerRange)) 
         {
             Owner.ChageState(EnemyState.Tracking);
         }
@@ -44,50 +48,67 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
 
     IEnumerator Prowl() 
     {
-        Vector2 nextPosition;
         while (true) 
-        { 
-            Vector3 currUnitPosition = transform.position;
+        {
+            // 애니메이션 실행 Run 
+            Owner.ChangeAnimation(EnemyAnimationState.Run);
 
-            // 새 위치 받기 
-            nextPosition = RandomPosition(currUnitPosition);
+            // 배회 움직임 
+            yield return StartCoroutine(LerpProwl());
 
-            // 시작 위치 저장
-            Vector2 startPosition = currUnitPosition;
-
-            // 이동에 걸리는 시간 계산
-            float journeyLength = Vector2.Distance(startPosition, nextPosition);
-            float journeyTime = journeyLength / 3f;
-
-            // Lerp로 자연스럽게 이동
-            float elapsedTime = 0;
-
-            while (elapsedTime < journeyTime)
-            {
-                elapsedTime += Time.deltaTime;
-                float t = Mathf.Clamp01(elapsedTime / journeyTime); // 0~1 사이 값으로 정규화
-
-                transform.position = Vector2.Lerp(startPosition, nextPosition, t);
-                yield return null; // 다음 프레임까지 대기
-            }
-
-            // 정확한 위치로 설정
-            transform.position = nextPosition;
-
+            // 애니메이션 실행 Idle
+            Owner.ChangeAnimation(EnemyAnimationState.Idle);
             // 다음 이동 전 잠시 대기
             yield return new WaitForSeconds(1.5f);
         }
     }
 
+    private IEnumerator LerpProwl()
+    {
+        Vector2 nextPosition;
+
+        Vector3 currUnitPosition = transform.position;
+
+        // 새 위치 받기 
+        nextPosition = RandomPosition(currUnitPosition);
+
+        // 플립
+        Owner.Flip(nextPosition.x);
+
+        // 시작 위치 저장
+        Vector2 startPosition = currUnitPosition;
+
+        // 이동에 걸리는 시간 계산
+        float journeyLength = Vector2.Distance(startPosition, nextPosition);
+        float journeyTime = journeyLength / 3f;
+
+        // Lerp로 자연스럽게 이동
+        float elapsedTime = 0;
+
+        while (elapsedTime < journeyTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / journeyTime); // 0~1 사이 값으로 정규화
+
+            transform.position = Vector2.Lerp(startPosition, nextPosition, t);
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        // 정확한 위치로 설정
+        transform.position = nextPosition;
+
+        // 종료 
+        yield break;
+    }
     
     private Vector3 RandomPosition(Vector2 origin) 
     {
         for (int i = 0; i < 5; i++) 
         {
-            float minX = origin.x - Owner.UnitState.trackingTriggerRange;
-            float maxX = origin.x + Owner.UnitState.trackingTriggerRange;
-            float minY = origin.y - Owner.UnitState.trackingTriggerRange;
-            float maxY = origin.y + Owner.UnitState.trackingTriggerRange;
+            float minX = origin.x - Owner.UnitState.prowlRange;
+            float maxX = origin.x + Owner.UnitState.prowlRange;
+            float minY = origin.y - Owner.UnitState.prowlRange;
+            float maxY = origin.y + Owner.UnitState.prowlRange;
 
             float ranX = Random.Range(minX, maxX);
             float ranY = Random.Range(minY, maxY);
@@ -101,8 +122,6 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
 
         return origin;
     }
-    
-
     
     // 장애물이 있는지 검사 
     private bool CanReach(Vector2 origin , Vector2 dest) 

@@ -453,6 +453,9 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &1155918994
 PrefabInstance:
   m_ObjectHideFlags: 0

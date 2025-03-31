@@ -16,7 +16,8 @@ public class DieState<T> : FSM
 
     public override void FSM_Enter()
     {
-
+        if(Idie != null)
+            Idie.IDie();
     }
 
     public override void FSM_Excute()
