@@ -39,28 +39,30 @@ public class BaseUnit : MonoBehaviour
 
     private void Awake()
     {
-        // FSM 초기화
-        InitFSMArray();
-
-        // ##TODO : unit클래스 초기화 
-        unitNumber      = 0;
-        unitState       = UnitManager.Instance.GetUnit(unitNumber);
-
-        // UnitManager에서 초기화 
-        player          = UnitManager.Instance.PlayerTrs;
-        obstacleLayer   = UnitManager.Instance.ObstacleLayer;
+        
     }
 
     private void Start() 
     {
+        // FSM 초기화
+        InitFSMArray();
+
+        // ##TODO : unit클래스 초기화 
+        unitNumber = 0;
+        unitState = UnitManager.Instance.GetUnit(unitNumber);
+
+        // UnitManager에서 초기화 
+        player = UnitManager.Instance.PlayerTrs;
+        obstacleLayer = UnitManager.Instance.ObstacleLayer;
+
         // 현재 상태 실행
-        // unitHeadMachine.HM_StateEnter();
+        unitHeadMachine.HM_StateEnter();
     }
 
     private void OnEnable()
     {
         // 현재 상태 실행
-        unitHeadMachine.HM_StateEnter();
+        // unitHeadMachine.HM_StateEnter();
     }
 
     private void Update()
