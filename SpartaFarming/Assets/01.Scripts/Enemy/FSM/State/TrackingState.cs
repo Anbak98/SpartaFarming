@@ -16,21 +16,21 @@ public class TrackingState<T> : FSM
 
     public override void FSM_Enter()
     {
-        Debug.Log($"Owner : {Owner.GetType().Name} : Tracking Enter");
+        //Debug.Log($"Owner : {Owner.GetType().Name} : Tracking Enter");
 
         Itracking.ITraking_Enter();
     }
 
     public override void FSM_Excute()
     {
-        Debug.Log($"Owner : {Owner.GetType().Name} : Tracking");
+        //Debug.Log($"Owner : {Owner.GetType().Name} : Tracking");
 
         Itracking.ITraking();
     }
 
     public override void FSM_Exit()
     {
-        Debug.Log($"Owner : {Owner.GetType().Name} : Tracking Exit");
+        //Debug.Log($"Owner : {Owner.GetType().Name} : Tracking Exit");
 
         Itracking.ITraking_Exit();
     }

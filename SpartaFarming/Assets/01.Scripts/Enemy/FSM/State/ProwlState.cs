@@ -16,21 +16,21 @@ public class ProwlState<T> : FSM
 
     public override void FSM_Enter()
     {
-        Debug.Log($"Owner : {Owner.GetType().Name} : ProwlState Enter");
+        //Debug.Log($"Owner : {Owner.GetType().Name} : ProwlState Enter");
 
         Iprowl.IProwl_Enter();
     }
 
     public override void FSM_Excute()
     {
-        Debug.Log($"Owner : {Owner.GetType().Name} : ProwlState");
+        //Debug.Log($"Owner : {Owner.GetType().Name} : ProwlState");
 
         Iprowl.IProwl();
     }
 
     public override void FSM_Exit()
     {
-        Debug.Log($"Owner : {Owner.GetType().Name} : ProwlState Exit");
+        //Debug.Log($"Owner : {Owner.GetType().Name} : ProwlState Exit");
 
         Iprowl.IProwl_Exit();
     }
