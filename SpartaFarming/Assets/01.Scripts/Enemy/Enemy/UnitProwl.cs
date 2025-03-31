@@ -7,8 +7,6 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
 {
     [SerializeField]
     private BaseUnit Owner;
-    [SerializeField]
-    private float distanceToPlayer;
 
     public void IProwlInit(BaseUnit temp)
     {
@@ -17,7 +15,6 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
 
     public void IProwl_Enter()
     {
-        distanceToPlayer = 100f;    // 초기에 임시로 잡아놓기 
         StartCoroutine(Prowl());
     }
 
@@ -28,6 +25,11 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
             Debug.LogError("Base Unit의 Player가 null 상태 ");
             return;
         }
+
+        // 플립
+        // Owner.Flip();
+        // 사망
+        Owner.IsDie();
 
         // 플레이어와 일정거리 만큼 가까워지면 -> Tracking으로 변경 
         if (Owner.isInRange(Owner.UnitState.trackingTriggerRange)) 
@@ -50,6 +52,9 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
 
             // 새 위치 받기 
             nextPosition = RandomPosition(currUnitPosition);
+
+            // 플립
+            Owner.Flip(nextPosition.x);
 
             // 시작 위치 저장
             Vector2 startPosition = currUnitPosition;

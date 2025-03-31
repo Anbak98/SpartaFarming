@@ -28,6 +28,11 @@ public class UnitTracking : MonoBehaviour, ITraking<BaseUnit>
         // 추적 
         LerpTracking();
 
+        // 플립
+        Owner.Flip(Owner.Player.position.x);
+        // 사망
+        Owner.IsDie();
+
         // attack 범위 안에 들어오면 -> Attack으로 변경 
         if (Owner.isInRange(Owner.UnitState.attackTriggerRange))
         {

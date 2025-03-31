@@ -135,18 +135,18 @@ public class BaseUnit : MonoBehaviour
     }
 
     // 플레이어 기준 플립
-    public void Flip() 
+    public void Flip( float standardX  ) 
     {
-        // 플레이어 기준 flip
-        if (player.position.x > transform.position.x)
+        // 매개변수로들어온 x 기준 flip
+        if (standardX > transform.position.x)
         {
             // 오른쪽 바라보기
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localEulerAngles = new Vector3(0,0,0);
         }
         else
         {
             // 왼쪽 바라보기
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localEulerAngles = new Vector3(0, 180, 0);
         }
     }
 

@@ -25,6 +25,11 @@ public class UnitAttack : MonoBehaviour, IAttack<BaseUnit>
             return;
         }
 
+        // 플립
+        Owner.Flip(Owner.Player.position.x);
+        // 사망
+        Owner.IsDie();
+
         // attack 범위 나가면 -> Tracking
         if ( ! Owner.isInRange(Owner.UnitState.attackTriggerRange) )
         {
