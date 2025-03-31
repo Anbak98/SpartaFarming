@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,8 +15,8 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     private float vertical;
 
-    private float plLastMoveX;
-    private float plLastMoveY;
+    public float plLastMoveX;
+    public float plLastMoveY;
 
     private Rigidbody2D _rigidbody;
     private Animator playerAnimator;
@@ -30,12 +31,15 @@ public class PlayerController : MonoBehaviour
     public GameObject axeTool;
     public GameObject harvestTool;
     public GameObject wateringTool;
-    public GameObject fishingTool;    
+    public GameObject fishingTool;
+
+    public Tilemap floorMap;
+    public TileBase floorTile;    
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        playerAnimator = GetComponent<Animator>();
+        playerAnimator = GetComponentInChildren<Animator>();
 
         equipTools = new List<GameObject>(){ axeTool, harvestTool, wateringTool, fishingTool };
     }
@@ -143,7 +147,18 @@ public class PlayerController : MonoBehaviour
         if (equipped && !nearWater && context.phase == InputActionPhase.Started)
         {
             playerAnimator.SetTrigger("Use");
-            if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");            
+            if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");
+
+            if (curTool.CompareTag("Hoe"))
+            {
+                Vector3 pos = transform.position;
+                Vector3Int gridPos = floorMap.WorldToCell(pos);
+                if (plLastMoveX == 1) floorMap.SetTile(gridPos + Vector3Int.right, floorTile);
+                else if (plLastMoveX == -1) floorMap.SetTile(gridPos + Vector3Int.left, floorTile);
+                else if (plLastMoveY == 1) floorMap.SetTile(gridPos + Vector3Int.forward, floorTile);
+                else if (plLastMoveY == -1) floorMap.SetTile(gridPos + Vector3Int.back, floorTile);
+                else return;
+            }           
         }
 
         if (equipped && nearWater && context.phase == InputActionPhase.Started)
