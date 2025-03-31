@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public bool equipped = false;
     public bool nearWater = false;
     public EquipItemUI equipItemUI;
+    public int selectedEquipItemIndex;
     public List<GameObject> equipTools;
     public GameObject curTool;
     public GameObject toolPivot;
@@ -50,9 +51,12 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        playerAnimator = GetComponentInChildren<Animator>();
+        playerAnimator = GetComponentInChildren<Animator>();        
+    }
 
-        equipTools = new List<GameObject>(){ axeTool, harvestTool, wateringTool, fishingTool };
+    private void Update()
+    {
+        GetEquipItemIndex();
     }
 
     private void FixedUpdate()
@@ -130,29 +134,28 @@ public class PlayerController : MonoBehaviour
         else if (toolPivot.transform.GetChild(0) != null) toolAnimator = toolPivot.transform.GetChild(0).GetComponent<Animator>();        
     }
 
+    public void GetEquipItemIndex()
+    {
+        for (int i = 0; i < equipItemUI.itemSlots.Length; i++)
+        {
+            if (equipItemUI.itemSlots[i].isSelected) selectedEquipItemIndex = i;            
+        }        
+    }
+
     //Equip InputAction
     public void OnEquip(InputAction.CallbackContext context)
     {
-        if (equipItemUI.gameObject.activeInHierarchy)
+        if (context.phase == InputActionPhase.Started && !equipped)
         {
-            for (int i = 0; i < equipTools.Count; i++)
-            {
-                if (equipItemUI.itemSlots[i].isSelected)
-                {
-                    if (context.phase == InputActionPhase.Started && !equipped)
-                    {
-                        curTool = Instantiate(equipTools[i], toolPivot.transform);
-                        equipped = true;
-                    }
-                    else if (context.phase == InputActionPhase.Started && equipped)
-                    {
-                        Destroy(curTool);
-                        toolAnimator = null;
-                        equipped = false;
-                    }
-                }
-            }
-        }                
+            curTool = Instantiate(equipTools[selectedEquipItemIndex], toolPivot.transform);
+            equipped = true;
+        }
+        else if (context.phase == InputActionPhase.Started && equipped)
+        {
+            Destroy(curTool);
+            toolAnimator = null;
+            equipped = false;
+        }
     }
 
     // Use InputAction
@@ -165,44 +168,41 @@ public class PlayerController : MonoBehaviour
             Vector3Int FlrGridPos = floorMap.WorldToCell(pos);
 
             // 장비 장착과 사용
-            if (equipItemUI.gameObject.activeInHierarchy)
+            if (equipped && !nearWater && context.phase == InputActionPhase.Started)
             {
-                if (equipped && !nearWater && context.phase == InputActionPhase.Started)
+                playerAnimator.SetTrigger("Use");
+                if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");
+
+                // Axe 플레이어 이전 이동방향 따라 앞의 타일맵 오브젝트 파괴
+                if (curTool.CompareTag("Axe"))
                 {
-                    playerAnimator.SetTrigger("Use");
-                    if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");                    
-
-                    // Axe 플레이어 이전 이동방향 따라 앞의 타일맵 오브젝트 파괴
-                    if (curTool.CompareTag("Axe"))
-                    {
-                        if (plLastMoveX == 1) objectMap.SetTile(objGridPos + Vector3Int.right, null);
-                        else if (plLastMoveX == -1) objectMap.SetTile(objGridPos + Vector3Int.left, null);
-                        else if (plLastMoveY == 1) objectMap.SetTile(objGridPos + Vector3Int.up, null);
-                        else if (plLastMoveY == -1) objectMap.SetTile(objGridPos + Vector3Int.down, null);
-                        else return;
-                    }
-
-                    // Hoe 플레이어 이전 이동방향 따라 앞의 땅 파기
-                    if (curTool.CompareTag("Hoe"))
-                    {
-                        if (plLastMoveX == 1 && !objectMap.HasTile(objGridPos + Vector3Int.right) && !waterMap.HasTile(objGridPos + Vector3Int.right))
-                            floorMap.SetTile(FlrGridPos + Vector3Int.right, floorTile);
-                        else if (plLastMoveX == -1 && !objectMap.HasTile(objGridPos + Vector3Int.left) && !waterMap.HasTile(objGridPos + Vector3Int.left))
-                            floorMap.SetTile(FlrGridPos + Vector3Int.left, floorTile);
-                        else if (plLastMoveY == 1 && !objectMap.HasTile(objGridPos + Vector3Int.up) && !waterMap.HasTile(objGridPos + Vector3Int.up))
-                            floorMap.SetTile(FlrGridPos + Vector3Int.up, floorTile);
-                        else if (plLastMoveY == -1 && !objectMap.HasTile(objGridPos + Vector3Int.down) && !waterMap.HasTile(objGridPos + Vector3Int.down))
-                            floorMap.SetTile(FlrGridPos + Vector3Int.down, floorTile);
-                        else return;
-                    }
+                    if (plLastMoveX == 1) objectMap.SetTile(objGridPos + Vector3Int.right, null);
+                    else if (plLastMoveX == -1) objectMap.SetTile(objGridPos + Vector3Int.left, null);
+                    else if (plLastMoveY == 1) objectMap.SetTile(objGridPos + Vector3Int.up, null);
+                    else if (plLastMoveY == -1) objectMap.SetTile(objGridPos + Vector3Int.down, null);
+                    else return;
                 }
 
-                if (equipped && nearWater && context.phase == InputActionPhase.Started)
+                // Hoe 플레이어 이전 이동방향 따라 앞의 땅 파기
+                if (curTool.CompareTag("Hoe"))
                 {
-                    playerAnimator.SetTrigger("Use");
-                    if (curTool.CompareTag("Rod")) toolAnimator.SetBool("Fishing", true);
-                    else toolAnimator.SetTrigger("Use");
+                    if (plLastMoveX == 1 && !objectMap.HasTile(objGridPos + Vector3Int.right) && !waterMap.HasTile(objGridPos + Vector3Int.right))
+                        floorMap.SetTile(FlrGridPos + Vector3Int.right, floorTile);
+                    else if (plLastMoveX == -1 && !objectMap.HasTile(objGridPos + Vector3Int.left) && !waterMap.HasTile(objGridPos + Vector3Int.left))
+                        floorMap.SetTile(FlrGridPos + Vector3Int.left, floorTile);
+                    else if (plLastMoveY == 1 && !objectMap.HasTile(objGridPos + Vector3Int.up) && !waterMap.HasTile(objGridPos + Vector3Int.up))
+                        floorMap.SetTile(FlrGridPos + Vector3Int.up, floorTile);
+                    else if (plLastMoveY == -1 && !objectMap.HasTile(objGridPos + Vector3Int.down) && !waterMap.HasTile(objGridPos + Vector3Int.down))
+                        floorMap.SetTile(FlrGridPos + Vector3Int.down, floorTile);
+                    else return;
                 }
+            }
+
+            if (equipped && nearWater && context.phase == InputActionPhase.Started)
+            {
+                playerAnimator.SetTrigger("Use");
+                if (curTool.CompareTag("Rod")) toolAnimator.SetBool("Fishing", true);
+                else toolAnimator.SetTrigger("Use");
             }
 
             // FenceTool 들어갔을 때
