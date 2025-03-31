@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -35,6 +36,8 @@ public class WeatherSystem : MonoBehaviour
 
     public bool canChangeWeather = true;
 
+    public Action OnSeasonChange;
+
     private void Awake()
     {
         WeatherManager.Instance.WeatherSystem = this;
@@ -64,6 +67,7 @@ public class WeatherSystem : MonoBehaviour
                 if (currentSeason == null || currentSeason != season)
                 {
                     currentSeason = season;
+                    OnSeasonChange.Invoke();
                 }
             }
         }
