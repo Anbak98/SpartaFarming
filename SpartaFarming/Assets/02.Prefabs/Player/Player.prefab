@@ -176,14 +176,37 @@ MonoBehaviour:
   equipped: 0
   nearWater: 0
   equipItemUI: {fileID: 0}
+  equipTools: []
   curTool: {fileID: 0}
   toolPivot: {fileID: 8922720355537886533}
   axeTool: {fileID: 132538316392624365, guid: e9de290166b519043974815b5bf49ef6, type: 3}
   harvestTool: {fileID: 3671608199247056103, guid: 5ae1a40e82ace9c47aab0e651e354b99, type: 3}
   wateringTool: {fileID: 812860788820672821, guid: 2c83d0b8511af9746ace2f91f3b1a5dc, type: 3}
   fishingTool: {fileID: 490140306873702299, guid: 14df9d8560f1fee42811b2367856c014, type: 3}
-  equipTools: []
+  fenceToolUI: {fileID: 0}
+  fenceToolSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   objectMap: {fileID: 0}
+  fences:
+  - {fileID: 11400000, guid: 5ba1ec7480a77934da581957ca600db8, type: 2}
+  - {fileID: 11400000, guid: 3d6272b6e55ce554e93b77e14fd16aad, type: 2}
+  - {fileID: 11400000, guid: 76fca6105b50871498505a0a657180c0, type: 2}
+  - {fileID: 11400000, guid: 17e01263be4ecee43899f7827b72c58c, type: 2}
+  - {fileID: 11400000, guid: 47f5a840841f89349951124d5cde6cf9, type: 2}
+  - {fileID: 11400000, guid: b51c0fc2de955b44ca0c027d658baa36, type: 2}
+  - {fileID: 11400000, guid: b0a81f08e002fab45b2461ccce649591, type: 2}
+  - {fileID: 11400000, guid: 31f64d5234c1e1b43a6d692b0bff8f4b, type: 2}
+  - {fileID: 11400000, guid: aaac2b4bcdd799347b9964433d99dfff, type: 2}
+  - {fileID: 11400000, guid: 41efcd95bdf42ba499c8b52a8f2700ed, type: 2}
   floorMap: {fileID: 0}
   floorTile: {fileID: 11400000, guid: 77480abfd64960445b413d86d2b1401f, type: 2}
 --- !u!114 &2261244728267990952
@@ -259,6 +282,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5b5e3c0b-1ead-458c-a0e9-86aa6102747a
     m_ActionName: Player/Equip[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1988257424624100116}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnQuickSlot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5c5a4707-8152-4963-9d01-81e195b9ef9a
+    m_ActionName: Player/EquipQuickSlot[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

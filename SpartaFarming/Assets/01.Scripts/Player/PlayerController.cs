@@ -27,18 +27,25 @@ public class PlayerController : MonoBehaviour
     public bool equipped = false;
     public bool nearWater = false;
     public EquipItemUI equipItemUI;
+    public List<GameObject> equipTools;
     public GameObject curTool;
     public GameObject toolPivot;
     
     public GameObject axeTool;
     public GameObject harvestTool;
     public GameObject wateringTool;
-    public GameObject fishingTool;
-    public List<GameObject> equipTools;
+    public GameObject fishingTool;    
 
+    [Header("MapManagement")]
+    public FenceToolUI fenceToolUI;
+    public List<FenceToolSlot> fenceToolSlots;
     public Tilemap objectMap;
+    public List<TileBase> fences;
+
     public Tilemap floorMap;    
-    public TileBase floorTile;        
+    public TileBase floorTile;
+
+    public Tilemap waterMap;        
 
     private void Awake()
     {
@@ -150,47 +157,86 @@ public class PlayerController : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (equipped && !nearWater && context.phase == InputActionPhase.Started)
+            Vector3 pos = transform.position;
+            Vector3Int objGridPos = objectMap.WorldToCell(pos);
+            Vector3Int FlrGridPos = floorMap.WorldToCell(pos);
+
+            // 장비 장착과 사용
+            if (equipItemUI.gameObject.activeInHierarchy)
             {
-                playerAnimator.SetTrigger("Use");
-                if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");
+                if (equipped && !nearWater && context.phase == InputActionPhase.Started)
+                {
+                    playerAnimator.SetTrigger("Use");
+                    if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");                    
 
-                Vector3 pos = transform.position;
-                Vector3Int objGridPos = objectMap.WorldToCell(pos);
-                Vector3Int FlrGridPos = floorMap.WorldToCell(pos);
+                    // Axe 플레이어 이전 이동방향 따라 앞의 타일맵 오브젝트 파괴
+                    if (curTool.CompareTag("Axe"))
+                    {
+                        if (plLastMoveX == 1) objectMap.SetTile(objGridPos + Vector3Int.right, null);
+                        else if (plLastMoveX == -1) objectMap.SetTile(objGridPos + Vector3Int.left, null);
+                        else if (plLastMoveY == 1) objectMap.SetTile(objGridPos + Vector3Int.up, null);
+                        else if (plLastMoveY == -1) objectMap.SetTile(objGridPos + Vector3Int.down, null);
+                        else return;
+                    }
 
-                // Axe 플레이어 이전 이동방향 따라 앞의 타일맵 오브젝트 파괴
-                if (curTool.CompareTag("Axe"))
-                {                   
-                    if (plLastMoveX == 1) objectMap.SetTile(objGridPos + Vector3Int.right, null);
-                    else if (plLastMoveX == -1) objectMap.SetTile(objGridPos + Vector3Int.left, null);
-                    else if (plLastMoveY == 1) objectMap.SetTile(objGridPos + Vector3Int.up, null);
-                    else if (plLastMoveY == -1) objectMap.SetTile(objGridPos + Vector3Int.down, null);
-                    else return;
+                    // Hoe 플레이어 이전 이동방향 따라 앞의 땅 파기
+                    if (curTool.CompareTag("Hoe"))
+                    {
+                        if (plLastMoveX == 1 && !objectMap.HasTile(objGridPos + Vector3Int.right) && !waterMap.HasTile(objGridPos + Vector3Int.right))
+                            floorMap.SetTile(FlrGridPos + Vector3Int.right, floorTile);
+                        else if (plLastMoveX == -1 && !objectMap.HasTile(objGridPos + Vector3Int.left) && !waterMap.HasTile(objGridPos + Vector3Int.left))
+                            floorMap.SetTile(FlrGridPos + Vector3Int.left, floorTile);
+                        else if (plLastMoveY == 1 && !objectMap.HasTile(objGridPos + Vector3Int.up) && !waterMap.HasTile(objGridPos + Vector3Int.up))
+                            floorMap.SetTile(FlrGridPos + Vector3Int.up, floorTile);
+                        else if (plLastMoveY == -1 && !objectMap.HasTile(objGridPos + Vector3Int.down) && !waterMap.HasTile(objGridPos + Vector3Int.down))
+                            floorMap.SetTile(FlrGridPos + Vector3Int.down, floorTile);
+                        else return;
+                    }
                 }
 
-                // Hoe 플레이어 이전 이동방향 따라 앞의 땅 파기
-                if (curTool.CompareTag("Hoe"))
-                {                   
-                    if (plLastMoveX == 1 && !objectMap.HasTile(objGridPos + Vector3Int.right))
-                        floorMap.SetTile(FlrGridPos + Vector3Int.right, floorTile);
-                    else if (plLastMoveX == -1 && !objectMap.HasTile(objGridPos + Vector3Int.left))
-                        floorMap.SetTile(FlrGridPos + Vector3Int.left, floorTile);
-                    else if (plLastMoveY == 1 && !objectMap.HasTile(objGridPos + Vector3Int.up))
-                        floorMap.SetTile(FlrGridPos + Vector3Int.up, floorTile);
-                    else if (plLastMoveY == -1 && !objectMap.HasTile(objGridPos + Vector3Int.down))
-                        floorMap.SetTile(FlrGridPos + Vector3Int.down, floorTile);
-                    else return;
-                }        
+                if (equipped && nearWater && context.phase == InputActionPhase.Started)
+                {
+                    playerAnimator.SetTrigger("Use");
+                    if (curTool.CompareTag("Rod")) toolAnimator.SetBool("Fishing", true);
+                    else toolAnimator.SetTrigger("Use");
+                }
             }
 
-            if (equipped && nearWater && context.phase == InputActionPhase.Started)
+            // FenceTool 들어갔을 때
+            if (fenceToolUI.gameObject.activeInHierarchy)
             {
-                playerAnimator.SetTrigger("Use");
-                if (curTool.CompareTag("Rod")) toolAnimator.SetBool("Fishing", true);
-                else toolAnimator.SetTrigger("Use");
-            }
+                // 선택한 fence 플레이어 이전 이동방향 따라 앞에 타일맵에 그리기
+                for (int i = 0; i < fenceToolSlots.Count; i++)
+                {
+                    if (fenceToolSlots[i].isSelected)
+                    {
+                        if (plLastMoveX == 1 && !objectMap.HasTile(objGridPos + Vector3Int.right) && !waterMap.HasTile(objGridPos + Vector3Int.right))
+                            objectMap.SetTile(objGridPos + Vector3Int.right, fences[i]);
+                        else if (plLastMoveX == -1 && !objectMap.HasTile(objGridPos + Vector3Int.left) && !waterMap.HasTile(objGridPos + Vector3Int.left))
+                            objectMap.SetTile(objGridPos + Vector3Int.left, fences[i]);
+                        else if (plLastMoveY == 1 && !objectMap.HasTile(objGridPos + Vector3Int.up) && !waterMap.HasTile(objGridPos + Vector3Int.up))
+                            objectMap.SetTile(objGridPos + Vector3Int.up, fences[i]);
+                        else if (plLastMoveY == -1 && !objectMap.HasTile(objGridPos + Vector3Int.down) && !waterMap.HasTile(objGridPos + Vector3Int.down))
+                            objectMap.SetTile(objGridPos + Vector3Int.down, fences[i]);
+                        else return;
+                    } 
+                }
+            }            
         }
+    }
+
+    // EquipQuickSlot InputAction
+    public void OnQuickSlot(InputAction.CallbackContext context)
+    {
+        if (!equipItemUI.gameObject.activeInHierarchy && !fenceToolUI.gameObject.activeInHierarchy && context.phase == InputActionPhase.Started)
+            equipItemUI.gameObject.SetActive(true);
+        else if (equipItemUI.gameObject.activeInHierarchy && !fenceToolUI.gameObject.activeInHierarchy && context.phase == InputActionPhase.Started)
+        {
+            equipItemUI.gameObject.SetActive(false);
+            fenceToolUI.gameObject.SetActive(true);
+        }
+        else if(!equipItemUI.gameObject.activeInHierarchy && fenceToolUI.gameObject.activeInHierarchy && context.phase == InputActionPhase.Started)
+            fenceToolUI.gameObject.SetActive(false);
     }
 
     void OnTriggerStay2D(Collider2D other)

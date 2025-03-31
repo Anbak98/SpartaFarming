@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EquipItemSlot : MonoBehaviour
+public class FenceToolSlot : MonoBehaviour
 {
-    public EquipItemUI equipItemUI;
+    public FenceToolUI fenceToolUI;
     public bool isSelected = false;
 
     public Button slotBtn;
@@ -16,7 +16,7 @@ public class EquipItemSlot : MonoBehaviour
 
     void Update()
     {
-        
+
         selectedOutline.enabled = isSelected;
     }
 
@@ -24,7 +24,7 @@ public class EquipItemSlot : MonoBehaviour
     {
         if (!isSelected)
         {
-            equipItemUI.SelectOnlyOneItem();
+            fenceToolUI.SelectOnlyOneItem();
             isSelected = true;
         }
         else
