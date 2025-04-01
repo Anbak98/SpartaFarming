@@ -9,10 +9,15 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
     private BaseUnit Owner;
     [SerializeField]
     private float prowlRange;
+    [SerializeField]
+    private float rayMaxDistance;
 
     public void IProwlInit(BaseUnit temp)
     {
         this.Owner = temp;
+
+        // 임시
+        rayMaxDistance = 3f;
     }
 
     public void IProwl_Enter()
@@ -129,10 +134,10 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
         Vector2 dir = dest - origin;
 
         // raycast ( 시작위치, 방향, 거리, 레이어 )
-        RaycastHit2D hit = Physics2D.Raycast(origin, dir , 10f , UnitManager.Instance.ObstacleLayer);
+        RaycastHit2D hit = Physics2D.Raycast(origin, dir , rayMaxDistance, UnitManager.Instance.ObstacleLayer);
 
         // 레이 디버그  
-        Debug.DrawRay(origin, dir * 10f, Color.red, 0.1f);
+        Debug.DrawRay(origin, dir * rayMaxDistance, Color.red, 0.1f);
 
         // 충돌되면 -> false
         if (hit.collider != null)

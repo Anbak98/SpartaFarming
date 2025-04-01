@@ -66,7 +66,7 @@ public class BaseUnit : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("몬스터 Enable");
+        // Debug.Log("몬스터 Enable");
 
         // 상태 초기화 
         currState = EnemyState.Prowl;
