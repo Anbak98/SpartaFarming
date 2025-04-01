@@ -22,16 +22,15 @@ public class MineOre : MonoBehaviour
     이부분을
                     if (curTool.CompareTag("Axe"))
                 {
-                    Vector3Int tilePosition = objGridPpos;
+                    Vector3Int tilePosition = objGridPos;
 
-                    if (plLastMoveX == 1) targetPosition += Vector3Int.right
-                    else if (plLastMoveX == -1) targetPosition += Vector3Int.left
-                    else if (plLastMoveY == 1) targetPosition += Vector3Int.up
-                    else if (plLastMoveY == -1) targetPosition += Vector3Int.down
+                    if (plLastMoveX == 1) tilePosition += Vector3Int.right;
+                    else if (plLastMoveX == -1) tilePosition += Vector3Int.left;
+                    else if (plLastMoveY == 1) tilePosition += Vector3Int.up;
+                    else if (plLastMoveY == -1) tilePosition += Vector3Int.down;
                     else return;
 
                     onMine?.Invoke(tilePosition);
-                }
 
      */
 
@@ -40,8 +39,8 @@ public class MineOre : MonoBehaviour
     private void Start()
     {
         oreTilemap = GetComponent<Tilemap>();
-        TimeManager.Instance.TimeSystem.On8oClock += RespawnOre;
-        //GameManager.Instance.PlayerController.onMine += CheckOreTile;
+        //TimeManager.Instance.TimeSystem.On8oClock += RespawnOre;
+        GameManager.Instance.Player.Controller.onMine += CheckOreTile;
     }
 
     void CheckOreTile(Vector3Int tilePosition)
