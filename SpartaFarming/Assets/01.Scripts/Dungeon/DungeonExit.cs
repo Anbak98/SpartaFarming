@@ -10,7 +10,16 @@ public class DungeonExit : MonoBehaviour
         // 플레이어와 충돌하면 
         if (collision.gameObject.layer == UnitManager.Instance.PlayerLayerInt) 
         {
-            Debug.Log("플레이어가 탈출구에 도달했습니다");        
+            DungeonManager.Instance.dungeonUi.OnOffPanel();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // 플레이어와 충돌하면 
+        if (collision.gameObject.layer == UnitManager.Instance.PlayerLayerInt)
+        {
+            DungeonManager.Instance.dungeonUi.OnOffPanel();
         }
     }
 }

@@ -37,6 +37,9 @@ public class DungeonManager : Singleton<DungeonManager>
     [Header("===Action===")]
     private Action? enterFloor;
 
+    [Header("===Script===")]
+    public DungeonUI dungeonUi;
+
     private void Awake()
     {
         // ÇöÀç Ãþ¼ö
