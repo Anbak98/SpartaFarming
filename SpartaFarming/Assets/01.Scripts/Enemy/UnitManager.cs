@@ -129,15 +129,15 @@ public class UnitManager : Singleton<UnitManager>
         typeToUnit.Add(UnitType.Slime, slime);
 
         // ø¿≈©
-        Unit orc = new Unit(10, 1.5f, 5f, 5f, 2f, 2f, 3, 3f);
+        Unit orc = new Unit(10, 1.5f, 5f, 5f, 1f, 2f, 3, 3f);
         typeToUnit.Add(UnitType.Orc, orc);
 
         // ΩÎ ø¿≈©
-        Unit strongOrc = new Unit(10, 1.5f, 3f, 2f, 2f, 2f, 10, 3f);
+        Unit strongOrc = new Unit(10, 1.5f, 3f, 2f, 1f, 2f, 10, 3f);
         typeToUnit.Add(UnitType.StrongOrc, strongOrc);
 
         // π¶∫Ò
-        Unit graveStone = new Unit(10, 0.5f, 2f, 5f, 2f, 2f, 6, 5f);
+        Unit graveStone = new Unit(10, 0.5f, 2f, 2.5f, 0.7f, 2f, 6, 5f);
         typeToUnit.Add(UnitType.GraveStone, graveStone);
     }
 

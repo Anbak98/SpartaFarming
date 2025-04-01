@@ -57,12 +57,13 @@ public class UnitAttack : MonoBehaviour, IAttack<BaseUnit>
 
             if (collider.Length != 0)
             {
+                Debug.Log("플레이어에게 attack을 합니다");
                 // ##TODO 플레이어에게 데미지  
                 try
                 {
                     collider[0].GetComponent<IDamageable>().TakePhysicalDamage((int)Owner.UnitState.attackDamage);
                 }
-                catch (Exception e) { Debug.LogError($"{e}"); }
+                catch (Exception e) { Debug.LogError($"Unit Attack : {e}"); }
             }
 
             yield return new WaitForSeconds(Owner.UnitState.attackCoolTime);

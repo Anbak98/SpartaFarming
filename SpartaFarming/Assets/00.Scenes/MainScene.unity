@@ -30476,9 +30476,11 @@ MonoBehaviour:
   initialGameTime: 8
   timeMultiplier: 60
   currentGameTime: 0
-  initialDay: 1
-  initialMonth: 8
+  initialDay: 30
+  initialMonth: 11
   initialYear: 2025
+  currentDay: 0
+  currentMonth: 0
   weatherChangeTime: 8
   weatherChangeGap: 12
 --- !u!4 &1265018626
@@ -44617,6 +44619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ac0101cde71ed45acc8abcf151adaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seasonType: 0
   canChangeWeather: 1
 --- !u!4 &1520037106
 Transform:
