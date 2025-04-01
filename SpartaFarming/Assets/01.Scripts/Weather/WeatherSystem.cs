@@ -67,6 +67,7 @@ public class WeatherSystem : MonoBehaviour
                 if (currentSeason == null || currentSeason != season)
                 {
                     currentSeason = season;
+                    ChangeToRandomWeather(currentSeason);
                     OnSeasonChange?.Invoke();
                 }
             }
@@ -76,7 +77,6 @@ public class WeatherSystem : MonoBehaviour
     public void ChangeSeason()
     {
         GetSeason();
-        ChangeToRandomWeather(currentSeason);
     }
 
     void ChangeToRandomWeather(SeasonData curSeason)
