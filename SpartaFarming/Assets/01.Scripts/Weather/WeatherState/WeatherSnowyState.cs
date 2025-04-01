@@ -15,8 +15,8 @@ public class WeatherSnowyState : WeatherBaseState
 
     public override void Exit()
     {
-        base.Exit();
         WeatherManager.Instance.WeatherSystem.WeatherVFX.SnowEffect.OnDisable();
+        base.Exit();
         TimeManager.Instance.TimeSystem.TimeChangeUpdate -= WeatherManager.Instance.WeatherSystem.WorldLight.OnTimeChangedSnowy;
     }
 }
