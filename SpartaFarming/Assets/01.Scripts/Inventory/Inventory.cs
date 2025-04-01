@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     [Header("인벤토리 설정")]
     [SerializeField] private int quickStorageSize = 12;
     [SerializeField] private int mainStorageSize = 24;
+    [SerializeField] private ItemObject itemObjectPrefab;
     
     // 저장소 객체
     private Storage _quickStorage;
@@ -97,6 +98,28 @@ public class Inventory : MonoBehaviour
         
         ItemInstance newItem = new ItemInstance(itemInfo, quantity);
         return AddItem(newItem);
+    }
+
+    /// <summary>
+    /// 아이템 드롭
+    /// </summary>
+    /// <param name="key">아이템 키</param>
+    /// <param name="quantity">드롭할 수량</param>
+    public void DropItem(int key, int quantity = 1)
+    {
+        if (quantity <= 0) return;
+
+        ItemInfo itemInfo = DataManager.ItemLoader.GetByKey(key);
+        
+        if (itemInfo == null) return;
+        
+        int removedQuantity = RemoveItem(key, quantity);
+
+        if (removedQuantity > 0)
+        {
+            ItemObject itemObject = Instantiate(itemObjectPrefab, transform.position, Quaternion.identity);
+            itemObject.SetItem(itemInfo, removedQuantity);
+        }
     }
     
     /// <summary>

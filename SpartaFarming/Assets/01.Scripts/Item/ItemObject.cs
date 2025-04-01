@@ -46,7 +46,15 @@ public class ItemObject : MonoBehaviour
             _spriteRenderer.sprite = Resources.Load<Sprite>(_itemInstance.ItemInfo.spritePath);
         }
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PickUp(collision.gameObject.GetComponent<Inventory>());
+        }
+    }
+
     /// <summary>
     /// 플레이어가 아이템을 획득하는 메서드
     /// </summary>
