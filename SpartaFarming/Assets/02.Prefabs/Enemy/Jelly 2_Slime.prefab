@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7752583274293168214}
   - component: {fileID: 1968500873313435035}
   m_Layer: 0
-  m_Name: Jelly 2
+  m_Name: Jelly 2_Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
