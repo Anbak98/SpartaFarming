@@ -59,8 +59,10 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private int playerLayerInt;
 
     #region Pool
-    
+
     [Header("===POOL===")]
+    [SerializeField]
+    private Dictionary<UnitType, ObjectPool<BaseUnit>> typeByUnitPool;
     [SerializeField]
     private ObjectPool<BaseUnit> slimePool;
     [SerializeField]
@@ -97,10 +99,18 @@ public class UnitManager : Singleton<UnitManager>
     {
         InitEnemyState();
 
+
         slimePool = new ObjectPool<BaseUnit>(new EnemyFactory(slimePrefab, UnitType.Slime), 3, slimeParent);
         orcPool = new ObjectPool<BaseUnit>(new EnemyFactory(orcPrefab, UnitType.Orc), 3, oreParent);
         strongOrcPool = new ObjectPool<BaseUnit>(new EnemyFactory(strongOrcPrefab, UnitType.StrongOrc), 3, strongOrcParent);
         gravePool = new ObjectPool<BaseUnit>(new EnemyFactory(graveStonePrefab, UnitType.GraveStone), 3, graveStoneParent);
+    
+        // 딕셔너리 초기화 
+        typeByUnitPool = new Dictionary<UnitType, ObjectPool<BaseUnit>>();
+        typeByUnitPool.Add(UnitType.Slime, slimePool);
+        typeByUnitPool.Add(UnitType.Orc, orcPool);
+        typeByUnitPool.Add(UnitType.StrongOrc , strongOrcPool);
+        typeByUnitPool.Add(UnitType.GraveStone , gravePool);
     }
 
     private void Start()
@@ -149,6 +159,24 @@ public class UnitManager : Singleton<UnitManager>
         }
     }
     
+    public void GenerateEnemy(UnitType[] unitTypes, Transform[] trs) 
+    {
+        // 생성할 Unit 타입, 생성할 위치
+        // UnitType이 여러개면 랜덤으로 생성
+
+        int ran;
+        UnitType type;
+
+        for (int i = 0; i < trs.Length; i++) 
+        {
+            ran = Random.Range(0, unitTypes.Length);
+            type = unitTypes[ran];
+
+            var obj = typeByUnitPool[type].GetPool();
+            obj.transform.position = trs[i].transform.position;
+        }
+    }
+
     #region pool에서 가져오기 테스트용
     
     IEnumerator Generate() 
