@@ -67,7 +67,7 @@ public class WeatherSystem : MonoBehaviour
                 if (currentSeason == null || currentSeason != season)
                 {
                     currentSeason = season;
-                    OnSeasonChange.Invoke();
+                    OnSeasonChange?.Invoke();
                 }
             }
         }
