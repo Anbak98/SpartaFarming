@@ -66,6 +66,11 @@ public class ItemInfo
     /// </summary>
     public int maxStack;
 
+    /// <summary>
+    /// Price
+    /// </summary>
+    public int price;
+
 }
 public class ItemInfoLoader
 {

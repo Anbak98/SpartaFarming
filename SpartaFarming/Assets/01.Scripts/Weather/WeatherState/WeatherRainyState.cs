@@ -15,8 +15,8 @@ public class WeatherRainyState : WeatherBaseState
 
     public override void Exit()
     {
-        base.Exit();
         WeatherManager.Instance.WeatherSystem.WeatherVFX.RainEffect.OnDisable();
+        base.Exit();
         TimeManager.Instance.TimeSystem.TimeChangeUpdate -= WeatherManager.Instance.WeatherSystem.WorldLight.OnTimeChangedRainy;
     }
 }

@@ -18,8 +18,8 @@ public class TimeSystem : MonoBehaviour
     [SerializeField] private int initialYear = 2025;
 
     private int[] daysInMonth = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-    private int currentDay;
-    private int currentMonth;
+    [SerializeField] private int currentDay;
+    [SerializeField] private int currentMonth;
     private int currentYear;
     private int currentDaysInMonth;
 
@@ -109,6 +109,7 @@ public class TimeSystem : MonoBehaviour
             currentMonth = 1;
             currentYear++;
         }
+        currentDaysInMonth = daysInMonth[currentMonth - 1];
     }
 
     private void TimeEvent(Action action, int hour = 0, int minute = 0)
