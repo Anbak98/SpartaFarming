@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Equip",
+                    "name": "Inventory",
                     "type": "Button",
                     "id": "5b5e3c0b-1ead-458c-a0e9-86aa6102747a",
                     "expectedControlType": "Button",
@@ -36,6 +36,15 @@
                     "name": "QuickSlot",
                     "type": "Button",
                     "id": "5c5a4707-8152-4963-9d01-81e195b9ef9a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ItemGet",
+                    "type": "Button",
+                    "id": "2e89c1bc-1d18-42f9-b8d7-5b56c1f9b59e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -116,7 +125,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Equip",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -128,6 +137,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "QuickSlot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "72fe232b-6b96-44c1-809f-2c1b2dc472c4",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ItemGet",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

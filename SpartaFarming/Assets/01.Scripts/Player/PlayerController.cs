@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     public float runSpeed;
     public bool isMoving = false;
     
-    private Vector2 curMovementInput;    
+    public Vector2 curMovementInput;    
     private float horizontal;
     private float vertical;
 
     private float plLastMoveX;
     private float plLastMoveY;
+
+    private Vector2 mousePosition;
 
     private Rigidbody2D _rigidbody;
     private Animator playerAnimator;
@@ -46,7 +48,10 @@ public class PlayerController : MonoBehaviour
     public Tilemap floorMap;    
     public TileBase floorTile;
 
-    public Tilemap waterMap;        
+    public Tilemap waterMap;
+
+    public GameObject inventoryUI;
+    public Inventory inventory;       
 
     private void Awake()
     {
@@ -56,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        SetMousePosition();
         GetEquipItemIndex();
     }
 
@@ -71,12 +77,18 @@ public class PlayerController : MonoBehaviour
         GetCurToolAnimation();
     }
 
+    // 마우스 포지션 세팅
+    public void SetMousePosition()
+    {
+        mousePosition = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+    }
+
     // 플레이어 이동
     void Move()
     {
         isMoving = true;
 
-        curSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : moveSpeed;
+        curSpeed = Input.GetKey(KeyCode.Space) ? runSpeed : moveSpeed;
 
         Vector3 dir = transform.up * curMovementInput.y + transform.right * curMovementInput.x;
         dir *= curSpeed;
@@ -140,6 +152,25 @@ public class PlayerController : MonoBehaviour
         {
             if (equipItemUI.itemSlots[i].isSelected) selectedEquipItemIndex = i;            
         }        
+    }
+
+    // ItemGet InputAction
+    public void OnItemGet(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (TryGetComponent<ItemObject>(out ItemObject itemObject))
+            {
+                itemObject.PickUp(inventory);
+            }
+        }
+    }
+
+    // Inventory InputAction
+    public void OnInventory(InputAction.CallbackContext context)
+    {
+        if (!inventoryUI.activeInHierarchy && context.phase == InputActionPhase.Started) inventoryUI.SetActive(true);
+        else if (inventoryUI.activeInHierarchy && context.phase == InputActionPhase.Started) inventoryUI.SetActive(false);
     }
 
     //Equip InputAction
