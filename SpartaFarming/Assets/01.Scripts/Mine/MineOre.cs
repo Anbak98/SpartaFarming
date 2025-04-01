@@ -31,6 +31,7 @@ public class MineOre : MonoBehaviour
                     else return;
 
                     onMine?.Invoke(tilePosition);
+                }
 
      */
 
@@ -39,7 +40,7 @@ public class MineOre : MonoBehaviour
     private void Start()
     {
         oreTilemap = GetComponent<Tilemap>();
-        //TimeManager.Instance.TimeSystem.On8oClock += RespawnOre;
+        TimeManager.Instance.TimeSystem.On8oClock += RespawnOre;
         GameManager.Instance.Player.Controller.onMine += CheckOreTile;
     }
 
