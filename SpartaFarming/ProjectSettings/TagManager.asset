@@ -15,10 +15,10 @@ TagManager:
   - 
   - Water
   - UI
+  - Player
   - 
   - 
-  - 
-  - 
+  - Obstacle
   - 
   - 
   - 
@@ -50,4 +50,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 1862633171
+    locked: 0
+  - name: Effects
+    uniqueID: 1403169721
     locked: 0

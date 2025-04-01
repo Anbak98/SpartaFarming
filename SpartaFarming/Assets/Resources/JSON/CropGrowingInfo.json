@@ -1,0 +1,18 @@
+{
+  "Items": [
+    {
+      "key": 0,
+      "name": "CarrorCrop",
+      "description": "qq",
+      "expRequirement": 10,
+      "Spring": 1,
+      "Summer": 1,
+      "Fall": 1,
+      "Winter": 1,
+      "SunChance": 2,
+      "RainChance": 2,
+      "WindChance": 2,
+      "SnowChance": 2
+    }
+  ]
+}

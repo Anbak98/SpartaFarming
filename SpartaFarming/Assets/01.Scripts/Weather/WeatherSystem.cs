@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-
 
 public enum SeasonType
 {
@@ -29,17 +27,22 @@ public class WeatherSystem : MonoBehaviour
     private SeasonData currentSeason;
     private IWeatherState currentState;
     private WorldLight worldLight;
+    private WeatherVFX weatherVFX;
 
     public WorldLight WorldLight { get { return worldLight; } }
+    public WeatherVFX WeatherVFX {  get { return weatherVFX; } }
     public SeasonData CurrentSeason { get { return currentSeason; } }
     public IWeatherState CurrentState { get { return currentState; } }
 
-    public bool canChangeWeahter = true;
+    public bool canChangeWeather = true;
+
+    public Action OnSeasonChange;
 
     private void Awake()
     {
         WeatherManager.Instance.WeatherSystem = this;
         worldLight = GetComponentInChildren<WorldLight>();
+        weatherVFX = GetComponentInChildren<WeatherVFX>();
 
         stateMachine = new WeatherStateMachine(this);
         seasons = new SeasonDataLoader();
@@ -53,11 +56,6 @@ public class WeatherSystem : MonoBehaviour
         currentState = stateMachine.CurrentState;
     }
 
-    void Update()
-    {
-
-    }
-
     public void GetSeason()
     {
         int currentMonth = TimeManager.Instance.TimeSystem.CurrentMonth;
@@ -69,6 +67,8 @@ public class WeatherSystem : MonoBehaviour
                 if (currentSeason == null || currentSeason != season)
                 {
                     currentSeason = season;
+                    ChangeToRandomWeather(currentSeason);
+                    OnSeasonChange?.Invoke();
                 }
             }
         }
@@ -77,13 +77,12 @@ public class WeatherSystem : MonoBehaviour
     public void ChangeSeason()
     {
         GetSeason();
-        ChangeToRandomWeather(currentSeason);
     }
 
     void ChangeToRandomWeather(SeasonData curSeason)
     {
         int totalWeight = 0;
-        int randomNum = Random.Range(0, curSeason.weatherChancesValues.Sum());
+        int randomNum = UnityEngine.Random.Range(0, curSeason.weatherChancesValues.Sum());
         for(int i = 0; i < curSeason.weatherChancesValues.Length; i++)
         {
             totalWeight += curSeason.weatherChancesValues[i];
@@ -114,10 +113,10 @@ public class WeatherSystem : MonoBehaviour
 
     public void FixedTimeWeatherChange()
     {
-        if(canChangeWeahter)
+        if(canChangeWeather)
         {
             ChangeToRandomWeather(currentSeason);
-            canChangeWeahter = false;
+            canChangeWeather = false;
         }
     }
 }

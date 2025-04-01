@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1773823253318017998}
   - component: {fileID: 6671468506489338582}
   - component: {fileID: 899616381027090759}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,10 +118,11 @@ GameObject:
   - component: {fileID: 7625814655550264644}
   - component: {fileID: 6739033173175877088}
   - component: {fileID: 1988257424624100116}
+  - component: {fileID: 1099140860747342259}
   - component: {fileID: 2261244728267990952}
   - component: {fileID: 3188056396361866998}
   - component: {fileID: 6200842095440327238}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7899993760276386923}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
@@ -157,6 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controller: {fileID: 0}
+  Condition: {fileID: 0}
 --- !u!114 &1988257424624100116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,21 +175,61 @@ MonoBehaviour:
   moveSpeed: 3
   runSpeed: 5
   isMoving: 0
-  plLastMoveX: 0
-  plLastMoveY: 0
-  toolAnimator: {fileID: 0}
   equipped: 0
   nearWater: 0
   equipItemUI: {fileID: 0}
+  selectedEquipItemIndex: -1
+  equipTools:
+  - {fileID: 132538316392624365, guid: e9de290166b519043974815b5bf49ef6, type: 3}
+  - {fileID: 3671608199247056103, guid: 5ae1a40e82ace9c47aab0e651e354b99, type: 3}
+  - {fileID: 812860788820672821, guid: 2c83d0b8511af9746ace2f91f3b1a5dc, type: 3}
+  - {fileID: 490140306873702299, guid: 14df9d8560f1fee42811b2367856c014, type: 3}
   curTool: {fileID: 0}
   toolPivot: {fileID: 8922720355537886533}
-  equipTools: []
   axeTool: {fileID: 132538316392624365, guid: e9de290166b519043974815b5bf49ef6, type: 3}
   harvestTool: {fileID: 3671608199247056103, guid: 5ae1a40e82ace9c47aab0e651e354b99, type: 3}
   wateringTool: {fileID: 812860788820672821, guid: 2c83d0b8511af9746ace2f91f3b1a5dc, type: 3}
   fishingTool: {fileID: 490140306873702299, guid: 14df9d8560f1fee42811b2367856c014, type: 3}
+  fenceToolUI: {fileID: 0}
+  fenceToolSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  objectMap: {fileID: 0}
+  fences:
+  - {fileID: 11400000, guid: 8c9e0960b28accf48a0b9a3e823749c1, type: 2}
+  - {fileID: 11400000, guid: 28269768b16b40b41ab8863157ee2676, type: 2}
+  - {fileID: 11400000, guid: c0b186e4b6d6dac41801da251a40c4bc, type: 2}
+  - {fileID: 11400000, guid: ae8f1d8496627b547835f8a791ceb379, type: 2}
+  - {fileID: 11400000, guid: 350e605e020550c418f0d99c1d1176d7, type: 2}
+  - {fileID: 11400000, guid: f24a4d349340d504ab02fff1a4a3b089, type: 2}
+  - {fileID: 11400000, guid: 63b1eb2cfb021b44cb77d492f8797d67, type: 2}
+  - {fileID: 11400000, guid: 36924dbc45c5aab4c9abf589216c018f, type: 2}
+  - {fileID: 11400000, guid: b0aa437505d330a40b9f5294570aec27, type: 2}
+  - {fileID: 11400000, guid: 21eebba69b70feb468ff50968c764459, type: 2}
   floorMap: {fileID: 0}
   floorTile: {fileID: 11400000, guid: 77480abfd64960445b413d86d2b1401f, type: 2}
+  waterMap: {fileID: 0}
+--- !u!114 &1099140860747342259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7899993760276386923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2366327007064cb45bec7b59b8a3c102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiCondition: {fileID: 0}
 --- !u!114 &2261244728267990952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +303,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5b5e3c0b-1ead-458c-a0e9-86aa6102747a
     m_ActionName: Player/Equip[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1988257424624100116}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnQuickSlot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5c5a4707-8152-4963-9d01-81e195b9ef9a
+    m_ActionName: Player/EquipQuickSlot[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -325,8 +383,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.7}
-  m_Size: {x: 1, y: 1.4}
+  m_Offset: {x: 0, y: 0.4}
+  m_Size: {x: 0.8, y: 0.8}
   m_Direction: 0
 --- !u!1 &8922720355537886533
 GameObject:
@@ -337,7 +395,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7622886711600934740}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ToolPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
