@@ -27,7 +27,7 @@ public enum EnemyAnimationState
 public class BaseUnit : MonoBehaviour
 {
     [Header("===State===")]
-    [SerializeField] private int unitNumber;
+    [SerializeField] private UnitType unitType;
     [SerializeField] private Unit unitState;
     [SerializeField] private LayerMask obstacleLayer;
 
@@ -57,12 +57,12 @@ public class BaseUnit : MonoBehaviour
         // FSM 초기화
         InitFSMArray();
 
-        // ##TODO : unit클래스 초기화 
-        unitState = UnitManager.Instance.GetUnit(unitNumber);
+        // type에 따른 Unit클래스 깊복
+        unitState = new Unit(UnitManager.Instance.GetUnit(unitType));
 
         // UnitManager에서 초기화 
-        player = UnitManager.Instance.PlayerTrs;
-        obstacleLayer = UnitManager.Instance.ObstacleLayer;
+        player          = UnitManager.Instance.PlayerTrs;
+        obstacleLayer   = UnitManager.Instance.ObstacleLayer;
 
         // 현재 상태 실행
         unitHeadMachine.HM_StateEnter();
@@ -70,8 +70,10 @@ public class BaseUnit : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("몬스터 Enable");
+        
         // 현재 상태 실행
-        // unitHeadMachine.HM_StateEnter();
+        unitHeadMachine.HM_StateEnter();
     }
 
     private void Update()

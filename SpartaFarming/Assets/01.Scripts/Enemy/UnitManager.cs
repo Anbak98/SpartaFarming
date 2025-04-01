@@ -26,12 +26,31 @@ public class Unit
         this.attackDamage = damage;
         this.attackCoolTime = cooltime;
     }
+
+    public Unit(Unit unit) 
+    {
+        this.hp = unit.hp;
+        this.speed = unit.speed;
+        this.prowlRange = unit.prowlRange;
+        this.trackingTriggerRange = unit.trackingTriggerRange;
+        this.attackTriggerRange = unit.attackTriggerRange;
+        this.hitRange = unit.hitRange;
+        this.attackDamage = unit.attackDamage;
+        this.attackCoolTime = unit.attackCoolTime;
+    }
+}
+
+public enum UnitType
+{ 
+    Slime,
+    Orc,
+    StrongOrc,
+    GraveStone
 }
 
 public class UnitManager : Singleton<UnitManager>
 {
-    // 나중에 csv 로 가져올 때 Dictionary<int, Unit> 이렇게 관리할 듯
-    private Dictionary<int, Unit> numberToUnit;
+    private Dictionary<UnitType, Unit> numberToUnit;
 
     [SerializeField]
     private Transform playerTrs;
@@ -44,17 +63,31 @@ public class UnitManager : Singleton<UnitManager>
     public LayerMask ObstacleLayer { get => obstacleLayer;}
     public LayerMask PlayerLayer { get => playerLayer; }
 
-    public Unit GetUnit(int num) { return numberToUnit[num]; }
+    public Unit GetUnit(UnitType type) { return numberToUnit[type]; }
 
     private void Awake()
     {
-        numberToUnit = new Dictionary<int, Unit>();
+        InitEnemyState();
+    }
 
-        // ##TODO: 임시 생성 
-        Unit unit = new Unit(10, 3f, 5f, 5f, 1f, 2f, 10 , 3f);
-        numberToUnit.Add(0,unit);
+    private void InitEnemyState() 
+    {
+        numberToUnit = new Dictionary<UnitType, Unit>();
 
-        Unit slime = new Unit(10, 3f, 5f,0, 0,0,0,0);
-        numberToUnit.Add(1, slime);
+        // 슬라임 
+        Unit slime = new Unit(10, 3f, 5f, 0, 0, 0, 0, 0);
+        numberToUnit.Add(UnitType.Slime, slime);
+
+        // 오크
+        Unit orc = new Unit(10, 3f, 5f, 5f, 1f, 2f, 10, 3f);
+        numberToUnit.Add(UnitType.Orc, orc);
+
+        // 쎈 오크
+        Unit strongOrc = new Unit(10, 3f, 5f, 5f, 1f, 2f, 10, 3f);
+        numberToUnit.Add(UnitType.StrongOrc, strongOrc);
+
+        // 묘비
+        Unit graveStone = new Unit(10, 1f, 5f, 5f, 1f, 2f, 10, 3f);
+        numberToUnit.Add(UnitType.GraveStone, graveStone);
     }
 }
