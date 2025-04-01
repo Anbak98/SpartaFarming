@@ -18,6 +18,8 @@ public class UnitDie : MonoBehaviour, IDie<BaseUnit>
 
         // 애니메이션 실행
         Owner.ChangeAnimation(EnemyAnimationState.Die);
+        // 초기화 
+        Owner.InitDie();
 
         ReturnToPool();
     }
@@ -25,6 +27,6 @@ public class UnitDie : MonoBehaviour, IDie<BaseUnit>
     private void ReturnToPool() 
     {
         // ##TODO : 풀로 돌아가기
-        Destroy( gameObject , 1f);
+        UnitManager.Instance.ReturnToPool(Owner.UnitType , this.gameObject); 
     }
 }

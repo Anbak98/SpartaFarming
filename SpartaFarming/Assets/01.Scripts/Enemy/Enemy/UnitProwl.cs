@@ -23,12 +23,6 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
 
     public void IProwl()
     {
-        if (Owner.Player == null)
-        {
-            Debug.LogError("Base Unit의 Player가 null 상태 ");
-            return;
-        }
-
         // 플립
         // Owner.Flip();
         // 사망
@@ -135,7 +129,7 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
         Vector2 dir = dest - origin;
 
         // raycast ( 시작위치, 방향, 거리, 레이어 )
-        RaycastHit2D hit = Physics2D.Raycast(origin, dir , 10f , Owner.ObstacleLayer);
+        RaycastHit2D hit = Physics2D.Raycast(origin, dir , 10f , UnitManager.Instance.ObstacleLayer);
 
         // 레이 디버그  
         Debug.DrawRay(origin, dir * 10f, Color.red, 0.1f);
