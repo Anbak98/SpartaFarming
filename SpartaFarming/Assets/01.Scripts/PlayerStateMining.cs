@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerStateMining : MonoBehaviour, IPlayerState
 {
+    private Vector3 pos;
+    private Vector3Int tilePosition;
+
     public void DoAction()
     {
         GameManager.Instance.Player.Controller.onMine?.Invoke(tilePosition); // playercontroller => public Action<Vector3Int> onMine;
@@ -21,10 +24,8 @@ public class PlayerStateMining : MonoBehaviour, IPlayerState
 
     public void OnUpdate()
     {
-        Vector3 pos = transform.position;
-        Vector3Int objGridPos = GameManager.Instance.Player.Controller.objectMap.WorldToCell(pos);
-
-        Vector3Int tilePosition = objGridPos;
+        pos = transform.position;
+        tilePosition = GameManager.Instance.Player.Controller.objectMap.WorldToCell(pos);
 
         // PlayerController plLastMoveX, Y 프로퍼티 또는 퍼블릭
         if (plLastMoveX == 1) tilePosition += Vector3Int.right;
