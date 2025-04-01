@@ -435,6 +435,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerLayerInt: 0
   slimePrefab:
   - {fileID: 9205799619390849713, guid: f23f5fd1ee1deba4db9d50340429b549, type: 3}
   - {fileID: 8558809045338087561, guid: 1e5813ea4b5280d4db66fd2c247165f8, type: 3}

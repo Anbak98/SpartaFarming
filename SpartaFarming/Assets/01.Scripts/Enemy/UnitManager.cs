@@ -53,13 +53,13 @@ public class UnitManager : Singleton<UnitManager>
 {
     private Dictionary<UnitType, Unit> numberToUnit;
 
-    [SerializeField]
-    private Transform playerTrs;
-    [SerializeField]
-    private LayerMask obstacleLayer;
-    [SerializeField]
-    private LayerMask playerLayer;
+    [SerializeField] private Transform playerTrs;
+    [SerializeField] private LayerMask obstacleLayer;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private int playerLayerInt;
 
+    #region Pool
+    
     [Header("===POOL===")]
     [SerializeField]
     private ObjectPool<BaseUnit> slimePool;
@@ -84,10 +84,12 @@ public class UnitManager : Singleton<UnitManager>
 
     [Header("===GeneratMonster===")]
     [SerializeField] List<GameObject> monsterGene;
+    #endregion
 
     public Transform PlayerTrs { get => playerTrs; }
     public LayerMask ObstacleLayer { get => obstacleLayer;}
     public LayerMask PlayerLayer { get => playerLayer; }
+    public int PlayerLayerInt { get => playerLayerInt;  }
 
     public Unit GetUnit(UnitType type) { return numberToUnit[type]; }
 
@@ -103,6 +105,8 @@ public class UnitManager : Singleton<UnitManager>
 
     private void Start()
     {
+        playerLayerInt = LayerMask.NameToLayer("Player");
+
         StartCoroutine(Generate());
     }
 
@@ -128,21 +132,6 @@ public class UnitManager : Singleton<UnitManager>
         numberToUnit.Add(UnitType.GraveStone, graveStone);
     }
 
-    IEnumerator Generate() 
-    {
-        for(int i = 0; i < 12; i++) 
-        {
-            if (i % 3 == 0)
-                yield return new WaitForSeconds(3f);
-
-            var temp = orcPool.GetPool();
-            temp.transform.position = new Vector2(10,10);
-
-            monsterGene.Add(temp);
-            yield return new WaitForSeconds(1f);
-        }
-
-    }
 
     public void ReturnToPool(UnitType state, GameObject obj) 
     {
@@ -160,4 +149,22 @@ public class UnitManager : Singleton<UnitManager>
         }
     }
     
+    #region pool에서 가져오기 테스트용
+    
+    IEnumerator Generate() 
+    {
+        for(int i = 0; i < 12; i++) 
+        {
+            if (i % 3 == 0)
+                yield return new WaitForSeconds(3f);
+
+            var temp = orcPool.GetPool();
+            temp.transform.position = new Vector2(10,10);
+
+            monsterGene.Add(temp);
+            yield return new WaitForSeconds(1f);
+        }
+
+    }
+    #endregion
 }
