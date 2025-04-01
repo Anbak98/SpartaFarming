@@ -51,7 +51,7 @@ public enum UnitType
 
 public class UnitManager : Singleton<UnitManager>
 {
-    private Dictionary<UnitType, Unit> numberToUnit;
+    private Dictionary<UnitType, Unit> typeToUnit;
 
     [SerializeField] private Transform playerTrs;
     [SerializeField] private LayerMask obstacleLayer;
@@ -93,55 +93,69 @@ public class UnitManager : Singleton<UnitManager>
     public LayerMask PlayerLayer { get => playerLayer; }
     public int PlayerLayerInt { get => playerLayerInt;  }
 
-    public Unit GetUnit(UnitType type) { return numberToUnit[type]; }
+    public Unit GetUnit(UnitType type) { return typeToUnit[type]; }
+    public GameObject GetBaseUnit(UnitType type) 
+    {
+        if (typeByUnitPool.ContainsKey(type))
+            return typeByUnitPool[type].GetPool();
+        return null;
+    }
 
     private void Awake()
     {
         InitEnemyState();
+        InitPool();
+    }
 
+    private void Start()
+    {
+        // 플레이어 찾기
+        playerTrs = GameObject.Find("Player").transform;
+
+        // 레이어 
+        playerLayerInt = LayerMask.NameToLayer("Player");
+
+        // 테스트 생성용 
+        // StartCoroutine(Generate());
+    }
+
+    private void InitEnemyState() 
+    {
+        typeToUnit = new Dictionary<UnitType, Unit>();
+        // Hp , speed, 배회 범위 , tracking 범위 , attack 범위, 공격범위, 데미지 , 쿨타임
+
+        // 슬라임 
+        Unit slime = new Unit(10, 1f, 5f, 0, 0, 0, 0, 0);
+        typeToUnit.Add(UnitType.Slime, slime);
+
+        // 오크
+        Unit orc = new Unit(10, 1.5f, 5f, 5f, 2f, 2f, 3, 3f);
+        typeToUnit.Add(UnitType.Orc, orc);
+
+        // 쎈 오크
+        Unit strongOrc = new Unit(10, 1.5f, 3f, 2f, 2f, 2f, 10, 3f);
+        typeToUnit.Add(UnitType.StrongOrc, strongOrc);
+
+        // 묘비
+        Unit graveStone = new Unit(10, 0.5f, 2f, 5f, 2f, 2f, 6, 5f);
+        typeToUnit.Add(UnitType.GraveStone, graveStone);
+    }
+
+    private void InitPool() 
+    {
 
         slimePool = new ObjectPool<BaseUnit>(new EnemyFactory(slimePrefab, UnitType.Slime), 3, slimeParent);
         orcPool = new ObjectPool<BaseUnit>(new EnemyFactory(orcPrefab, UnitType.Orc), 3, oreParent);
         strongOrcPool = new ObjectPool<BaseUnit>(new EnemyFactory(strongOrcPrefab, UnitType.StrongOrc), 3, strongOrcParent);
         gravePool = new ObjectPool<BaseUnit>(new EnemyFactory(graveStonePrefab, UnitType.GraveStone), 3, graveStoneParent);
-    
+
         // 딕셔너리 초기화 
         typeByUnitPool = new Dictionary<UnitType, ObjectPool<BaseUnit>>();
         typeByUnitPool.Add(UnitType.Slime, slimePool);
         typeByUnitPool.Add(UnitType.Orc, orcPool);
-        typeByUnitPool.Add(UnitType.StrongOrc , strongOrcPool);
-        typeByUnitPool.Add(UnitType.GraveStone , gravePool);
+        typeByUnitPool.Add(UnitType.StrongOrc, strongOrcPool);
+        typeByUnitPool.Add(UnitType.GraveStone, gravePool);
     }
-
-    private void Start()
-    {
-        playerLayerInt = LayerMask.NameToLayer("Player");
-
-        StartCoroutine(Generate());
-    }
-
-    private void InitEnemyState() 
-    {
-        numberToUnit = new Dictionary<UnitType, Unit>();
-        // Hp , speed, 배회 범위 , tracking 범위 , attack 범위, 공격범위, 데미지 , 쿨타임
-
-        // 슬라임 
-        Unit slime = new Unit(10, 1f, 5f, 0, 0, 0, 0, 0);
-        numberToUnit.Add(UnitType.Slime, slime);
-
-        // 오크
-        Unit orc = new Unit(10, 1.5f, 5f, 5f, 2f, 2f, 3, 3f);
-        numberToUnit.Add(UnitType.Orc, orc);
-
-        // 쎈 오크
-        Unit strongOrc = new Unit(10, 1.5f, 3f, 2f, 2f, 2f, 10, 3f);
-        numberToUnit.Add(UnitType.StrongOrc, strongOrc);
-
-        // 묘비
-        Unit graveStone = new Unit(10, 0.5f, 2f, 5f, 2f, 2f, 6, 5f);
-        numberToUnit.Add(UnitType.GraveStone, graveStone);
-    }
-
 
     public void ReturnToPool(UnitType state, GameObject obj) 
     {
@@ -156,24 +170,6 @@ public class UnitManager : Singleton<UnitManager>
             case UnitType.GraveStone:
                 gravePool.SetObject(obj); break;
 
-        }
-    }
-    
-    public void GenerateEnemy(UnitType[] unitTypes, Transform[] trs) 
-    {
-        // 생성할 Unit 타입, 생성할 위치
-        // UnitType이 여러개면 랜덤으로 생성
-
-        int ran;
-        UnitType type;
-
-        for (int i = 0; i < trs.Length; i++) 
-        {
-            ran = Random.Range(0, unitTypes.Length);
-            type = unitTypes[ran];
-
-            var obj = typeByUnitPool[type].GetPool();
-            obj.transform.position = trs[i].transform.position;
         }
     }
 
