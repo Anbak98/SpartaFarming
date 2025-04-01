@@ -8,7 +8,7 @@ public class MineOre : MonoBehaviour
 {
     public Tilemap oreTilemap;
     //public Action<Vector3Int> onMine; 플레이어에서 선언
-    //플레이어에서 광질 시 onMine?.Invoke(tilePosition); 
+    //플레이어컨트롤러에서 광질 시 onMine?.Invoke(tilePosition); 
     /*
      *                 if (curTool.CompareTag("Axe"))
                 {
@@ -41,7 +41,7 @@ public class MineOre : MonoBehaviour
     {
         oreTilemap = GetComponent<Tilemap>();
         TimeManager.Instance.TimeSystem.On8oClock += RespawnOre;
-        //GameManager.Instance.Player.onMine += CheckOreTile;
+        //GameManager.Instance.PlayerController.onMine += CheckOreTile;
     }
 
     void CheckOreTile(Vector3Int tilePosition)
