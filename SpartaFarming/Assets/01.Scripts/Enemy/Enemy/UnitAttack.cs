@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class UnitAttack : MonoBehaviour, IAttack<BaseUnit>
@@ -56,7 +58,11 @@ public class UnitAttack : MonoBehaviour, IAttack<BaseUnit>
             if (collider.Length != 0)
             {
                 // ##TODO 플레이어에게 데미지  
-
+                try
+                {
+                    collider[0].GetComponent<IDamageable>().TakePhysicalDamage((int)Owner.UnitState.attackDamage);
+                }
+                catch (Exception e) { Debug.LogError($"{e}"); }
             }
 
             yield return new WaitForSeconds(Owner.UnitState.attackCoolTime);

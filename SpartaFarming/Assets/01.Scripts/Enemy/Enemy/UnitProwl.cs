@@ -23,12 +23,6 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
 
     public void IProwl()
     {
-        if (Owner.Player == null)
-        {
-            Debug.LogError("Base Unit의 Player가 null 상태 ");
-            return;
-        }
-
         // 플립
         // Owner.Flip();
         // 사망
@@ -78,19 +72,24 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
         // 시작 위치 저장
         Vector2 startPosition = currUnitPosition;
 
-        // 이동에 걸리는 시간 계산
+        // 총 이동 거리
         float journeyLength = Vector2.Distance(startPosition, nextPosition);
-        float journeyTime = journeyLength / 3f;
 
-        // Lerp로 자연스럽게 이동
-        float elapsedTime = 0;
+        // 이동 진행률
+        float progress = 0f;
 
-        while (elapsedTime < journeyTime)
+        while (progress < 1f)
         {
-            elapsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsedTime / journeyTime); // 0~1 사이 값으로 정규화
+            // 이번 프레임에 이동할 거리 계산
+            float step = Owner.UnitState.speed * Time.deltaTime / journeyLength;
+            progress += step;
 
-            transform.position = Vector2.Lerp(startPosition, nextPosition, t);
+            // 진행률이 1을 넘지 않도록 제한
+            progress = Mathf.Clamp01(progress);
+
+            // 위치 업데이트
+            transform.position = Vector2.Lerp(startPosition, nextPosition, progress);
+
             yield return null; // 다음 프레임까지 대기
         }
 
@@ -130,7 +129,7 @@ public class UnitProwl : MonoBehaviour, IProwl<BaseUnit>
         Vector2 dir = dest - origin;
 
         // raycast ( 시작위치, 방향, 거리, 레이어 )
-        RaycastHit2D hit = Physics2D.Raycast(origin, dir , 10f , Owner.ObstacleLayer);
+        RaycastHit2D hit = Physics2D.Raycast(origin, dir , 10f , UnitManager.Instance.ObstacleLayer);
 
         // 레이 디버그  
         Debug.DrawRay(origin, dir * 10f, Color.red, 0.1f);

@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8ff52c8fe89dc4ea1cb113c0c75cf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitNumber: 1
+  unitType: 0
   unitState:
     hp: 0
     speed: 0

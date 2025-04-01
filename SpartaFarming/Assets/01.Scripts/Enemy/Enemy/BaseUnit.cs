@@ -27,10 +27,10 @@ public enum EnemyAnimationState
 public class BaseUnit : MonoBehaviour
 {
     [Header("===State===")]
-    [SerializeField] private int unitNumber;
+    [SerializeField] private UnitType unitType;
     [SerializeField] private Unit unitState;
-    [SerializeField] private LayerMask obstacleLayer;
-
+    [SerializeField] private int oriHp;
+    
     [Header("===Player===")]
     [SerializeField] private Transform player;
 
@@ -46,8 +46,8 @@ public class BaseUnit : MonoBehaviour
 
     // 프로퍼티
     public Transform Player { get => player; }
-    public LayerMask ObstacleLayer { get => obstacleLayer; }
     public Unit UnitState { get => unitState; }
+    public UnitType UnitType { get => unitType; }
 
     private void Start() 
     {
@@ -57,12 +57,8 @@ public class BaseUnit : MonoBehaviour
         // FSM 초기화
         InitFSMArray();
 
-        // ##TODO : unit클래스 초기화 
-        unitState = UnitManager.Instance.GetUnit(unitNumber);
-
         // UnitManager에서 초기화 
-        player = UnitManager.Instance.PlayerTrs;
-        obstacleLayer = UnitManager.Instance.ObstacleLayer;
+        player          = UnitManager.Instance.PlayerTrs;
 
         // 현재 상태 실행
         unitHeadMachine.HM_StateEnter();
@@ -70,13 +66,28 @@ public class BaseUnit : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("몬스터 Enable");
+
+        // 상태 초기화 
+        currState = EnemyState.Prowl;
+        unitHeadMachine.HM_InitMachine(StateToFSM(currState));
+
         // 현재 상태 실행
-        // unitHeadMachine.HM_StateEnter();
+        unitHeadMachine.HM_StateEnter();
     }
 
     private void Update()
     {
         unitHeadMachine.HM_StateExcute();
+    }
+
+    // pool에서 생성 시 초기화 
+    public void UnitStateInit(UnitType type ,Unit unit) 
+    {
+        this.unitType = type;
+        this.unitState = unit;
+
+        oriHp = unit.hp;
     }
 
     private void InitFSMArray() 
@@ -188,4 +199,10 @@ public class BaseUnit : MonoBehaviour
         animaionHandler.ChangeAnimator(state);
     }
 
+    // Die 시 초기화
+    public void InitDie() 
+    {
+        // 1. Hp 원래대로
+        UnitState.hp = oriHp;
+    }
 }

@@ -75,6 +75,9 @@ public class ObjectPool<T> where T : Component
     public void SetObject(GameObject obj) 
     {
         obj.SetActive(false);
+
+        obj.transform.InitTransform();
+
         pool.Enqueue(obj.GetComponent<T>());
     }
 }
