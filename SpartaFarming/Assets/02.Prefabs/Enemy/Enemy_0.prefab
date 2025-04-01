@@ -123,10 +123,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8ff52c8fe89dc4ea1cb113c0c75cf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitNumber: 0
+  unitType: 1
   unitState:
     hp: 0
     speed: 0
+    prowlRange: 0
     trackingTriggerRange: 0
     attackTriggerRange: 0
     hitRange: 0
@@ -179,6 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 0}
+  prowlRange: 0
 --- !u!114 &7544145855743996090
 MonoBehaviour:
   m_ObjectHideFlags: 0
