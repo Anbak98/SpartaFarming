@@ -1,12 +1,17 @@
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
-public class CropObject : MonoBehaviour, IBuildable
+public class CropObject : MonoBehaviour, IBuildable, ICollectable
 {
     [Header("ScriptableObject"), SerializeField]
     private CropData cropData;
     [Header("Components"), SerializeField]
-    private SpriteRenderer sprite;
-    
+    private SpriteRenderer spriteRender;
+
+    public bool CanHarvested { get; private set; } = false;
+
+    public int itemKey => _cropKey;
+
     public void Init(int cropKey)
     {
         _cropKey = cropKey;
@@ -22,6 +27,15 @@ public class CropObject : MonoBehaviour, IBuildable
         timeSystem.On8oClock += Growing;
 
         UpdateCropByLevel();
+    }
+
+    public void Harvest()
+    {
+        if (_cropLevel != cropData.CropMaxLevel)
+            return;
+
+        spriteRender.sprite = cropData.GetSprite(_cropKey, cropData.CropMaxLevel + 1);
+        CanHarvested = true;
     }
 
     /// PRIVATE
@@ -45,7 +59,7 @@ public class CropObject : MonoBehaviour, IBuildable
         _EXP += CalculateEXP();
 
         while (_EXP >= _EXPRequirement)
-        {   
+        {
             _EXP -= _EXPRequirement;
             ++_cropLevel;
             UpdateCropByLevel();
@@ -54,7 +68,7 @@ public class CropObject : MonoBehaviour, IBuildable
 
     private void UpdateCropByLevel()
     {
-        sprite.sprite = cropData.GetSprite(_cropKey, _cropLevel);
+        spriteRender.sprite = cropData.GetSprite(_cropKey, _cropLevel);
     }
 
     private float CalculateEXP()
