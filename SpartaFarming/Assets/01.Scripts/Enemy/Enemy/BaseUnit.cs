@@ -213,6 +213,8 @@ public class BaseUnit : MonoBehaviour
         {
             // 임시 : 1씩 감소
             unitState.hp -= 1;
+            // hit 애니메이션
+            animaionHandler.ChangeAnimator(EnemyAnimationState.Hit);
         }
     }
 }
