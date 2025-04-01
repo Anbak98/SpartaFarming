@@ -205,4 +205,14 @@ public class BaseUnit : MonoBehaviour
         // 1. Hp 원래대로
         UnitState.hp = oriHp;
     }
+
+    // 충돌 감지 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == UnitManager.Instance.PlayerLayerInt) 
+        {
+            // 임시 : 1씩 감소
+            unitState.hp -= 1;
+        }
+    }
 }
