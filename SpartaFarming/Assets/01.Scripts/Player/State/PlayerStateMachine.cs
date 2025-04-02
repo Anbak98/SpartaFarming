@@ -14,7 +14,7 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerStateMining miningState;
 
     public void ChangeState(IPlayerState playerState)
-    {
+    {        
         currentState?.Exit();
         currentState = playerState;
         currentState?.Enter();
@@ -35,14 +35,6 @@ public class PlayerStateMachine : MonoBehaviour
         currentState?.Exit();
         currentState = null;
     }
-
-    public void Awake()
-    {
-        removingFenceState = GetComponent<PlayerStateRemovingFence>();
-        placingFenceState = GetComponent<PlayerStatePlacingFence>();
-        hoeingState = GetComponent<PlayerStateHoeing>();
-    }
-
 
     public void Update()
     {

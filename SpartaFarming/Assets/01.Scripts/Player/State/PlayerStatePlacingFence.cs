@@ -48,7 +48,7 @@ public class PlayerStatePlacingFence : MonoBehaviour, IPlayerState
 
     public void DoAction()
     {
-        
+        PlacingFence();
     }
 
     public void PlacingFence()
