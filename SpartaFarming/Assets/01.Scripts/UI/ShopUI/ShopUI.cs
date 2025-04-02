@@ -4,20 +4,49 @@ using UnityEngine;
 public class ShopUI : MonoBehaviour
 {
     private Shop _shop;
-    private ItemSlotUI[] _itemSlots;
-
-    private void Awake()
-    {
-        _itemSlots = GetComponentsInChildren<ItemSlotUI>();
-    }
+    private List<ShopItemSlotUI> _itemSlots = new List<ShopItemSlotUI>();
+    [SerializeField] private ShopItemSlotUI shopItemSlotPrefab;
+    [SerializeField] private Transform shopItemSlotParent;
+    [SerializeField] private HoldItemUI holdItemSlotUI;
 
     public void Init(Shop shop)
     {
         _shop = shop;
+        UpdateShopItems();
     }
 
     public void UpdateShopItems()
     {
+        DestoryShopItemSlots();
+        CreateShopItemSlots();
+    }
 
+    public void CreateShopItemSlots()
+    {
+        for(int i = 0; i < _shop.ShopItems.Count; i++)
+        {
+            ShopItemSlotUI shopItemSlot = Instantiate(shopItemSlotPrefab, shopItemSlotParent);
+            shopItemSlot._slotIndex = i;
+            shopItemSlot.UpdateUI(_shop.ShopItems[i]);
+            _itemSlots.Add(shopItemSlot);
+        }
+    }
+
+    public void DestoryShopItemSlots()
+    {
+        foreach (var item in _itemSlots)
+        {
+            Destroy(item.gameObject);
+        }
+
+        _itemSlots.Clear();
+    }
+
+    public void BuyItem(int index)
+    {
+        ItemInstance item = _shop.BuyItem(index);
+        if(item != null){
+            
+        }
     }
 }
