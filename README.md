@@ -16,7 +16,7 @@
 
 # 🧑‍🤝‍🧑2. 팀원 및 팀 소개
 
-| 유승민 | 김지현 | 임석준 | 유석민 | 염기용|
+| 유승민 | 김지현 | 임석준 | 류석민 | 염기용|
 |:------|------|------|------|------|
 | Programmer/PL | Programmer | Programmer | Programmer | Programmer |
 
@@ -28,7 +28,7 @@
 | 유승민 | <ul><li>이것</li><li>저것</li><li>이것</li></ul> |
 | 김지현 | 	<ul><li>Pooling</li><li>던전</li><li>몬스터</li></ul> |
 | 임석준 | <ul><li>플레이어</li><li>이것</li></ul> |
-| 유석민 | <ul><li>날씨</li><li>저것</li></ul> |
+| 류석민 | <ul><li>날씨</li><li>시간</li><li>광물</li></ul> |
 | 염기용 | <ul><li>인벤토리</li><li>UI</li><li>이것</li></ul> |
 
 <br>
