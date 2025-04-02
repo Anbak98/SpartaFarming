@@ -6,40 +6,209 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// 플레이어의 입력 처리와 동작을 관리하는 컴포넌트입니다.
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
-    [Header("Inventory")]
-    [SerializeField] private PlayerQuickslot _quickSlot;
-    [SerializeField] private GameObject inventoryUI;
-    [SerializeField] private Inventory inventory;
-    public Inventory Inventory { get { return inventory; } set { inventory = value; } }
+    #region Serialized Fields
+    [Header("인벤토리")]
+    [SerializeField] private PlayerQuickslot m_quickSlot;
+    [SerializeField] private GameObject m_inventoryUI;
+    [SerializeField] private Inventory m_inventory;
 
-    [Header("StateMachine")]
-    [SerializeField] private PlayerStateMachine _stateMachine;
+    [Header("상태 머신")]
+    [SerializeField] private PlayerStateMachine m_stateMachine;
 
-    [Header("Hand Pivot")]
-    [SerializeField] public GameObject toolPivot;
+    [Header("도구 피벗")]
+    [SerializeField] public GameObject m_toolPivot;
 
-    [Header("Hand Objects")]
-    [SerializeField] private GameObject _axe;
-    [SerializeField] private GameObject _hoe;
-    [SerializeField] private GameObject _fishingRod;
-    [SerializeField] private GameObject _wateringCan;
-    [SerializeField] private GameObject _pickAxe;
-    [SerializeField] private GameObject _seed;
+    [Header("도구 오브젝트")]
+    [SerializeField] private GameObject m_axe;
+    [SerializeField] private GameObject m_hoe;
+    [SerializeField] private GameObject m_fishingRod;
+    [SerializeField] private GameObject m_wateringCan;
+    [SerializeField] private GameObject m_pickAxe;
+    [SerializeField] private GameObject m_seed;
 
-    // 마우스 포지션 세팅
-    public void SetMousePosition()
-    {
-        mousePosition = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+    [Header("타일맵")]
+    [SerializeField] public Tilemap m_objectMap;
+    [SerializeField] public Tilemap m_floorMap;
+    [SerializeField] public Tilemap m_waterMap;
+    [SerializeField] public Tilemap m_oreMap;
+    [SerializeField] public TileBase m_floorTile;
+
+    [Header("펜스 아이템")]
+    [SerializeField] public FenceToolUI m_fenceToolUI;
+    [SerializeField] public List<FenceToolSlot> m_fenceToolSlots;
+    [SerializeField] public List<TileBase> m_fences;
+    #endregion
+
+    #region Public Properties
+    /// <summary>
+    /// 플레이어의 인벤토리에 대한 접근자입니다.
+    /// </summary>
+    public Inventory Inventory 
+    { 
+        get => m_inventory; 
+        set => m_inventory = value; 
     }
 
+    /// <summary>
+    /// 플레이어가 NPC와 상호작용 가능한지 여부를 나타냅니다.
+    /// </summary>
+    public bool CanInteract { get; set; } = false;
+    
+    /// <summary>
+    /// 마지막으로 이동한 X 방향입니다.
+    /// </summary>
+    public float LastMoveX { get; private set; }
+    
+    /// <summary>
+    /// 마지막으로 이동한 Y 방향입니다.
+    /// </summary>
+    public float LastMoveY { get; private set; }
+    #endregion
+
+    #region Public Events
+    /// <summary>
+    /// 광석을 채굴할 때 발생하는 이벤트입니다.
+    /// </summary>
+    public Action<Vector3Int> OnMine;
+    
+    /// <summary>
+    /// 펜스를 제거할 때 발생하는 이벤트입니다.
+    /// </summary>
+    public Action OnRemoveFence;
+    
+    /// <summary>
+    /// 펜스를 설치할 때 발생하는 이벤트입니다.
+    /// </summary>
+    public Action OnPlaceFence;
+    
+    /// <summary>
+    /// 땅을 경작할 때 발생하는 이벤트입니다.
+    /// </summary>
+    public Action OnHoeing;
+    #endregion
+
+    #region Private Fields
+    private float m_currentSpeed = 0f;
+    private float m_moveSpeed = 3f;
+    private float m_runSpeed = 5f;
+    private bool m_isMoving = false;
+    private Vector2 m_currentMovementInput;
+    private bool m_isEquipped = false;
+    private bool m_isNearWater = false;
+    private GameObject m_currentTool;
+    private float m_horizontal;
+    private float m_vertical;
+    private Vector2 m_mousePosition;
+    private Rigidbody2D m_rigidbody;
+    private Animator m_playerAnimator;
+    private Animator m_toolAnimator;
+    #endregion
+
+    #region Unity Lifecycle
+    /// <summary>
+    /// 컴포넌트 초기화 시 호출됩니다.
+    /// </summary>
+    private void Awake()
+    {
+        m_rigidbody = GetComponent<Rigidbody2D>();
+        m_playerAnimator = GetComponentInChildren<Animator>();
+    }
+
+    /// <summary>
+    /// 매 프레임마다 호출됩니다.
+    /// </summary>
+    private void Update()
+    {
+        SetMousePosition();
+    }
+
+    /// <summary>
+    /// 물리 타임스텝마다 호출됩니다.
+    /// </summary>
+    private void FixedUpdate()
+    {
+        m_horizontal = Input.GetAxisRaw("Horizontal");
+        m_vertical = Input.GetAxisRaw("Vertical");
+
+        Move();
+        m_playerAnimator.speed = m_currentSpeed / m_moveSpeed;
+
+        SetMoveRotAnime();
+        GetCurrentToolAnimation();
+    }
+
+    /// <summary>
+    /// 다른 콜라이더가 트리거 영역 내에 머무를 때 호출됩니다.
+    /// </summary>
+    /// <param name="other">충돌한 콜라이더</param>
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water")) 
+        {
+            m_isNearWater = true;
+        }
+
+        if (m_currentTool != null && m_currentTool.CompareTag("Rod"))
+        {
+            if (m_isMoving)
+            {
+                if (m_toolAnimator != null) 
+                {
+                    m_toolAnimator.SetBool("Fishing", false);
+                }
+                Destroy(m_currentTool);
+                m_toolAnimator = null;
+                m_isEquipped = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 다른 콜라이더가 트리거 영역을 벗어날 때 호출됩니다.
+    /// </summary>
+    /// <param name="other">충돌한 콜라이더</param>
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
+        {
+            m_isNearWater = false;
+
+            if (m_currentTool != null && m_currentTool.CompareTag("Rod"))
+            {
+                m_toolAnimator.SetBool("Fishing", false);
+                Destroy(m_currentTool);
+                m_toolAnimator = null;
+                m_isEquipped = false;
+            }
+        }
+    }
+    #endregion
+
+    #region Public Methods - Input Actions
+    /// <summary>
+    /// 마우스 위치를 월드 좌표로 설정합니다.
+    /// </summary>
+    public void SetMousePosition()
+    {
+        m_mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    /// <summary>
+    /// 단축키 입력을 처리합니다.
+    /// </summary>
+    /// <param name="context">입력 콜백 컨텍스트</param>
     public void OnHotkeyPressed(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
         {
             string key = context.control.name;
 
+            // 특수 키 처리
             switch (key)
             {
                 case "0":
@@ -52,292 +221,250 @@ public class PlayerController : MonoBehaviour
 
             if (int.TryParse(key, out int index))
             {
-                ItemInstance itemInstance = _quickSlot.SetAndGet(index);
+                ItemInstance itemInstance = m_quickSlot.SetAndGet(index);
 
-                equipped = false;
-                toolAnimator = null;
-                _axe.SetActive(false);
-                _hoe.SetActive(false);
-                _fishingRod.SetActive(false);
-                _wateringCan.SetActive(false);
-                _pickAxe.SetActive(false);
-                fenceToolUI.gameObject.SetActive(false);
+                // 기존 장착 상태 초기화
+                m_isEquipped = false;
+                m_toolAnimator = null;
+                m_axe.SetActive(false);
+                m_hoe.SetActive(false);
+                m_fishingRod.SetActive(false);
+                m_wateringCan.SetActive(false);
+                m_pickAxe.SetActive(false);
+                m_fenceToolUI.gameObject.SetActive(false);
 
+                // 선택한 아이템이 없는 경우 상태 초기화
                 if (itemInstance == null)
                 {
-                    _stateMachine.ClearState();
+                    m_stateMachine.ClearState();
                     return;
                 }
 
+                // 아이템 유형에 따른 상태 변경
                 switch (itemInstance.ItemInfo.itemType)
                 {
                     case DesignEnums.ItemType.Seed:
-                        _stateMachine.ChangeState(_stateMachine.seedingState); break;
+                        m_stateMachine.ChangeState(m_stateMachine.seedingState); 
+                        break;
                     case DesignEnums.ItemType.Tool:
-                        if (itemInstance.ItemInfo.name == "PickAxe")
-                        {
-                            _stateMachine.ChangeState(_stateMachine.miningState);
-                            _pickAxe.SetActive(true);
-                            equipped = true;
-                        }
-                        else if (itemInstance.ItemInfo.name == "Sword")
-                        {
-                            _stateMachine.ChangeState(_stateMachine.miningState);
-                            _axe.SetActive(true);
-                            equipped = true;
-                        }
-                        else if (itemInstance.ItemInfo.name == "FishingRod")
-                        {
-                            _stateMachine.ChangeState(_stateMachine.fishingState);
-                            _fishingRod.SetActive(true);
-                            equipped = true;
-                        }
-                        else if (itemInstance.ItemInfo.name == "Hoe")
-                        {
-                            _stateMachine.ChangeState(_stateMachine.hoeingState);
-                            _hoe.SetActive(true);
-                            equipped = true;
-                        }
-                        else if (itemInstance.ItemInfo.name == "Axe")
-                        {
-                            _stateMachine.ChangeState(_stateMachine.removingFenceState);
-                            _axe.SetActive(true);
-                            equipped = true;
-                        }
-                        else if (itemInstance.ItemInfo.name == "Fence")
-                        {
-                            _stateMachine.ChangeState(_stateMachine.placingFenceState);
-                            fenceToolUI.gameObject.SetActive(true);
-                        }
+                        HandleToolSelection(itemInstance);
                         break;
                 }
             }
         }
     }
 
-    // Move InputAction
+    /// <summary>
+    /// 이동 입력을 처리합니다.
+    /// </summary>
+    /// <param name="context">입력 콜백 컨텍스트</param>
     public void OnMove(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            curMovementInput = context.ReadValue<Vector2>();
+            m_currentMovementInput = context.ReadValue<Vector2>();
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
-            curMovementInput = Vector2.zero;
+            m_currentMovementInput = Vector2.zero;
         }
     }
 
-    // ItemGet InputAction
+    /// <summary>
+    /// 아이템 획득 입력을 처리합니다.
+    /// </summary>
+    /// <param name="context">입력 콜백 컨텍스트</param>
     public void OnItemGet(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
         {
             if (TryGetComponent(out ItemObject itemObject))
             {
-                itemObject.PickUp(inventory);
+                itemObject.PickUp(m_inventory);
             }
         }
     }
 
-    // Inventory InputAction
+    /// <summary>
+    /// 인벤토리 열기/닫기 입력을 처리합니다.
+    /// </summary>
+    /// <param name="context">입력 콜백 컨텍스트</param>
     public void OnInventory(InputAction.CallbackContext context)
     {
-        if (!UIManager.Instance.playerMenuUI.isOpen && context.phase == InputActionPhase.Started) UIManager.Instance.OpenPlayerMenuUI();
-        else if (UIManager.Instance.playerMenuUI.isOpen && context.phase == InputActionPhase.Started) UIManager.Instance.ClosePlayerMenuUI();
+        if (!UIManager.Instance.playerMenuUI.isOpen && context.phase == InputActionPhase.Started) 
+        {
+            UIManager.Instance.OpenPlayerMenuUI();
+        }
+        else if (UIManager.Instance.playerMenuUI.isOpen && context.phase == InputActionPhase.Started) 
+        {
+            UIManager.Instance.ClosePlayerMenuUI();
+        }
     }
 
-    //Equip InputAction
+    /// <summary>
+    /// 도구 장착/해제 입력을 처리합니다.
+    /// </summary>
+    /// <param name="context">입력 콜백 컨텍스트</param>
     public void OnEquip(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !equipped)
+        if (context.phase == InputActionPhase.Started && !m_isEquipped)
         {
-            //curTool = Instantiate(equipTools[selectedEquipItemIndex], toolPivot.transform);
-            equipped = true;
+            m_isEquipped = true;
         }
-        else if (context.phase == InputActionPhase.Started && equipped)
+        else if (context.phase == InputActionPhase.Started && m_isEquipped)
         {
-            Destroy(curTool);
-            toolAnimator = null;
-            equipped = false;
+            Destroy(m_currentTool);
+            m_toolAnimator = null;
+            m_isEquipped = false;
         }
     }
 
-    // Use InputAction
+    /// <summary>
+    /// 사용 입력을 처리합니다.
+    /// </summary>
+    /// <param name="context">입력 콜백 컨텍스트</param>
     public void OnUse(InputAction.CallbackContext context)
     {        
         if (context.phase == InputActionPhase.Started)
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                _stateMachine.DoAction();
+                m_stateMachine.DoAction();
             }            
         }
     }
 
+    /// <summary>
+    /// 상호작용 입력을 처리합니다.
+    /// </summary>
+    /// <param name="context">입력 콜백 컨텍스트</param>
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (canInteract && context.phase == InputActionPhase.Started)
+        if (CanInteract && context.phase == InputActionPhase.Started)
         {
             Debug.Log("NPC에게 말 걸기");
         }
     }
-
-    #region Life Cycle
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        playerAnimator = GetComponentInChildren<Animator>();
-    }
-
-    private void Update()
-    {
-        SetMousePosition();
-        //GetEquipItemIndex();
-    }
-
-    private void FixedUpdate()
-    {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
-
-        Move();
-        playerAnimator.speed = curSpeed / moveSpeed;
-
-        SetMoveRotAnime();
-        GetCurToolAnimation();
-    }
     #endregion
 
-    #region Private Field
-    private float curSpeed = 0;
-    private float moveSpeed = 3;
-    private float runSpeed = 5;
-    private bool isMoving = false;
-    private Vector2 curMovementInput;
-    private bool equipped = false;
-    private bool nearWater = false;
-    private GameObject curTool;
-    private float horizontal;
-    private float vertical;
-
-    public float plLastMoveX;
-    public float plLastMoveY;
-
-    private Vector2 mousePosition;
-
-    private Rigidbody2D _rigidbody;
-    private Animator playerAnimator;
-    private Animator toolAnimator;
-
-    public FenceToolUI fenceToolUI;
-    public List<FenceToolSlot> fenceToolSlots;
-    public Tilemap objectMap;
-    public List<TileBase> fences;
-
-    public Tilemap floorMap;
-    public TileBase floorTile;
-
-    public Tilemap waterMap;
-    public Tilemap oreMap;
-
-    public Action<Vector3Int> onMine;
-    public Action onRemoveFence;
-    public Action onPlaceFence;
-    public Action onHoeing;
-
-    public bool canInteract = false;
-    
-    #endregion
-
-    #region Private Method
-    // 플레이어 이동 시 애니메이션 활성화, 이동 중단 시 직전 방향의 모습으로 Idle
-    void SetMoveRotAnime()
+    #region Private Methods
+    /// <summary>
+    /// 도구 아이템 선택을 처리합니다.
+    /// </summary>
+    /// <param name="itemInstance">선택된 아이템 인스턴스</param>
+    private void HandleToolSelection(ItemInstance itemInstance)
     {
-        playerAnimator.SetFloat("Horizontal", horizontal);
-        playerAnimator.SetFloat("Vertical", vertical);
-
-        if (toolAnimator != null)
+        string itemName = itemInstance.ItemInfo.name;
+        
+        switch(itemName)
         {
-            toolAnimator.SetFloat("Horizontal", horizontal);
-            toolAnimator.SetFloat("Vertical", vertical);
-        }
-
-        if (horizontal == 1 || horizontal == -1 || vertical == 1 || vertical == -1)
-        {
-            playerAnimator.SetFloat("LastMoveX", horizontal);
-            playerAnimator.SetFloat("LastMoveY", vertical);
-
-            plLastMoveX = horizontal;
-            plLastMoveY = vertical;
-        }
-
-        if (toolAnimator != null)
-        {
-            toolAnimator.SetFloat("LastMoveX", plLastMoveX);
-            toolAnimator.SetFloat("LastMoveY", plLastMoveY);
+            case "PickAxe":
+                m_stateMachine.ChangeState(m_stateMachine.miningState);
+                m_pickAxe.SetActive(true);
+                m_isEquipped = true;
+                break;
+            case "Sword":
+                m_stateMachine.ChangeState(m_stateMachine.miningState);
+                m_axe.SetActive(true);
+                m_isEquipped = true;
+                break;
+            case "FishingRod":
+                m_stateMachine.ChangeState(m_stateMachine.fishingState);
+                m_fishingRod.SetActive(true);
+                m_isEquipped = true;
+                break;
+            case "Hoe":
+                m_stateMachine.ChangeState(m_stateMachine.hoeingState);
+                m_hoe.SetActive(true);
+                m_isEquipped = true;
+                break;
+            case "Axe":
+                m_stateMachine.ChangeState(m_stateMachine.removingFenceState);
+                m_axe.SetActive(true);
+                m_isEquipped = true;
+                break;
+            case "Fence":
+                m_stateMachine.ChangeState(m_stateMachine.placingFenceState);
+                m_fenceToolUI.gameObject.SetActive(true);
+                break;
         }
     }
 
-    // curTool Animation GetComponent
-    void GetCurToolAnimation()
+    /// <summary>
+    /// 플레이어 이동 시 애니메이션을 업데이트합니다.
+    /// </summary>
+    private void SetMoveRotAnime()
+    {
+        // 현재 이동 방향에 따른 애니메이션 설정
+        m_playerAnimator.SetFloat("Horizontal", m_horizontal);
+        m_playerAnimator.SetFloat("Vertical", m_vertical);
+
+        // 도구 애니메이션이 있는 경우에도 동일하게 적용
+        if (m_toolAnimator != null)
+        {
+            m_toolAnimator.SetFloat("Horizontal", m_horizontal);
+            m_toolAnimator.SetFloat("Vertical", m_vertical);
+        }
+
+        // 이동 방향이 있는 경우 마지막 이동 방향 저장
+        if (m_horizontal != 0 || m_vertical != 0)
+        {
+            m_playerAnimator.SetFloat("LastMoveX", m_horizontal);
+            m_playerAnimator.SetFloat("LastMoveY", m_vertical);
+
+            LastMoveX = m_horizontal;
+            LastMoveY = m_vertical;
+        }
+
+        // 도구 애니메이션이 있는 경우 마지막 이동 방향 적용
+        if (m_toolAnimator != null)
+        {
+            m_toolAnimator.SetFloat("LastMoveX", LastMoveX);
+            m_toolAnimator.SetFloat("LastMoveY", LastMoveY);
+        }
+    }
+
+    /// <summary>
+    /// 현재 활성화된 도구의 애니메이터를 가져옵니다.
+    /// </summary>
+    private void GetCurrentToolAnimation()
     {        
-        if (toolPivot.transform.GetChild(0).gameObject.activeInHierarchy)
-            toolAnimator = toolPivot.transform.GetChild(0).GetComponent<Animator>();
-        else if (toolPivot.transform.GetChild(1).gameObject.activeInHierarchy)
-            toolAnimator = toolPivot.transform.GetChild(1).GetComponent<Animator>();
-        else if (toolPivot.transform.GetChild(2).gameObject.activeInHierarchy)
-            toolAnimator = toolPivot.transform.GetChild(2).GetComponent<Animator>();
-        else if (toolPivot.transform.GetChild(3).gameObject.activeInHierarchy)
-            toolAnimator = toolPivot.transform.GetChild(3).GetComponent<Animator>();
-        else if (toolPivot.transform.GetChild(4).gameObject.activeInHierarchy)
-            toolAnimator = toolPivot.transform.GetChild(4).GetComponent<Animator>();
+        // 더 효율적인 방법으로 리팩토링
+        for (int i = 0; i < m_toolPivot.transform.childCount; i++)
+        {
+            GameObject child = m_toolPivot.transform.GetChild(i).gameObject;
+            if (child.activeInHierarchy)
+            {
+                m_toolAnimator = child.GetComponent<Animator>();
+                return;
+            }
+        }
+        
+        // 모든 자식이 비활성화된 경우 null로 설정
+        m_toolAnimator = null;
     }
 
-    // 플레이어 이동
+    /// <summary>
+    /// 플레이어 이동을 처리합니다.
+    /// </summary>
     private void Move()
     {
-        isMoving = true;
+        m_isMoving = true;
 
-        curSpeed = Input.GetKey(KeyCode.Space) ? runSpeed : moveSpeed;
+        // 달리기 키 누르면 달리기 속도, 아니면 걷기 속도 사용
+        m_currentSpeed = Input.GetKey(KeyCode.Space) ? m_runSpeed : m_moveSpeed;
 
-        Vector3 dir = transform.up * curMovementInput.y + transform.right * curMovementInput.x;
-        dir *= curSpeed;
+        // 이동 방향 계산
+        Vector3 direction = transform.up * m_currentMovementInput.y + transform.right * m_currentMovementInput.x;
+        direction *= m_currentSpeed;
 
-        _rigidbody.velocity = dir;
+        // 이동 적용
+        m_rigidbody.velocity = direction;
 
-        if (_rigidbody.velocity == Vector2.zero) isMoving = false;
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water")) nearWater = true;
-
-        if (curTool != null && curTool.CompareTag("Rod"))
+        // 속도가 0이면 이동 중이 아님
+        if (m_rigidbody.velocity == Vector2.zero) 
         {
-            if (isMoving)
-            {
-                if (toolAnimator != null) toolAnimator.SetBool("Fishing", false);
-                Destroy(curTool);
-                toolAnimator = null;
-                equipped = false;
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
-        {
-            nearWater = false;
-
-            if (curTool != null && curTool.CompareTag("Rod"))
-            {
-                toolAnimator.SetBool("Fishing", false);
-                Destroy(curTool);
-                toolAnimator = null;
-                equipped = false;
-            }
+            m_isMoving = false;
         }
     }
     #endregion
