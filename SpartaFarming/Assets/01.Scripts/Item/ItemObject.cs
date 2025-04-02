@@ -51,7 +51,7 @@ public class ItemObject : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PickUp(collision.gameObject.GetComponent<Inventory>());
+            PickUp(collision.gameObject.GetComponentInChildren<Inventory>());
         }
     }
 
