@@ -46727,6 +46727,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 961826011759521227, guid: c8ef4f6641eacdf4d9e2ea7d5b51d371, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456712351048870764, guid: c8ef4f6641eacdf4d9e2ea7d5b51d371, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2225727169952922534, guid: c8ef4f6641eacdf4d9e2ea7d5b51d371, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405303201487774056, guid: c8ef4f6641eacdf4d9e2ea7d5b51d371, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6412723933451755823, guid: c8ef4f6641eacdf4d9e2ea7d5b51d371, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -46767,9 +46783,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6921523811727675664, guid: c8ef4f6641eacdf4d9e2ea7d5b51d371, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7539642962200993785, guid: c8ef4f6641eacdf4d9e2ea7d5b51d371, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8501181575553175409, guid: c8ef4f6641eacdf4d9e2ea7d5b51d371, type: 3}
       propertyPath: m_Name
       value: Grid (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8592437025393839893, guid: c8ef4f6641eacdf4d9e2ea7d5b51d371, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
