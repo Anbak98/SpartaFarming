@@ -1928,6 +1928,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Money
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 268
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1128ab374a542e845a090364ca1d83fa
+      internalID: 928315436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2000,6 +2021,7 @@ TextureImporter:
       Large_Bar_Frame_InLine_0: -73416131
       Large_Bar_Frame_InLine_1: -2060334879
       Large_Bar_Frame_InLine_2: 57052922
+      Money: 928315436
       MpBar_Large_0: -14913251
       MpBar_Large_1: -1246317254
       MpBar_Large_2: 485258930
