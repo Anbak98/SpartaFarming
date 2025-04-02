@@ -1451,6 +1451,7 @@ MonoBehaviour:
   moveSpeed: 3
   runSpeed: 5
   isMoving: 0
+  curMovementInput: {x: 0, y: 0}
   equipped: 0
   nearWater: 0
   equipItemUI: {fileID: 0}
@@ -1469,6 +1470,8 @@ MonoBehaviour:
   floorMap: {fileID: 0}
   floorTile: {fileID: 0}
   waterMap: {fileID: 0}
+  inventoryUI: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!114 &194535492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1530,6 +1533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quickStorageSize: 12
   mainStorageSize: 24
+  itemObjectPrefab: {fileID: 0}
 --- !u!4 &194828516
 Transform:
   m_ObjectHideFlags: 0
@@ -24145,9 +24149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e8699c36e8dc3469c44ea2636f9726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  building: {fileID: 6821603091509457055, guid: c5c7f19a2a39a0f408481c3e8df74d24, type: 3}
-  tilemap: {fileID: 625057272}
-  buildingMod: {fileID: 675175988}
 --- !u!114 &675175988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24160,7 +24161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29169a5084ad709408f62f881b6b2a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bluePrintPrefab: {fileID: 5884111846815191283, guid: c6b04cff79fb4df4fb833425c5c2c486, type: 3}
 --- !u!224 &684005514 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4466562738272459683, guid: 97f0735a32e16294b9408777f1a57960, type: 3}
@@ -28729,6 +28729,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97f0735a32e16294b9408777f1a57960, type: 3}
+--- !u!1001 &872553872
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 10911567811644838, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10911567811644838, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10911567811644838, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10911567811644838, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 10911567811644838, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10911567811644838, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10911567811644838, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10911567811644838, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10911567811644838, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10911567811644838, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660492075131854848, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
+      propertyPath: m_Name
+      value: SceneLoader
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3a240f850f40fbe49a6c9f9e8f1925c4, type: 3}
 --- !u!1 &884261984
 GameObject:
   m_ObjectHideFlags: 0
@@ -60019,3 +60076,4 @@ SceneRoots:
   - {fileID: 1520037106}
   - {fileID: 8368175}
   - {fileID: 1265018626}
+  - {fileID: 872553872}
