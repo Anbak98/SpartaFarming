@@ -159,7 +159,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            if (TryGetComponent<ItemObject>(out ItemObject itemObject))
+            if (TryGetComponent(out ItemObject itemObject))
             {
                 itemObject.PickUp(inventory);
             }
