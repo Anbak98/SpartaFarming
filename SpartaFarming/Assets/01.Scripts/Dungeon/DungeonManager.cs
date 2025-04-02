@@ -50,7 +50,25 @@ public class DungeonManager : Singleton<DungeonManager>
 
         // 이벤트 추가
         this.AddEvent(EnterDungeon);
+        this.AddEvent(FadeManager.Instance.FindCanvas);
+        this.AddEvent(FadeManager.Instance.FadeIn);
+
+        // 씬 로더에 추가 
+        /*
+        SceneLoader.Instance.RegisterSceneAction(SceneState.DungeonScene, FadeManager.Instance.FindCanvas);
+        SceneLoader.Instance.RegisterSceneAction(SceneState.DungeonScene, FadeManager.Instance.FadeIn);
+        SceneLoader.Instance.RegisterSceneAction(SceneState.DungeonScene, EnterDungeon);
+        */
     }
+
+    /*
+    private void OnDestroy()
+    {
+        SceneLoader.Instance.DisRegistarerAction(SceneState.DungeonScene, FadeManager.Instance.FindCanvas);
+        SceneLoader.Instance.DisRegistarerAction(SceneState.DungeonScene, FadeManager.Instance.FadeIn);
+        SceneLoader.Instance.DisRegistarerAction(SceneState.DungeonScene, EnterDungeon);
+    }
+    */
 
     private void Start()
     {
