@@ -6370,7 +6370,7 @@ GameObject:
   - component: {fileID: 194828516}
   - component: {fileID: 194828515}
   m_Layer: 0
-  m_Name: Inventory
+  m_Name: InventoryData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10943,6 +10943,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 483565408}
+  - component: {fileID: 483565409}
   m_Layer: 0
   m_Name: PlaceFence
   m_TagString: Untagged
@@ -10965,6 +10966,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1896682787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &483565409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483565407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df2aea003c901e4b82007e5ec615611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &490435563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25997,6 +26010,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 702475598}
+  - component: {fileID: 702475599}
   m_Layer: 0
   m_Name: RemoveFence
   m_TagString: Untagged
@@ -26019,6 +26033,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1896682787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &702475599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702475597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06477ac407e7a18428508e449de45a06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &725885062
 GameObject:
   m_ObjectHideFlags: 0
@@ -34472,6 +34498,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1115064544}
+  - component: {fileID: 1115064545}
   m_Layer: 0
   m_Name: Hoeing
   m_TagString: Untagged
@@ -34494,6 +34521,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1896682787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1115064545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115064543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f26bc86aa2a34e49bdca4ec8deec10c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1133007319
 GameObject:
   m_ObjectHideFlags: 0
@@ -50681,10 +50720,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f617bb379d714fe4bb217b5f41854c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fish: {fileID: 0}
-  UI: {fileID: 0}
-  LeftSignal: {fileID: 0}
-  RightSignal: {fileID: 0}
+  Fish: {fileID: 271547580}
+  UI: {fileID: 1384515768}
+  LeftSignal: {fileID: 1085115666}
+  RightSignal: {fileID: 681710156}
   powerDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1587984182
 GameObject:
@@ -77440,10 +77479,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seedingState: {fileID: 737971726}
-  removingFenceState: {fileID: 0}
-  placingFenceState: {fileID: 0}
+  removingFenceState: {fileID: 702475599}
+  placingFenceState: {fileID: 483565409}
   fishingState: {fileID: 1582467069}
-  hoeingState: {fileID: 0}
+  hoeingState: {fileID: 1115064545}
+  miningState: {fileID: 0}
 --- !u!4 &1896682787
 Transform:
   m_ObjectHideFlags: 0
@@ -77457,8 +77497,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 737971725}
   - {fileID: 1115064544}
+  - {fileID: 737971725}
   - {fileID: 483565408}
   - {fileID: 702475598}
   - {fileID: 1582467068}
@@ -85531,7 +85571,7 @@ GameObject:
   - component: {fileID: 3188056396738112108}
   - component: {fileID: 6200842095749580508}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerMerged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85549,11 +85589,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79fd1896844ca29478626344d6b115ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolPivot: {fileID: 8922720355899451871}
   _quickSlot: {fileID: 909816784}
   inventoryUI: {fileID: 2014373750}
   inventory: {fileID: 194828515}
   _stateMachine: {fileID: 1896682786}
+  toolPivot: {fileID: 8922720355899451871}
   _axe: {fileID: 406305133}
   _hoe: {fileID: 1772462345}
   _fishingRod: {fileID: 1434469222}
