@@ -21,6 +21,7 @@ public class PlayerCondition : MonoBehaviour, IDamageable
     void Update()
     {
         Heal(health.passiveValue * Time.deltaTime);
+        GetStamina(stamina.passiveValue * Time.deltaTime);
 
         if (health.curValue == 0f)
         {
@@ -50,6 +51,11 @@ public class PlayerCondition : MonoBehaviour, IDamageable
     public void UseStamina(float amount)
     {
         stamina.Subtract(amount);
+    }
+
+    public void GetStamina(float amount)
+    {
+        stamina.Add(amount);
     }
 
 
