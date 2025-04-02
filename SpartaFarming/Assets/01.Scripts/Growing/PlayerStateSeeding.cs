@@ -11,6 +11,7 @@ public class PlayerStateSeeding : MonoBehaviour, IPlayerState
     public int BuildingWidth = 0;
     public int BuildingHeight = 0;
     public int BuildingKey = 0;
+    public PlayerQuickslot quickSlot;
 
     public void Enter()
     {
@@ -43,7 +44,10 @@ public class PlayerStateSeeding : MonoBehaviour, IPlayerState
     {
         if (IsActivated)
             if (CheckIsValidTileWithDrawingBluePrint())
-                    BuildOnPosition();
+            {
+                quickSlot.ChangeQuantity(1);
+                BuildOnPosition();
+            }
     }
 
     public void OnUpdate()

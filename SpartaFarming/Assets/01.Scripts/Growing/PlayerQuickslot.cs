@@ -15,6 +15,7 @@ public class PlayerQuickslot : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioClipSelectQuickSlot;
 
+    private int _index;
     private ItemInstance _selectedItem;
     private Outline _selectedOutline;
 
@@ -31,10 +32,16 @@ public class PlayerQuickslot : MonoBehaviour
         }
     }
 
+    public void ChangeQuantity(int quantity)
+    {
+        _inventory.RemoveItem(_selectedItem.ItemInfo.key, quantity);
+    }
+
     public ItemInstance SetAndGet(int index)
     {
         --index;
         _selectedItem = _inventory.QuickStorage.GetItemAt(index);
+        _index = index;
 
         if (_selectedItem == null)
             return null;

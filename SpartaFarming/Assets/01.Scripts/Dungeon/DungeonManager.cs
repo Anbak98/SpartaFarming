@@ -80,9 +80,9 @@ public class DungeonManager : Singleton<DungeonManager>
         dungeonEnemies = new Dictionary<int, DungeonEnemy> ();
 
         // ##TODO : Try using the data table
-        DungeonEnemy enemyGroup1 = new DungeonEnemy( 1,
+        DungeonEnemy enemyGroup1 = new DungeonEnemy( 0,
             new List<UnitType> { UnitType.Slime, UnitType.GraveStone });
-        DungeonEnemy enemyGroup2 = new DungeonEnemy( 2,
+        DungeonEnemy enemyGroup2 = new DungeonEnemy( 1,
             new List<UnitType> { UnitType.Orc, UnitType.StrongOrc });
 
         // 층 별 던전데이터

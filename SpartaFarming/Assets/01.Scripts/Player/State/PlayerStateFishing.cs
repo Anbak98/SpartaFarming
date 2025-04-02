@@ -7,8 +7,6 @@ public class PlayerStateFishing : MonoBehaviour, IPlayerState
 {
     public FishObject Fish;
     public GameObject UI;
-    public Image LeftSignal;
-    public Image RightSignal;
     public Vector3 powerDirection;
 
     private bool IsActivated = false;
@@ -47,33 +45,16 @@ public class PlayerStateFishing : MonoBehaviour, IPlayerState
         }
     }
 
+    public void Struggle()
+    {
+
+    }
+
     public void OnUpdate()
     {
         if(IsActivated && Fish != null)
         {
-            if(Fish.PowerDirection.x > 0)
-            {
-                LeftSignal.color = Color.white;
-                RightSignal.color = Color.red;
-            }
-            else
-            {
-                LeftSignal.color = Color.red;
-                RightSignal.color = Color.white;
-            }
             
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //    if(Struggle(new Vector3(1, 0, 0)))
-            //    {
-            //        Destroy(Fish.gameObject);
-            //        UI.SetActive(false);
-            //    }
-            //}
-            //else if (Input.GetMouseButtonDown(1))
-            //{
-            //    Struggle(new Vector3(-1, 0, 0));
-            //}
         }
     }
 }

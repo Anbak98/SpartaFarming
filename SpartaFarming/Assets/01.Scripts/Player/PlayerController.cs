@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerQuickslot _quickSlot;
     [SerializeField] private GameObject inventoryUI;
     [SerializeField] private Inventory inventory;
+    public Inventory Inventory { get { return inventory; } set { inventory = value; } }
 
     [Header("StateMachine")]
     [SerializeField] private PlayerStateMachine _stateMachine;
@@ -174,6 +175,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (canInteract && context.phase == InputActionPhase.Started)
+        {
+            Debug.Log("NPC에게 말 걸기");
+        }
+    }
+
     #region Life Cycle
     private void Awake()
     {
@@ -236,6 +245,8 @@ public class PlayerController : MonoBehaviour
     public Action onRemoveFence;
     public Action onPlaceFence;
     public Action onHoeing;
+
+    public bool canInteract = false;
     
     #endregion
 
