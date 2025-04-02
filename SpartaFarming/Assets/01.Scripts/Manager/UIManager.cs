@@ -15,12 +15,12 @@ public class UIManager : Singleton<UIManager>
 
     public void OpenPlayerMenuUI()
     {
-        playerMenuUI.gameObject.SetActive(true);
+        playerMenuUI.OpenBook();
     }
 
     public void ClosePlayerMenuUI()
     {
-        playerMenuUI.gameObject.SetActive(false);
+        playerMenuUI.CloseBook();
     }
 
     public void OpenShopUI(Shop shop)

@@ -143,8 +143,8 @@ public class PlayerController : MonoBehaviour
     // Inventory InputAction
     public void OnInventory(InputAction.CallbackContext context)
     {
-        if (!inventoryUI.activeInHierarchy && context.phase == InputActionPhase.Started) inventoryUI.SetActive(true);
-        else if (inventoryUI.activeInHierarchy && context.phase == InputActionPhase.Started) inventoryUI.SetActive(false);
+        if (!UIManager.Instance.playerMenuUI.isOpen && context.phase == InputActionPhase.Started) UIManager.Instance.OpenPlayerMenuUI();
+        else if (UIManager.Instance.playerMenuUI.isOpen && context.phase == InputActionPhase.Started) UIManager.Instance.ClosePlayerMenuUI();
     }
 
     //Equip InputAction

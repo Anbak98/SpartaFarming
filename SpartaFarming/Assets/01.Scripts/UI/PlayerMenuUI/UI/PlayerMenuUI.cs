@@ -10,22 +10,23 @@ public class PlayerMenuUI : MonoBehaviour
     public int PreviousTab {get; private set;} = 0;
 
     public bool isTransition {get; private set;} = false ;
+    public bool isOpen {get; private set;} = false;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-
-        OpenBook();
     }
 
     public void OpenBook(){
         animator.enabled = true;
         animator.Play(animationData.BookOpenHash);
+        isOpen = true;
     }
 
     public void CloseBook(){
         animator.enabled = true;
         animator.Play(animationData.BookCloseHash);
+        isOpen = false;
     }
 
     public void ChangeTab(int index)
