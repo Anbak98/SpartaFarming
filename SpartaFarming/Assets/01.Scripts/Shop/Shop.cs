@@ -11,12 +11,12 @@ public class Shop : MonoBehaviour
         UIManager.Instance.OpenShopUI(this);
     }
 
-    public ItemInstance BuyItem(int index)
+    public void BuyItem(Player player,int index)
     {
-        if(index >= ShopItems.Count) return null;
+        if(index >= ShopItems.Count) return;
 
         ItemInfo itemInfo = DataManager.ItemLoader.GetByKey(ShopItems[index]);
         ItemInstance itemInstance = new ItemInstance(itemInfo);
-        return itemInstance;
+        player.Controller.Inventory.AddItem(itemInstance);
     }
 }

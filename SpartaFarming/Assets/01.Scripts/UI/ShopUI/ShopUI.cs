@@ -9,6 +9,13 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Transform shopItemSlotParent;
     [SerializeField] private HoldItemUI holdItemSlotUI;
 
+    private Player player;
+
+    private void Awake()
+    {
+        player = FindObjectOfType<Player>();
+    }
+
     public void Init(Shop shop)
     {
         _shop = shop;
@@ -44,9 +51,6 @@ public class ShopUI : MonoBehaviour
 
     public void BuyItem(int index)
     {
-        ItemInstance item = _shop.BuyItem(index);
-        if(item != null){
-            
-        }
+        _shop.BuyItem(player, index);
     }
 }
