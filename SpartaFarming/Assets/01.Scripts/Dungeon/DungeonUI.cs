@@ -18,15 +18,15 @@ public class DungeonUI : MonoBehaviour
         offButton.onClick.AddListener(OffPanel);
     }
 
-    public void OnOffPanel() 
+    public void OnOffPanel(bool flag) 
     {
-        panel.SetActive( !panel.activeSelf );
+        panel.SetActive(flag);
     }
 
     private void ReturnToVillage()
     {
         // 메인 씬으로 넘어가기
-        Debug.Log("메인씬으로 돌아갑니다");
+        SceneLoader.Instance.ChangeScene(SceneState.MainScene);
     }
 
     private void OffPanel() 

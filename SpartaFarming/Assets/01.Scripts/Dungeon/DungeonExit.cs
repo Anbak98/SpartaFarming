@@ -10,7 +10,7 @@ public class DungeonExit : MonoBehaviour
         // 플레이어와 충돌하면 
         if (collision.gameObject.layer == UnitManager.Instance.PlayerLayerInt) 
         {
-            DungeonManager.Instance.dungeonUi.OnOffPanel();
+            DungeonManager.Instance.dungeonUi.OnOffPanel(true);
         }
     }
 
@@ -19,7 +19,7 @@ public class DungeonExit : MonoBehaviour
         // 플레이어와 충돌하면 
         if (collision.gameObject.layer == UnitManager.Instance.PlayerLayerInt)
         {
-            DungeonManager.Instance.dungeonUi.OnOffPanel();
+            DungeonManager.Instance.dungeonUi.OnOffPanel(false);
         }
     }
 }
