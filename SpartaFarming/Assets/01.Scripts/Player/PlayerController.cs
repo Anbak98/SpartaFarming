@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerQuickslot _quickSlot;
     [SerializeField] private GameObject inventoryUI;
     [SerializeField] private Inventory inventory;
+    public Inventory Inventory { get { return inventory; } set { inventory = value; } }
 
     [Header("StateMachine")]
     [SerializeField] private PlayerStateMachine _stateMachine;
