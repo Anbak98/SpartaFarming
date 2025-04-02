@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3874874800221985330}
   - component: {fileID: 7480152607769522598}
   - component: {fileID: 5476856945675120231}
+  - component: {fileID: 8644314365517708016}
   m_Layer: 0
-  m_Name: Tool_Pickaxe
+  m_Name: PickAxe
   m_TagString: Pickaxe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,3 +107,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8644314365517708016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132538316392624365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ee6af2d8dda0154c866c61f04caa3c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemInstance:
+    _quantity: 0
+    _currentDurability: 0
+    _isHolding: 0
+    _isEquipped: 0
+  _spriteRenderer: {fileID: 0}
