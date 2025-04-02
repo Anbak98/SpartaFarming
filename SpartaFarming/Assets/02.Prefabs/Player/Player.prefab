@@ -175,6 +175,7 @@ MonoBehaviour:
   moveSpeed: 3
   runSpeed: 5
   isMoving: 0
+  curMovementInput: {x: 0, y: 0}
   equipped: 0
   nearWater: 0
   equipItemUI: {fileID: 0}
@@ -217,6 +218,8 @@ MonoBehaviour:
   floorMap: {fileID: 0}
   floorTile: {fileID: 11400000, guid: 77480abfd64960445b413d86d2b1401f, type: 2}
   waterMap: {fileID: 0}
+  inventoryUI: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!114 &1099140860747342259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +294,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1988257424624100116}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnEquip
+        m_MethodName: OnInventory
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -319,6 +322,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5c5a4707-8152-4963-9d01-81e195b9ef9a
     m_ActionName: Player/EquipQuickSlot[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1988257424624100116}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnItemGet
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2e89c1bc-1d18-42f9-b8d7-5b56c1f9b59e
+    m_ActionName: Player/ItemGet[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1988257424624100116}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnEquip
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eb120356-93e9-447f-8c86-5b4cf5e31c47
+    m_ActionName: Player/Equip[/Keyboard/v]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
