@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerStateMining : MonoBehaviour, IPlayerState
 {
@@ -22,10 +23,14 @@ public class PlayerStateMining : MonoBehaviour, IPlayerState
     {
     }
 
+    public void HandleAction(InputAction.CallbackContext context)
+    {
+    }
+
     public void OnUpdate()
     {
         pos = GameManager.Instance.Player.transform.position;
-        tilePosition = GameManager.Instance.Player.Controller.objectMap.WorldToCell(pos);
+        tilePosition = GameManager.Instance.Player.Controller.oreMap.WorldToCell(pos);
 
         float lastMoveX = GameManager.Instance.Player.Controller.plLastMoveX;
         float lastMoveY = GameManager.Instance.Player.Controller.plLastMoveY;
