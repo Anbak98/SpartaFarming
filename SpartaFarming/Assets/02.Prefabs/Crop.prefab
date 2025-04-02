@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 6821603091509457055}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8600014, y: -0.04440985, z: -0.008534649}
+  m_LocalPosition: {x: 0.5, y: 5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -129,6 +129,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f26438dc72b54241a32a75851548e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 6898430279235856226}
-  cropKey: 0
   cropData: {fileID: 11400000, guid: 29fa3a68b4ec62d47823fba2125612ee, type: 2}
+  spriteRender: {fileID: 0}
