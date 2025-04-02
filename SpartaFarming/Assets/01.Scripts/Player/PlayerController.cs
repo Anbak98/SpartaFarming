@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     public TileBase floorTile;
 
     public Tilemap waterMap;
+    public Tilemap oreMap;
 
     public GameObject inventoryUI;
     public Inventory inventory;
@@ -213,7 +214,10 @@ public class PlayerController : MonoBehaviour
             if (equipped && !nearWater && context.phase == InputActionPhase.Started)
             {
                 playerAnimator.SetTrigger("Use");
-                if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");
+                if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan") ||curTool.CompareTag("Pickaxe")) toolAnimator.SetTrigger("Use");
+
+                // 광석일때
+                if (curTool.CompareTag("PickAxe")) playerStateMachine.DoAction();
 
                 // Axe 플레이어 이전 이동방향 따라 앞의 타일맵 오브젝트 파괴
                 if (curTool.CompareTag("Axe")) onRemoveFence?.Invoke();                
@@ -290,6 +294,7 @@ public class PlayerController : MonoBehaviour
 
         if (curTool.CompareTag("Axe")) playerStateMachine.ChangeState(playerStateMachine.removingFenceState);        
         if (curTool.CompareTag("Hoe")) playerStateMachine.ChangeState(playerStateMachine.hoeingState);
+        if (curTool.CompareTag("PickAxe")) playerStateMachine.ChangeState(playerStateMachine.miningState);
     }
 
     void ExitState()
