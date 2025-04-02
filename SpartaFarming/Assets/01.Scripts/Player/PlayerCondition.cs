@@ -10,7 +10,11 @@ public class PlayerCondition : MonoBehaviour, IDamageable
 {
     public UICondition uiCondition;
 
-    Condition health { get { return uiCondition.health; } }    
+    Condition health { get { return uiCondition.health; } }
+    Condition stamina { get { return uiCondition.stamina; } }
+
+    Condition farmingProficiency { get { return uiCondition.farmingProficiency; } }
+    Condition fishingProficiendy { get { return uiCondition.fishingProficiency; } }
 
     public event Action onTakeDamage;
 
