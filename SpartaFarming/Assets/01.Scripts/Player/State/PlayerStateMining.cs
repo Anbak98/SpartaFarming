@@ -16,7 +16,6 @@ public class PlayerStateMining : MonoBehaviour, IPlayerState
 
     public void Enter()
     {
-        Debug.Log("enter");
     }
 
     public void Exit()
