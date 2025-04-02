@@ -17752,7 +17752,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -29436,7 +29436,7 @@ MonoBehaviour:
   initialGameTime: 8
   timeMultiplier: 60
   currentGameTime: 0
-  initialDay: 30
+  initialDay: 1
   initialMonth: 11
   initialYear: 2025
   currentDay: 0
