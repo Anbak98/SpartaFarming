@@ -21,11 +21,13 @@ public class WeatherWindyState : WeatherBaseState
 
     public override void Exit()
     {
-        if (WeatherManager.Instance.WeatherSystem.CurrentSeason.season == SeasonType.Summer)
+        if (WeatherManager.Instance.WeatherSystem.CurrentSeason.season == SeasonType.Summer ||
+            WeatherManager.Instance.WeatherSystem.CurrentSeason.season == SeasonType.Spring)
         {
             WeatherManager.Instance.WeatherSystem.WeatherVFX.SpringWindEffect.OnDisable();
         }
-        else if (WeatherManager.Instance.WeatherSystem.CurrentSeason.season == SeasonType.Winter)
+        else if (WeatherManager.Instance.WeatherSystem.CurrentSeason.season == SeasonType.Winter ||
+            WeatherManager.Instance.WeatherSystem.CurrentSeason.season == SeasonType.Fall)
         {
             WeatherManager.Instance.WeatherSystem.WeatherVFX.FallWindEffect.OnDisable();
         }
