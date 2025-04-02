@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class MineOre : MonoBehaviour
@@ -25,19 +26,18 @@ public class MineOre : MonoBehaviour
         if (targetTile is OreTile oreTile)
         {
             oreTilemap.SetTile(tilePosition, null);
-            SpawnOreDrop(tilePosition, oreTile.oreDropPrefab);
+            SpawnOreDrop(tilePosition, oreTile.dropItemKey);
 
             destroyedTiles[tilePosition] = oreTile;
         }
     }
 
-    void SpawnOreDrop(Vector3Int tilePosition, GameObject oreDropPrefab)
+    void SpawnOreDrop(Vector3Int tilePosition, int dropItemKey)
     {
-        if (oreDropPrefab != null)
-        {
-            Vector3 spawnPos = oreTilemap.GetCellCenterWorld(tilePosition);
-            Instantiate(oreDropPrefab, spawnPos, Quaternion.identity);
-        }
+        ItemInfo itemInfo = DataManager.ItemLoader.GetByKey(dropItemKey);
+        GameObject dropObject = Resources.Load<GameObject>(itemInfo.prefabPath);
+        Vector3 spawnPos = oreTilemap.GetCellCenterWorld(tilePosition);
+        Instantiate(dropObject, spawnPos, Quaternion.identity);
     }
 
     void RespawnOre()
