@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,8 +17,8 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     private float vertical;
 
-    private float plLastMoveX;
-    private float plLastMoveY;
+    public float plLastMoveX;
+    public float plLastMoveY;
 
     private Vector2 mousePosition;
 
