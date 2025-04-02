@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerStateMining : IPlayerState
+public class PlayerStateMining : MonoBehaviour, IPlayerState
 {
     private Vector3 pos;
     private Vector3Int tilePosition;
