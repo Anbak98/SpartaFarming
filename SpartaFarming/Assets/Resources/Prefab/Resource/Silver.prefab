@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 629011284107418518}
   - component: {fileID: 1207591443478514262}
   m_Layer: 0
-  m_Name: Silver_Prefab
+  m_Name: Silver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

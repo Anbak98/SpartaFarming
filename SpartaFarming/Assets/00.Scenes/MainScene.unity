@@ -1300,7 +1300,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1430,6 +1430,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5c5a4707-8152-4963-9d01-81e195b9ef9a
     m_ActionName: Player/QuickSlot[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2e89c1bc-1d18-42f9-b8d7-5b56c1f9b59e
+    m_ActionName: Player/ItemGet[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eb120356-93e9-447f-8c86-5b4cf5e31c47
+    m_ActionName: Player/Equip[/Keyboard/v]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1451,6 +1459,7 @@ MonoBehaviour:
   moveSpeed: 3
   runSpeed: 5
   isMoving: 0
+  curMovementInput: {x: 0, y: 0}
   equipped: 0
   nearWater: 0
   equipItemUI: {fileID: 0}
@@ -1469,6 +1478,8 @@ MonoBehaviour:
   floorMap: {fileID: 0}
   floorTile: {fileID: 0}
   waterMap: {fileID: 0}
+  inventoryUI: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!114 &194535492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1530,6 +1541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quickStorageSize: 12
   mainStorageSize: 24
+  itemObjectPrefab: {fileID: 0}
 --- !u!4 &194828516
 Transform:
   m_ObjectHideFlags: 0
@@ -24145,9 +24157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e8699c36e8dc3469c44ea2636f9726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  building: {fileID: 6821603091509457055, guid: c5c7f19a2a39a0f408481c3e8df74d24, type: 3}
-  tilemap: {fileID: 625057272}
-  buildingMod: {fileID: 675175988}
 --- !u!114 &675175988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24160,7 +24169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29169a5084ad709408f62f881b6b2a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bluePrintPrefab: {fileID: 5884111846815191283, guid: c6b04cff79fb4df4fb833425c5c2c486, type: 3}
 --- !u!224 &684005514 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4466562738272459683, guid: 97f0735a32e16294b9408777f1a57960, type: 3}
@@ -44619,7 +44627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ac0101cde71ed45acc8abcf151adaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seasonType: 0
   canChangeWeather: 1
 --- !u!4 &1520037106
 Transform:

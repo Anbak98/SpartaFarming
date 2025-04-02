@@ -34,4 +34,4 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
   m_ColliderType: 1
-  oreDropPrefab: {fileID: 1355393027756319037, guid: 87ec48c556d43444baa76ad6d22d43d3, type: 3}
+  dropItemKey: 1003
