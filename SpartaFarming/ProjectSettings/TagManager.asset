@@ -8,6 +8,7 @@ TagManager:
   - Hoe
   - WateringCan
   - Rod
+  - Pickaxe
   layers:
   - Default
   - TransparentFX

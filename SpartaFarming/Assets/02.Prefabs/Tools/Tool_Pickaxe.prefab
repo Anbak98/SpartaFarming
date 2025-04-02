@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5476856945675120231}
   m_Layer: 0
   m_Name: Tool_Pickaxe
-  m_TagString: Axe
+  m_TagString: Pickaxe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
