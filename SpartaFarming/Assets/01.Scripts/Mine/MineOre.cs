@@ -41,7 +41,7 @@ public class MineOre : MonoBehaviour
     {
         oreTilemap = GetComponent<Tilemap>();
         TimeManager.Instance.TimeSystem.On8oClock += RespawnOre;
-        GameManager.Instance.Player.Controller.onMine += CheckOreTile;
+        //GameManager.Instance.Player.Controller.onMine += CheckOreTile;
     }
 
     void CheckOreTile(Vector3Int tilePosition)
