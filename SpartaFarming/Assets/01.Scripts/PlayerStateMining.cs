@@ -10,7 +10,7 @@ public class PlayerStateMining : IPlayerState
 
     public void DoAction()
     {
-        //GameManager.Instance.Player.Controller.onMine?.Invoke(tilePosition); // playercontroller => public Action<Vector3Int> onMine;
+        GameManager.Instance.Player.Controller.onMine?.Invoke(tilePosition);
     }
 
     public void Enter()
@@ -26,11 +26,14 @@ public class PlayerStateMining : IPlayerState
         pos = GameManager.Instance.Player.transform.position;
         tilePosition = GameManager.Instance.Player.Controller.objectMap.WorldToCell(pos);
 
+        float lastMoveX = GameManager.Instance.Player.Controller.plLastMoveX;
+        float lastMoveY = GameManager.Instance.Player.Controller.plLastMoveY;
+
         // PlayerController plLastMoveX, Y 프로퍼티 또는 퍼블릭
-        //if (plLastMoveX == 1) tilePosition += Vector3Int.right;
-        //else if (plLastMoveX == -1) tilePosition += Vector3Int.left;
-        //else if (plLastMoveY == 1) tilePosition += Vector3Int.up;
-        //else if (plLastMoveY == -1) tilePosition += Vector3Int.down;
-        //else return;
+        if (lastMoveX == 1) tilePosition += Vector3Int.right;
+        else if (lastMoveX == -1) tilePosition += Vector3Int.left;
+        else if (lastMoveY == 1) tilePosition += Vector3Int.up;
+        else if (lastMoveY == -1) tilePosition += Vector3Int.down;
+        else return;
     }
 }

@@ -52,7 +52,9 @@ public class PlayerController : MonoBehaviour
     public Tilemap waterMap;
 
     public GameObject inventoryUI;
-    public Inventory inventory;       
+    public Inventory inventory;
+
+    public Action<Vector3Int> onMine;
 
     private void Awake()
     {
