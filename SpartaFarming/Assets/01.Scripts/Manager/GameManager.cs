@@ -35,6 +35,13 @@ public class GameManager : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-        }        
+        }
+    }
+
+    private void Start()
+    {
+        // 씬로더 초기화
+        SceneLoader.Instance.RegisterSceneAction(SceneState.MainScene, FadeManager.Instance.FindCanvas);
+        SceneLoader.Instance.RegisterSceneAction(SceneState.MainScene, FadeManager.Instance.FadeIn);
     }
 }

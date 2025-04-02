@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3870953743621316321}
   - component: {fileID: 5095111166718448766}
   - component: {fileID: 5156570461266379233}
+  - component: {fileID: 2798989751171561265}
   m_Layer: 0
   m_Name: Gold
   m_TagString: Untagged
@@ -120,3 +121,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &2798989751171561265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355393027756319037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ee6af2d8dda0154c866c61f04caa3c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemInstance:
+    _quantity: 0
+    _currentDurability: 0
+    _isHolding: 0
+    _isEquipped: 0
+  _spriteRenderer: {fileID: 0}

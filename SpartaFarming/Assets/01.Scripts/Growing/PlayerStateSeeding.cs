@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class PlayerStateSeeding : MonoBehaviour, IPlayerState
@@ -32,7 +33,6 @@ public class PlayerStateSeeding : MonoBehaviour, IPlayerState
     public void Exit()
     {
         IsActivated = false;
-        BuildingTarget = null;
         foreach (var bluePrint in _bluePrints)
         {
             Destroy(bluePrint);
@@ -50,6 +50,10 @@ public class PlayerStateSeeding : MonoBehaviour, IPlayerState
     {
         if (IsActivated)
             CheckIsValidTileWithDrawingBluePrint();
+    }
+
+    public void HandleAction(InputAction.CallbackContext context)
+    { 
     }
 
     #region PRIVATE
