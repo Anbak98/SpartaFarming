@@ -36,8 +36,8 @@ public class PlayerStateRemovingFence : MonoBehaviour, IPlayerState
     }
 
     public void DoAction()
-    {        
-        
+    {
+        RemovingFence();
     }
 
     public void RemovingFence()

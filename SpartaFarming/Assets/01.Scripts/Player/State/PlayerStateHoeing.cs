@@ -45,7 +45,7 @@ public class PlayerStateHoeing : MonoBehaviour, IPlayerState
 
     public void DoAction()
     {
-        
+        Hoeing();
     }
 
     public void Hoeing()
