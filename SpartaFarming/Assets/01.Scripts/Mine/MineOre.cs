@@ -8,14 +8,13 @@ using UnityEngine.Tilemaps;
 public class MineOre : MonoBehaviour
 {
     public Tilemap oreTilemap;
-    //public Action<Vector3Int> onMine; �÷��̾�� ����
 
     private Dictionary<Vector3Int, OreTile> destroyedTiles = new Dictionary<Vector3Int, OreTile>();
 
     private void Start()
     {
         oreTilemap = GetComponent<Tilemap>();
-        //TimeManager.Instance.TimeSystem.On8oClock += RespawnOre;
+        TimeManager.Instance.TimeSystem.On8oClock += RespawnOre;
         GameManager.Instance.Player.Controller.onMine += CheckOreTile;
     }
 
