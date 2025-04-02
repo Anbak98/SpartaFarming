@@ -36,6 +36,7 @@ public class InventoryUI : MonoBehaviour
     private void Awake()
     {
         _inputSystem = GetComponent<InventoryInputSystem>();
+        _inventory = FindObjectOfType<Inventory>();
     }
     
     /// <summary>

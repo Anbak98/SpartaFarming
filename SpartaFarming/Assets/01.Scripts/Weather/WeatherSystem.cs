@@ -33,10 +33,12 @@ public class WeatherSystem : MonoBehaviour
     public WeatherVFX WeatherVFX {  get { return weatherVFX; } }
     public SeasonData CurrentSeason { get { return currentSeason; } }
     public IWeatherState CurrentState { get { return currentState; } }
+    public WeatherType CurrentWeather { get; private set; }
 
     public bool canChangeWeather = true;
 
     public Action OnSeasonChange;
+    public Action<WeatherType> OnWeatherChange;
 
     private void Awake()
     {
@@ -89,6 +91,7 @@ public class WeatherSystem : MonoBehaviour
             if(randomNum < totalWeight)
             {
                 stateMachine.ChangeState(GetStatefromKey(i));
+                OnWeatherChange?.Invoke(CurrentWeather);
                 return;
             }
         }
@@ -99,8 +102,10 @@ public class WeatherSystem : MonoBehaviour
         switch (key)
         {
             case 0:
+                CurrentWeather = WeatherType.Sunny;
                 return stateMachine.SunnyState;
             case 1:
+                CurrentWeather = WeatherType.Rain;
                 return stateMachine.RainyState;
             case 2:
                 return stateMachine.WindyState;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TimeSystem : MonoBehaviour
 {
-    [Header("½Ã°£")]
+    [Header("ï¿½Ã°ï¿½")]
     [SerializeField][Range(0f, 24f)] private float initialGameTime = 8;
     [SerializeField] private float timeMultiplier = 1f;
 
@@ -12,7 +12,7 @@ public class TimeSystem : MonoBehaviour
     private int currentHour;
     private int currentMinute;
 
-    [Header("³¯Â¥")]
+    [Header("ï¿½ï¿½Â¥")]
     [SerializeField] private int initialDay = 1;
     [SerializeField] private int initialMonth = 8;
     [SerializeField] private int initialYear = 2025;
@@ -28,7 +28,7 @@ public class TimeSystem : MonoBehaviour
     public Action On20oClock;
     public Action TimeChangeUpdate;
 
-    [Header("½Ã°£´ë ÀÌº¥Æ®")]
+    [Header("ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®")]
     [SerializeField] private int weatherChangeTime = 8;
     [SerializeField] private int weatherChangeGap = 12;
 
