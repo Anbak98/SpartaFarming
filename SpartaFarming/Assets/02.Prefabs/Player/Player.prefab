@@ -118,6 +118,10 @@ GameObject:
   - component: {fileID: 7625814655550264644}
   - component: {fileID: 6739033173175877088}
   - component: {fileID: 1988257424624100116}
+  - component: {fileID: 2140767149372200166}
+  - component: {fileID: 7694480447941460197}
+  - component: {fileID: 8609262713707254846}
+  - component: {fileID: 3215574862713504596}
   - component: {fileID: 1099140860747342259}
   - component: {fileID: 2261244728267990952}
   - component: {fileID: 3188056396361866998}
@@ -176,6 +180,8 @@ MonoBehaviour:
   runSpeed: 5
   isMoving: 0
   curMovementInput: {x: 0, y: 0}
+  plLastMoveX: 0
+  plLastMoveY: 0
   equipped: 0
   nearWater: 0
   equipItemUI: {fileID: 0}
@@ -220,6 +226,59 @@ MonoBehaviour:
   waterMap: {fileID: 0}
   inventoryUI: {fileID: 0}
   inventory: {fileID: 0}
+  playerStateMachine: {fileID: 0}
+--- !u!114 &2140767149372200166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7899993760276386923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5311bee57006ed4282e78775d0c1ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildState: {fileID: 0}
+  removingFenceState: {fileID: 0}
+  placingFenceState: {fileID: 0}
+  hoeingState: {fileID: 0}
+--- !u!114 &7694480447941460197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7899993760276386923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06477ac407e7a18428508e449de45a06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8609262713707254846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7899993760276386923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df2aea003c901e4b82007e5ec615611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3215574862713504596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7899993760276386923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f26bc86aa2a34e49bdca4ec8deec10c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1099140860747342259
 MonoBehaviour:
   m_ObjectHideFlags: 0

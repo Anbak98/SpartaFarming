@@ -55,11 +55,17 @@ public class PlayerController : MonoBehaviour
     public Inventory inventory;
 
     public Action<Vector3Int> onMine;
+    public Action onRemoveFence;
+    public Action onPlaceFence;
+    public Action onHoeing;
 
+    public PlayerStateMachine playerStateMachine;
+    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        playerAnimator = GetComponentInChildren<Animator>();        
+        playerAnimator = GetComponentInChildren<Animator>();
+        playerStateMachine = GetComponent<PlayerStateMachine>();
     }
 
     private void Update()
@@ -183,12 +189,14 @@ public class PlayerController : MonoBehaviour
         {
             curTool = Instantiate(equipTools[selectedEquipItemIndex], toolPivot.transform);
             equipped = true;
+            EnterState();
         }
         else if (context.phase == InputActionPhase.Started && equipped)
         {
             Destroy(curTool);
             toolAnimator = null;
             equipped = false;
+            ExitState();
         }
     }
 
@@ -208,28 +216,10 @@ public class PlayerController : MonoBehaviour
                 if (curTool.CompareTag("Axe") || curTool.CompareTag("Hoe") || curTool.CompareTag("WateringCan")) toolAnimator.SetTrigger("Use");
 
                 // Axe 플레이어 이전 이동방향 따라 앞의 타일맵 오브젝트 파괴
-                if (curTool.CompareTag("Axe"))
-                {
-                    if (plLastMoveX == 1) objectMap.SetTile(objGridPos + Vector3Int.right, null);
-                    else if (plLastMoveX == -1) objectMap.SetTile(objGridPos + Vector3Int.left, null);
-                    else if (plLastMoveY == 1) objectMap.SetTile(objGridPos + Vector3Int.up, null);
-                    else if (plLastMoveY == -1) objectMap.SetTile(objGridPos + Vector3Int.down, null);
-                    else return;
-                }
+                if (curTool.CompareTag("Axe")) onRemoveFence?.Invoke();                
 
                 // Hoe 플레이어 이전 이동방향 따라 앞의 땅 파기
-                if (curTool.CompareTag("Hoe"))
-                {
-                    if (plLastMoveX == 1 && !objectMap.HasTile(objGridPos + Vector3Int.right) && !waterMap.HasTile(objGridPos + Vector3Int.right))
-                        floorMap.SetTile(FlrGridPos + Vector3Int.right, floorTile);
-                    else if (plLastMoveX == -1 && !objectMap.HasTile(objGridPos + Vector3Int.left) && !waterMap.HasTile(objGridPos + Vector3Int.left))
-                        floorMap.SetTile(FlrGridPos + Vector3Int.left, floorTile);
-                    else if (plLastMoveY == 1 && !objectMap.HasTile(objGridPos + Vector3Int.up) && !waterMap.HasTile(objGridPos + Vector3Int.up))
-                        floorMap.SetTile(FlrGridPos + Vector3Int.up, floorTile);
-                    else if (plLastMoveY == -1 && !objectMap.HasTile(objGridPos + Vector3Int.down) && !waterMap.HasTile(objGridPos + Vector3Int.down))
-                        floorMap.SetTile(FlrGridPos + Vector3Int.down, floorTile);
-                    else return;
-                }
+                if (curTool.CompareTag("Hoe")) onHoeing?.Invoke();                
             }
 
             if (equipped && nearWater && context.phase == InputActionPhase.Started)
@@ -240,25 +230,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // FenceTool 들어갔을 때
-            if (fenceToolUI.gameObject.activeInHierarchy)
-            {
-                // 선택한 fence 플레이어 이전 이동방향 따라 앞에 타일맵에 그리기
-                for (int i = 0; i < fenceToolSlots.Count; i++)
-                {
-                    if (fenceToolSlots[i].isSelected)
-                    {
-                        if (plLastMoveX == 1 && !objectMap.HasTile(objGridPos + Vector3Int.right) && !waterMap.HasTile(objGridPos + Vector3Int.right))
-                            objectMap.SetTile(objGridPos + Vector3Int.right, fences[i]);
-                        else if (plLastMoveX == -1 && !objectMap.HasTile(objGridPos + Vector3Int.left) && !waterMap.HasTile(objGridPos + Vector3Int.left))
-                            objectMap.SetTile(objGridPos + Vector3Int.left, fences[i]);
-                        else if (plLastMoveY == 1 && !objectMap.HasTile(objGridPos + Vector3Int.up) && !waterMap.HasTile(objGridPos + Vector3Int.up))
-                            objectMap.SetTile(objGridPos + Vector3Int.up, fences[i]);
-                        else if (plLastMoveY == -1 && !objectMap.HasTile(objGridPos + Vector3Int.down) && !waterMap.HasTile(objGridPos + Vector3Int.down))
-                            objectMap.SetTile(objGridPos + Vector3Int.down, fences[i]);
-                        else return;
-                    } 
-                }
-            }            
+            if (fenceToolUI.gameObject.activeInHierarchy) onPlaceFence?.Invoke();                 
         }
     }
 
@@ -271,9 +243,13 @@ public class PlayerController : MonoBehaviour
         {
             equipItemUI.gameObject.SetActive(false);
             fenceToolUI.gameObject.SetActive(true);
+            playerStateMachine.ChangeState(playerStateMachine.placingFenceState);
         }
         else if(!equipItemUI.gameObject.activeInHierarchy && fenceToolUI.gameObject.activeInHierarchy && context.phase == InputActionPhase.Started)
+        {
             fenceToolUI.gameObject.SetActive(false);
+            ExitState();
+        }
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -306,5 +282,18 @@ public class PlayerController : MonoBehaviour
                 equipped = false;
             }
         }
+    }
+
+    void EnterState()
+    {
+        if (curTool == null) return;
+
+        if (curTool.CompareTag("Axe")) playerStateMachine.ChangeState(playerStateMachine.removingFenceState);        
+        if (curTool.CompareTag("Hoe")) playerStateMachine.ChangeState(playerStateMachine.hoeingState);
+    }
+
+    void ExitState()
+    {
+        playerStateMachine.ExitState();
     }
 }
