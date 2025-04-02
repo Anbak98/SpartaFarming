@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerStateFishing : IPlayerState
+public class PlayerStateFishing : MonoBehaviour, IPlayerState
 {
     public FishObject Fish;
     public GameObject UI;
@@ -12,7 +12,7 @@ public class PlayerStateFishing : IPlayerState
     public Vector3 powerDirection;
 
     private bool IsActivated = false;
-    
+
     public void Enter()
     {
         IsActivated = true;
@@ -41,6 +41,10 @@ public class PlayerStateFishing : IPlayerState
 
     public void HandleAction(InputAction.CallbackContext context)
     {
+        if (context.phase == InputActionPhase.Started)
+        {
+
+        }
     }
 
     public void OnUpdate()

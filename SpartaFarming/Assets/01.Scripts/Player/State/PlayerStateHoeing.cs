@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class PlayerStateHoeing : MonoBehaviour, IPlayerState
@@ -59,5 +60,10 @@ public class PlayerStateHoeing : MonoBehaviour, IPlayerState
         else if (PlLastMoveY == -1 && !ObjectMap.HasTile(objGridPos + Vector3Int.down) && !WaterMap.HasTile(objGridPos + Vector3Int.down))
             FloorMap.SetTile(FlrGridPos + Vector3Int.down, FloorTile);
         else return;
+    }
+
+    public void HandleAction(InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
     }
 }

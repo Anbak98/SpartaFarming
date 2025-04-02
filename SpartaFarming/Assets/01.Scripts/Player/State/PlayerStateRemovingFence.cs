@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class PlayerStateRemovingFence : MonoBehaviour, IPlayerState
@@ -47,5 +48,10 @@ public class PlayerStateRemovingFence : MonoBehaviour, IPlayerState
         else if (PlLastMoveY == 1) ObjectMap.SetTile(objGridPos + Vector3Int.up, null);
         else if (PlLastMoveY == -1) ObjectMap.SetTile(objGridPos + Vector3Int.down, null);
         else return;
+    }
+
+    public void HandleAction(InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
     }
 }

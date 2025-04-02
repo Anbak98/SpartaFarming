@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class PlayerStatePlacingFence : MonoBehaviour, IPlayerState
@@ -68,5 +69,10 @@ public class PlayerStatePlacingFence : MonoBehaviour, IPlayerState
                 else return;
             }
         }
+    }
+
+    public void HandleAction(InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
     }
 }
