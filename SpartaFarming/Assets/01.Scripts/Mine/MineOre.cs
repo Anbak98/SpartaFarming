@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 public class MineOre : MonoBehaviour
 {
     public Tilemap oreTilemap;
-    //public Action<Vector3Int> onMine; ÇÃ·¹ÀÌ¾î¿¡¼­ ¼±¾ð
+    //public Action<Vector3Int> onMine; ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     private Dictionary<Vector3Int, OreTile> destroyedTiles = new Dictionary<Vector3Int, OreTile>();
 
@@ -35,21 +35,14 @@ public class MineOre : MonoBehaviour
     void SpawnOreDrop(Vector3Int tilePosition, int dropItemKey)
     {
         ItemInfo itemInfo = DataManager.ItemLoader.GetByKey(dropItemKey);
-        if (itemInfo == null)
-        {
-            Debug.LogError($"¾ÆÀÌÅÛ Á¤º¸¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù. Key: {dropItemKey}");
-            return;
-        }
-        Debug.Log($"ÇÁ¸®ÆÕ °æ·Î: {itemInfo.prefabPath}");
         GameObject dropObject = Resources.Load<GameObject>(itemInfo.prefabPath);
-        if (dropObject == null)
-        {
-            Debug.LogError($"ÇÁ¸®ÆÕÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù. °æ·Î: {itemInfo.prefabPath}");
-            return;
-        }
+
         Vector3 spawnPos = oreTilemap.GetCellCenterWorld(tilePosition);
-        Instantiate(dropObject, spawnPos, Quaternion.identity);
-        Debug.Log($"¾ÆÀÌÅÛ ½ºÆù ¿Ï·á: {itemInfo.name} at {spawnPos}");
+        ItemObject itemObject = Instantiate(dropObject, spawnPos, Quaternion.identity).GetComponent<ItemObject>();
+        if (itemObject != null)
+        {
+            itemObject.SetItem(itemInfo);
+        }
     }
 
     void RespawnOre()
