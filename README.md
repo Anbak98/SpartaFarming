@@ -1,7 +1,6 @@
 
 # 시연 영상
-https://www.youtube.com/watch?v=AyAadZzQ9_4
-
+https://youtu.be/nhSb4TZOLsQ
 <br>
 
 # ⚙🖥️1. 프로젝트 소계
