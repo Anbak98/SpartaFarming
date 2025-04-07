@@ -24,11 +24,11 @@ https://youtu.be/nhSb4TZOLsQ
 # 🛠️3. 역할
 | 이름 | 역할 |
 |------|------|
-| 유승민 | <ul><li>이것</li><li>저것</li><li>이것</li></ul> |
+| 유승민 |  |
 | 김지현 | 	<ul><li>Pooling</li><li>던전</li><li>몬스터</li></ul> |
-| 임석준 | <ul><li>플레이어</li><li>이것</li></ul> |
+| 임석준 | <ul><li>플레이어</li> |
 | 류석민 | <ul><li>날씨</li><li>시간</li><li>광물</li></ul> |
-| 염기용 | <ul><li>인벤토리</li><li>UI</li><li>이것</li></ul> |
+| 염기용 | <ul><li>인벤토리</li> |
 
 <br>
 
@@ -39,18 +39,6 @@ https://youtu.be/nhSb4TZOLsQ
 <br>
 
 # 📌 5. 주요 기능
-## 초기 & 메인 화면
-
-## 아이템 
-
-## 아이템 
-
-## 아이템 
-
-## 아이템 
-
-## 아이템 
-
 ## 🌳 Pooling
  - Factory 패턴을 사용한 Pooling 유틸리티 제작 
  - 자세한 코드 / 설명은 하위 블로그 참고 ! 
